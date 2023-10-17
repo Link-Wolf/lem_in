@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 15:22:24 by event            ###   ########.fr       */
+/*   Updated: 2023/10/17 16:03:11 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ enum {
 	ERR_ROOM_TYPE_CONFLICT,
 	ERR_CMD_ROOM,
 	ERR_VALUE_ANTS,
-	ERR_ROOM_SYNTAX,};
+	ERR_ROOM_SYNTAX,
+	ERR_LINK_SYNTAX
+};
 
 #endif

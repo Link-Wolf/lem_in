@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 15:17:29 by event            ###   ########.fr       */
+/*   Updated: 2023/10/17 15:31:54 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit)
 		{
 			current_room = current_room->right;
 		}
-		return (ERR_NAME_CONFLICT);
+		return (ERR_ROOM_ALREADY_EXISTS);
 	}
 	new_room = create_room(name, is_entry, is_exit);
 	if (!new_room)

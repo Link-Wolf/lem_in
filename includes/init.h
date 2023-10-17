@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 11:46:09 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/17 14:49:43 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_room	**init(void);
  *	@brief	Free the main room structure
  */
 void	tini(t_room **rooms);
+void	bugs(t_lem_in *lem_in, int code);
 
 #endif

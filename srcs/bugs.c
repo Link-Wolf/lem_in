@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_codes.h                                     :+:      :+:    :+:   */
+/*   bugs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 15:22:24 by event            ###   ########.fr       */
+/*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
+/*   Updated: 2023/10/17 14:24:46 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RETURN_CODES_H
-# define RETURN_CODES_H
+#include "../includes/init.h"
+#include "../includes/codes.h"
 
-enum {
-	OK = 0,
-	ERR_NAME_CONFLICT,
-	ERR_ALLOCATION,
-	ERR_ROOM_TYPE_CONFLICT,
-	ERR_CMD_ROOM,
-	ERR_VALUE_ANTS,
-	ERR_ROOM_SYNTAX,};
-
-#endif
+void	bugs(t_lem_in *lem_in, int code)
+{
+	if (code == ERR_NAME_CONFLICT)
+		ft_putendl_fd("ERROR: Room name conflict", 2);
+	tini(lem_in);
+	exit(code);
+}

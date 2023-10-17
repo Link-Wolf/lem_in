@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 14:12:08 by event            ###   ########.fr       */
+/*   Updated: 2023/10/17 15:25:06 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,13 @@
  *	@returns	The appropriate return code (or 0 if everything went OK)
 */
 int	add_room(t_room **rooms, char *name, int is_entry, int is_exit);
+/**
+ *	@brief	Add a link between 2 rooms
+ *	@param	rooms		The structure of rooms
+ *	@param	room1_name	The name of the first room
+ *	@param	room2_name	The name of the second room
+ *	@returns	The appropriate return code (or 0 if everything went OK)
+ */
+int	add_link(t_room **rooms, char *room1_name, char *room2_name);
 
 #endif

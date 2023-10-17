@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                             :+:      :+:    :+:   */
+/*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/16 17:04:47 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/17 11:31:38 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+#include "../includes/init.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	// Check args
+	t_lem_in	lem_in;
+
 	if (argc != 1)
 	{
 		ft_putendl_fd("Usage: ./lem-in < map_file", 1);
@@ -22,7 +24,7 @@ int main(int argc, char **argv)
 	}
 
 	// Init
-
+	lem_in.rooms = init();
 	// Parse file & store data
 	ft_printf("Parsing file...\n");
 	// parse_file();
@@ -38,6 +40,6 @@ int main(int argc, char **argv)
 	// Throw ants on the paths (but be aware for how many of them, size of the path etc.)
 
 	// Tini
-
+	tini(lem_in.rooms);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_room.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 12:04:03 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/17 14:04:03 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit)
 {
 	t_room	*current_room;
 	t_room	*previous_room;
+	t_room	*new_room;
 	int		name_comparaison;
 
 	previous_room = NULL;
@@ -33,9 +34,12 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit)
 		}
 		return (ERR_NAME_CONFLICT);
 	}
+	new_room = new_room(name, is_entry, is_exit);
+	if (!new_room)
+		return (ERR_ALLOCATION);
 	if (name_comparaison < 0)
-		previous_room->left = new_room();
+		previous_room->left = new_room;
 	if (name_comparaison > 0)
-		previous_room->right = new_room();
+		previous_room->right = new_room;
 	return (OK);
 }

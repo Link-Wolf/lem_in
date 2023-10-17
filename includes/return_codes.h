@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codes.h                                            :+:      :+:    :+:   */
+/*   return_codes.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 12:00:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/17 14:00:08 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODES_H
-# define CODES_H
+#ifndef RETURN_CODES_H
+# define RETURN_CODES_H
 
 enum {
-	OK,
-	ERR_NAME_CONFLICT
+	OK = 0,
+	ERR_NAME_CONFLICT,
+	ERR_ALLOCATION
 };
 
 #endif

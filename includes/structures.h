@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 11:27:45 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:13:29 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+# define NAME_SIZE 128
+
 typedef struct s_room
 {
 	int		is_entry;
 	int		is_exit;
-	char	*name;
+	int		nb_linked;
+	int		max_linked;
+	char	name[NAME_SIZE + 1];
 	t_room	*left;
 	t_room	*right;
 	t_room	*linked_rooms;

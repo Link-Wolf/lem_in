@@ -6,7 +6,7 @@
 /*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 13:25:16 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/17 13:41:17 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ void parse_file(void)
 void process_cmd(char *line, int *cmd)
 {
 	if (ft_strcmp(line, "##start") == 0) {
-		// toggle start
+		if (*cmd >= START && *cmd != END)
+			error();
+		*cmd += START;
 	}
 	else if (ft_strcmp(line, "##end") == 0)	{
-		// toggle end
+		if (*cmd >= END)
+			error();
+		*cmd += END;
 	}
 }

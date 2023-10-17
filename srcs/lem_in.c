@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
 	// Parse file & store data
 	ft_printf("Parsing file...\n");
-	// parse_file();
+	parse_file();
 
 	// Determine Pentries and Pexits
 

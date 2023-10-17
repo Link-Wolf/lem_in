@@ -6,11 +6,13 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 16:00:53 by event            ###   ########.fr       */
+/*   Updated: 2023/10/17 16:11:41 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
+
+static int verify_numbers(char *line);
 
 void parse_file(t_lem_in *lem_in) {
 	char	*line;
@@ -36,7 +38,7 @@ void parse_file(t_lem_in *lem_in) {
 		else if (status == ROOMS)
 			process_rooms(lem_in, line, &cmd);
 		else if (status == LINKS)
-			process_links(line);
+			process_links(lem_in, line);
 	}
 }
 

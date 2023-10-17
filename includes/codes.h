@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   codes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 17:23:25 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 11:32:30 by iCARUS           ###   ########.fr       */
+/*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
+/*   Updated: 2023/10/17 12:00:58 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef CODES_H
+# define CODES_H
 
-# include "../libft/libft.h"
-# include "structures.h"
+enum {
+	OK,
+	ERR_NAME_CONFLICT
+};
 
 #endif

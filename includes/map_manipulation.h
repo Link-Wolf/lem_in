@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 14:03:43 by event            ###   ########.fr       */
+/*   Updated: 2023/10/17 14:12:08 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include "structures.h"
 
 /**
- * @brief	Add a room to the structure of rooms
- * @param	rooms		The structure of rooms
- * @param	name		The name of the new room
- * @param	is_entry	Used as a boolean, indicate if the room is the entry
- * @param	is_exit		Used as a boolean, indicate if the room is the exit
- * @returns	The appropriate return code (or 0 if everything went OK)
+ *	@brief	Add a room to the structure of rooms
+ *	@param	rooms		The structure of rooms
+ *	@param	name		The name of the new room
+ *	@param	is_entry	Used as a boolean, indicate if the room is the entry
+ *	@param	is_exit		Used as a boolean, indicate if the room is the exit
+ *	@returns	The appropriate return code (or 0 if everything went OK)
 */
 int	add_room(t_room **rooms, char *name, int is_entry, int is_exit);
 

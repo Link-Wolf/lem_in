@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   bugs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 14:49:43 by event            ###   ########.fr       */
+/*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
+/*   Updated: 2023/10/17 14:24:46 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "../includes/init.h"
+#include "../includes/codes.h"
 
-# include "structures.h"
-# include "../libft/libft.h"
-
-/**
- *	@brief	Initialize the main room structure
- *	@return	A pointer to the structure
- *	@note	Must call tini() to free it
- */
-t_room	**init(void);
-/**
- *	@brief	Free the main room structure
- */
-void	tini(t_room **rooms);
-void	bugs(t_lem_in *lem_in, int code);
-
-#endif
+void	bugs(t_lem_in *lem_in, int code)
+{
+	if (code == ERR_NAME_CONFLICT)
+		ft_putendl_fd("ERROR: Room name conflict", 2);
+	tini(lem_in);
+	exit(code);
+}

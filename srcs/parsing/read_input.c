@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 16:53:33 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 17:16:09 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void process_links(t_lem_in *lemin, char *line) {
 	int i = 0;
 	char name[NAME_SIZE + 1];
 	
-	while (*find != *line && i < NAME_SIZE && *(line + i) && *(line + i) != '-') {
+	while (i < NAME_SIZE && *(line + i) && *(line + i) != '-') {
 		name[i] = *(line + i);
 		i++;
 	}

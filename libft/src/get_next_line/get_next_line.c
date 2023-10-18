@@ -3,61 +3,200 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 09:25:13 by iCARUS            #+#    #+#             */
-/*   Updated: 2022/11/28 09:49:36 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/18 15:25:52 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line.h"
 
-static char	*return_value(char	*res);
-static void	init(t_gnl *gnl);
+int	zek_strchr(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			if (str[i] == c)
+				return (i);
+			i++;
+		}
+	}
+	return (-1);
+}
+
+char	*ft_check(char *memory, int fd)
+{
+	char	*buffer;
+	int		bytescopy;
+
+	bytescopy = 1;
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	while (zek_strchr(memory, '\n') <= 0 && bytescopy)
+	{
+		bytescopy = read(fd, buffer, BUFFER_SIZE);
+		if (bytescopy == -1)
+			return (ft_free(buffer));
+		buffer[bytescopy] = '\0';
+		memory = zek_strjoin(memory, buffer, 0, -1);
+	}
+	free(buffer);
+	return (memory);
+}
 
 char	*get_next_line(int fd)
 {
-	t_gnl	gnl;
+	static char	*memory = NULL;
+	char		*line;
 
-	init(&gnl);
-	if (fd < 0 || BUFFER_SIZE < 1 || !gnl.res || read(fd, gnl.buff, 0) < 0)
-	{
-		if (gnl.res)
-			free(gnl.res);
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
-	while (gnl.ret > 0 && gnl.buff[gnl.i - 1] != '\n')
-	{
-		gnl.i = 1;
-		ft_bzero(gnl.buff, BUFFER_SIZE + 1);
-		while (gnl.i < BUFFER_SIZE + 1
-			&& gnl.buff[gnl.i - 1] != '\n' && gnl.ret > 0)
-			gnl.ret = read(fd, gnl.buff + gnl.i++, 1);
-		gnl.buff[gnl.i] = '\0';
-		gnl.tmp = ft_strjoin(gnl.res, gnl.buff + 1);
-		free(gnl.res);
-		gnl.res = gnl.tmp;
-	}
-	return (return_value(gnl.res));
+	memory = ft_check(memory, fd);
+	if (!memory)
+		return (ft_free(memory));
+	line = ft_get_line(memory);
+	memory = ft_get_next(memory);
+	return (line);
 }
 
-static char	*return_value(char	*res)
+char	*ft_free(char *str)
 {
-	static int	for_the_bonus_pwease;
-
-	(void) for_the_bonus_pwease;
-	if (res[0] == '\0')
-	{
-		free(res);
-		return (NULL);
-	}
-	return (res);
+	free(str);
+	return (NULL);
 }
 
-static void	init(t_gnl *gnl)
+char	*ft_get_line(char	*str)
 {
-	gnl->ret = 1;
-	gnl->i = 1;
-	gnl->res = ft_calloc(1, 1);
-	ft_bzero(gnl->buff, (BUFFER_SIZE + 2) * sizeof (char));
+	char		*temp;
+	int			i;
+
+	i = 0;
+	if (!str[i])
+		return (NULL);
+	while (str[i] && str[i] != '\n')
+		i++;
+	temp = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str[i])
+		return (ft_free(str));
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (!temp)
+		return (NULL);
+	j = i + 1;
+	while (str[++i])
+		temp[i - j] = str[i];
+	temp[i - j] = '\0';
+	free(str);
+	return (temp);
+}		while (str[i])
+			i++;
+	}
+	return (i);
+}
+
+char	*ft_strjoin(char *s1, char *s2, int i, int j)
+{
+	char		*temp;
+
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[i] = '\0';
+	}
+	if (!s2 || !s1)
+		return (NULL);
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!temp)
+		return (NULL);
+	while (s1[i])
+	{
+		temp[i] = s1[i];
+		i++;
+	}
+	while (s2[++j])
+		temp[i + j] = s2[j];
+	temp[i + j] = '\0';
+	free(s1);
+	return (temp);
+}
+
+char	*ft_get_line(char	*str)
+{
+	char		*temp;
+	int			i;
+
+	i = 0;
+	if (!str[i])
+		return (NULL);
+
+char	*zek_strjoin(char *s1, char *s2, int i, int j)
+{
+	char		*temp;
+
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[i] = '\0';
+	}
+	if (!s2 || !s1)
+		return (NULL);
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!temp)
+		return (NULL);
+	while (s1[i])
+	{
+		temp[i] = s1[i];
+		i++;
+	}
+	while (s2[++j])
+		temp[i + j] = s2[j];
+	temp[i + j] = '\0';
+	free(s1);
+	return (temp);
+}temp[i] = '\0';
+	return (temp);
+}
+
+char	*ft_get_next(char *str)
+{
+	char		*temp;
+	int			i;
+	int			j;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (!str[i])
+		return (ft_free(str));
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (!temp)
+		return (NULL);
+	j = i + 1;
+	while (str[++i])
+		temp[i - j] = str[i];
+	temp[i - j] = '\0';
+	free(str);
+	return (temp);
+}
+
+int	ft_strchr(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			if (str[i] == c)
+				return (i);
+			i++;
+		}
+	}
+	return (-1);
 }

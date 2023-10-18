@@ -6,7 +6,7 @@
 #    By: link <link@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/18 12:46:26 by link             ###   ########.fr        #
+#    Updated: 2023/10/18 14:21:49 by link             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ RM		=	rm -rf
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -Llibft -lft -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) -Llibft $(OBJS) -lft
 
 $(LIBFT):
 	@$(MAKE) -C libft/

@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 12:30:55 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 15:14:42 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void parse_file(t_lem_in *lem_in) {
 	int		status = ANTS;
 	int		cmd = NONE;
 
+	// ft_printf("yoo\n");
 	while ((line = get_next_line(0)) != NULL) {
+		// ft_printf("inside\n");
 		// Verify that the line following a command is a room
 		if ((cmd == START || cmd == END) && (status != ROOMS || line[0] == '#'))
 			bugs(lem_in, ERR_CMD_ROOM);
@@ -39,18 +41,28 @@ void parse_file(t_lem_in *lem_in) {
 			
 		// Case of ants, rooms and links lines
 		if (status == ANTS)
-			lem_in->nb_ants = process_ants(lem_in, line);
+			lem_in->nb_ants = process_ants(lem_in, line, &status);
 		else if (status == ROOMS)
-			process_rooms(lem_in, line, &cmd);
+			process_rooms(lem_in, line, &cmd, &status);
 		else if (status == LINKS)
 			process_links(lem_in, line);
 	}
+	// ft_printf("yay??\n");
 	if (status != LINKS)
 		bugs(lem_in, ERR_NO_LINKS);
+	// ft_printf("yay\n");
 	print_lemin(lem_in);
 }
 
-void process_rooms(t_lem_in *lemin, char *line, int *cmd) {
+void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
+
+	if (ft_strchr(line, '-') != NULL) {
+		if (*cmd != NONE)
+			bugs(lemin, ERR_CMD_LINK);
+		*status = LINKS;
+		return;
+	}
+	
 	// Verify that the line contains a space after the name
 	char *find = ft_strchr(line, ' ');
 	if (find == NULL || find == line || find == line + 1)
@@ -138,9 +150,10 @@ void process_cmd(char *line, int *cmd) {
 		*cmd = END;
 }
 
-int process_ants(t_lem_in *lemin, char *line) {
+int process_ants(t_lem_in *lemin, char *line, int *status) {
 	if (verify_numbers(line))
 		bugs(lemin, ERR_VALUE_ANTS);
+	*status = ROOMS;
 	return (ft_atoi(line));
 }
 

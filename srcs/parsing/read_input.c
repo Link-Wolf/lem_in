@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 16:11:41 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 11:31:31 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void process_cmd(char *line, int *cmd) {
 }
 
 int process_ants(t_lem_in *lemin, char *line) {
-	
 	if (verify_numbers(line))
 		bugs(lemin, ERR_VALUE_ANTS);
 	return (ft_atoi(line));

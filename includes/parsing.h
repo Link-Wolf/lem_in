@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:14:15 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 16:09:52 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 11:31:12 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef PARSING_H
-#define PARSING_H
 
 #include "../libft/libft.h"
 #include "./structures.h"
@@ -30,9 +27,33 @@ enum {
 	LINKS = 2
 };
 
+/**
+ * @brief      Parses the input data
+ * @param      lem_in  The lem_in global structure to fill
+*/
 void parse_file(t_lem_in *lem_in);
+
+/**
+ * @brief      Processes the command line from the input
+ * @param      line  The line to process
+ * @param      cmd   The command to specify
+*/
 void process_cmd(char *line, int *cmd);
+
+/**
+ * @brief      Processes the ants line from the input
+ * @param      lemin  The lem_in global structure
+ * @param      line   The line to process
+ * @return     0 if everything went well, > 0 otherwise
+*/
 int process_ants(t_lem_in *lemin, char *line);
+
+/**
+ * @brief      Processes the rooms line from the input
+ * @param      lemin  The lem_in global structure
+ * @param      line   The line to process
+ * @param      cmd    The potential command to take into account to process the room
+*/
 void process_rooms(t_lem_in *lemin, char *line, int *cmd);
 void process_links(t_lem_in *lemin, char *line);
 

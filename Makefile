@@ -6,7 +6,7 @@
 #    By: link <link@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/18 14:21:49 by link             ###   ########.fr        #
+#    Updated: 2023/10/18 15:57:41 by link             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,13 @@ RM		=	rm -rf
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) -Llibft $(OBJS) -lft
+	$(CC) $(CFLAGS) -o $(NAME) -Llibft $(OBJS) -lft -fsanitize=address -static-libasan
 
 $(LIBFT):
 	@$(MAKE) -C libft/
 
 %.o: %.c
-	$(CC) $(CFLAGS) -Llibft -lft -c $< -o $@
+	$(CC) $(CFLAGS) -Llibft -lft -c $< -o $@ -fsanitize=address -g
 
 clean:
 	@$(MAKE) -C libft/ fclean

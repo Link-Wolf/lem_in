@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 14:29:39 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 16:26:13 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ enum {
 	ERR_VALUE_ANTS,
 	ERR_ROOM_SYNTAX,
 	ERR_SELF_LINKING_ROOM,
-	ERR_ROOM_DONT_EXISTS,
+	ERR_ROOM_DOES_NOT_EXIST,
 	ERR_LINK_SYNTAX,
 	ERR_NO_LINKS,
 	ERR_CMD_LINK,

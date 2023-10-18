@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 12:42:04 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 16:50:46 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv)
 	// Init
 	lem_in.rooms = init();
 	// Parse file & store data
-	ft_printf("Parsing file...\n");
 	parse_file(&lem_in);
 
 	// Determine Pentries and Pexits

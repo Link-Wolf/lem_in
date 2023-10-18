@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 12:29:56 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 15:41:00 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_room	**init(void)
 	return (ft_calloc(1, sizeof (t_room *)));
 }
 
-void	tini(t_lem_in *rooms)
+void	tini(t_lem_in *lem_in)
 {
 	// TODO: free all rooms via tree parcouring
-	free(rooms);
+	free(lem_in->rooms);
 }

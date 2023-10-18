@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/10/18 11:53:21 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 16:50:03 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
  *	@param	dest	The room to point to
  *	@returns	0 if everything went OK, -1 elsewise
  */
-int		create_link(t_room *src, t_room *dest);
+static int		create_link(t_room *src, t_room *dest);
 /**
  *	@brief	Find a room in the map
  *	@param	rooms	The map
  *	@param	name	The name of the room
  *	@returns	A pointer on the room, NULL if it doesn't exist
  */
-t_room	*find_room(t_room **rooms, char *name);
+t_room			*find_room(t_room **rooms, char *name);
 
 int	add_link(t_room **rooms, char *room1_name, char *room2_name)
 {
@@ -37,13 +37,13 @@ int	add_link(t_room **rooms, char *room1_name, char *room2_name)
 	room1 = find_room(rooms, room1_name);
 	room2 = find_room(rooms, room2_name);
 	if (room1 == NULL || room2 == NULL)
-		return (ERR_ROOM_DONT_EXISTS);
+		return (ERR_ROOM_DOES_NOT_EXIST);
 	if (create_link(room1, room2) || create_link(room2, room1))
 		return (ERR_ALLOCATION);
 	return (OK);
 }
 
-int	create_link(t_room *src, t_room *dest)
+static int	create_link(t_room *src, t_room *dest)
 {
 	if (src->max_linked == src->nb_linked)
 	{
@@ -64,10 +64,10 @@ int	create_link(t_room *src, t_room *dest)
 t_room	*find_room(t_room **rooms, char *name)
 {
 	t_room	*ret;
-	size_t	cmp;
+	int		cmp;
 
 	ret = *rooms;
-	while ((cmp = ft_strcmp(ret->name, name)) != 0 && ret)
+	while (ret && (cmp = ft_strcmp(ret->name, name)) != 0 && ret)
 	{
 		if (cmp > 0)
 			ret = ret->right;

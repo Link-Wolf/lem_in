@@ -6,7 +6,7 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 12:38:02 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 16:37:42 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit, int x_coord,
 		if (name_comparaison < 0)
 		{
 			current_room = current_room->left;
+			continue;
 		}
 		if (name_comparaison > 0)
 		{
 			current_room = current_room->right;
+			continue;
 		}
 		return (ERR_ROOM_ALREADY_EXISTS);
 	}
@@ -51,8 +53,10 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit, int x_coord,
 		return (ERR_ALLOCATION);
 	if (name_comparaison < 0)
 		previous_room->left = new_room;
-	if (name_comparaison > 0)
+	else if (name_comparaison > 0)
 		previous_room->right = new_room;
+	else
+		*rooms = new_room;
 	return (OK);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:23:25 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 11:32:30 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/18 12:42:29 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define LEM_IN_H
 
 # include "../libft/libft.h"
-# include "structures.h"
+# include "./structures.h"
+# include "./utils.h"
+# include "./parsing.h"
+
 
 #endif

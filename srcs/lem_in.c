@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 11:05:42 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 12:42:04 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-#include "../includes/init.h"
-#include "../includes/parsing.h"
 
 int	main(int argc, char **argv)
 {
@@ -42,6 +40,6 @@ int	main(int argc, char **argv)
 	// Throw ants on the paths (but be aware for how many of them, size of the path etc.)
 
 	// Tini
-	tini(lem_in.rooms);
+	tini(&lem_in);
 	return (0);
 }

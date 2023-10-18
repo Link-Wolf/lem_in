@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_link.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/10/17 16:16:35 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 11:53:21 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
  *	@returns	0 if everything went OK, -1 elsewise
  */
 int		create_link(t_room *src, t_room *dest);
+/**
+ *	@brief	Find a room in the map
+ *	@param	rooms	The map
+ *	@param	name	The name of the room
+ *	@returns	A pointer on the room, NULL if it doesn't exist
+ */
 t_room	*find_room(t_room **rooms, char *name);
 
 int	add_link(t_room **rooms, char *room1_name, char *room2_name)
@@ -41,7 +47,7 @@ int	create_link(t_room *src, t_room *dest)
 {
 	if (src->max_linked == src->nb_linked)
 	{
-		t_room	*new_linked = ft_calloc(src->max_linked * 2, sizeof (t_room));
+		t_room	**new_linked = ft_calloc(src->max_linked * 2, sizeof (t_room *));
 
 		if (!new_linked)
 			return (-1);
@@ -56,4 +62,17 @@ int	create_link(t_room *src, t_room *dest)
 }
 
 t_room	*find_room(t_room **rooms, char *name)
-{}
+{
+	t_room	*ret;
+	size_t	cmp;
+
+	ret = *rooms;
+	while ((cmp = ft_strcmp(ret->name, name)) != 0 && ret)
+	{
+		if (cmp > 0)
+			ret = ret->right;
+		else	
+			ret = ret->left;
+	}
+	return (ret);
+}

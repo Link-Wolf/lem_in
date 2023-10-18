@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 11:14:00 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 12:30:05 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ t_room	**init(void);
  */
 void	tini(t_lem_in *lem_in);
 void	bugs(t_lem_in *lem_in, int code);
+void	print_lemin(t_lem_in *lemin);
+void	print_rooms(t_room *room);
+void	print_links(t_room *room);
 
 #endif

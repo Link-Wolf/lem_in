@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_manipulation.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 15:25:06 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 12:31:55 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
  *	@param	name		The name of the new room
  *	@param	is_entry	Used as a boolean, indicate if the room is the entry
  *	@param	is_exit		Used as a boolean, indicate if the room is the exit
+ *	@param	x_coord		The x coordinate of the room
+ *	@param	y_coord		The y coordinate of the room
  *	@returns	The appropriate return code (or 0 if everything went OK)
 */
-int	add_room(t_room **rooms, char *name, int is_entry, int is_exit);
+int	add_room(t_room **rooms, char *name, int is_entry, int is_exit, int x_coord, int y_coord);
 /**
  *	@brief	Add a link between 2 rooms
  *	@param	rooms		The structure of rooms

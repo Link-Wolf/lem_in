@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bugs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/10/18 11:12:56 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 12:30:00 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/init.h"
+#include "../../includes/utils.h"
 
 void	bugs(t_lem_in *lem_in, int code)
 {

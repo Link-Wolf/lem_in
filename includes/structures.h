@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
+/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 11:00:22 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 12:01:22 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ typedef struct s_room
 	int				is_exit;
 	int				nb_linked;
 	int				max_linked;
+	int				x_coord;
+	int				y_coord;
 	char			name[NAME_SIZE + 1];
 	struct s_room	*left;
 	struct s_room	*right;
-	struct s_room	*linked_rooms;
+	struct s_room	**linked_rooms;
 }	t_room;
 
 typedef struct s_lem_in

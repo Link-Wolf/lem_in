@@ -6,14 +6,18 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:14:15 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 11:31:12 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 12:30:44 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "./structures.h"
-#include "./init.h"
-#include "./return_codes.h"
+#ifndef PARSING_H
+# define PARSING_H
+
+# include "../libft/libft.h"
+# include "./structures.h"
+# include "./utils.h"
+# include "./return_codes.h"
+# include "./map_manipulation.h"
 
 enum {
 	NONE = 0,
@@ -55,6 +59,12 @@ int process_ants(t_lem_in *lemin, char *line);
  * @param      cmd    The potential command to take into account to process the room
 */
 void process_rooms(t_lem_in *lemin, char *line, int *cmd);
+
+/**
+ * @brief      Processes the links line from the input
+ * @param      lemin  The lem_in global structure
+ * @param      line   The line to process
+*/
 void process_links(t_lem_in *lemin, char *line);
 
 #endif

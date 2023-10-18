@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: event <event@student.42.fr>                +#+  +:+       +#+         #
+#    By: link <link@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/18 11:11:17 by event            ###   ########.fr        #
+#    Updated: 2023/10/18 12:46:26 by link             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME	=	lem-in
 SRCS_N	=	lem_in						\
 			utils/init					\
 			utils/bugs					\
+			utils/print_parsing			\
 			parsing/read_input			\
 			map_manipulation/add_link	\
-			map_manipulation/add_room
+			map_manipulation/add_room				
 
 SRCS	=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 OBJS	=	$(SRCS:.c=.o)
@@ -28,13 +29,13 @@ RM		=	rm -rf
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -c $(OBJS) -Llibft -lft -o $(NAME)
+	$(CC) $(CFLAGS) -Llibft -lft -o $(NAME) $(OBJS)
 
 $(LIBFT):
 	@$(MAKE) -C libft/
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -Llibft -lft -c $< -o $@
 
 clean:
 	@$(MAKE) -C libft/ fclean

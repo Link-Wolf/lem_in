@@ -6,12 +6,17 @@
 /*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 11:31:31 by link             ###   ########.fr       */
+/*   Updated: 2023/10/18 12:30:55 by link             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
+/**
+ * @brief Verify that the line contains only digits
+ * @param line The line to verify
+ * @return 0 if the line contains only digits, 1 otherwise
+*/
 static int verify_numbers(char *line);
 
 void parse_file(t_lem_in *lem_in) {
@@ -40,6 +45,9 @@ void parse_file(t_lem_in *lem_in) {
 		else if (status == LINKS)
 			process_links(lem_in, line);
 	}
+	if (status != LINKS)
+		bugs(lem_in, ERR_NO_LINKS);
+	print_lemin(lem_in);
 }
 
 void process_rooms(t_lem_in *lemin, char *line, int *cmd) {
@@ -74,16 +82,17 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd) {
 
 	// Get the room second coordinate
 	i = 0;
+	char coord2[16];
 	while (*mid_coords != '\0') {
-		coord[i] = *(mid_coords + i);
+		coord2[i] = *(mid_coords + i);
 		i++;
 	}
-	coord[i] = '\0';
-	if (verify_numbers(coord) || !ft_strlen(coord))
+	coord2[i] = '\0';
+	if (verify_numbers(coord2) || !ft_strlen(coord2))
 		bugs(lemin, ERR_ROOM_SYNTAX);
 	
 	// Add the room to the structure
-	int ret = add_room(lemin->rooms, name, *cmd & START, *cmd & END);
+	int ret = add_room(lemin->rooms, name, *cmd & START, *cmd & END, ft_atoi(coord), ft_atoi(coord2));
 	*cmd = NONE;
 	if (ret > 0)
 		bugs(lemin, ret);

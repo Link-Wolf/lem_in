@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/17 15:13:29 by event            ###   ########.fr       */
+/*   Updated: 2023/10/18 11:00:22 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 typedef struct s_room
 {
-	int		is_entry;
-	int		is_exit;
-	int		nb_linked;
-	int		max_linked;
-	char	name[NAME_SIZE + 1];
-	t_room	*left;
-	t_room	*right;
-	t_room	*linked_rooms;
+	int				is_entry;
+	int				is_exit;
+	int				nb_linked;
+	int				max_linked;
+	char			name[NAME_SIZE + 1];
+	struct s_room	*left;
+	struct s_room	*right;
+	struct s_room	*linked_rooms;
 }	t_room;
 
 typedef struct s_lem_in

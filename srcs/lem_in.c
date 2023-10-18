@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/17 11:31:38 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/18 11:05:42 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 #include "../includes/init.h"
+#include "../includes/parsing.h"
 
 int	main(int argc, char **argv)
 {
@@ -22,12 +23,13 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("Usage: ./lem-in < map_file", 1);
 		return (1);
 	}
+	(void) argv;
 
 	// Init
 	lem_in.rooms = init();
 	// Parse file & store data
 	ft_printf("Parsing file...\n");
-	parse_file();
+	parse_file(&lem_in);
 
 	// Determine Pentries and Pexits
 

@@ -25,12 +25,11 @@
 #  define BUFFER_SIZE 2048
 # endif
 
-size_t	ft_strlen(char const *str);
-char	*ft_check(char *memory, int fd);
+size_t	zek_strlen(char const *str);
+char	*zek_check(char *memory, int fd);
 char	*get_next_line(int fd);
-char	*ft_get_next(char *str);
-char	*ft_get_line(char *str);
-char	*ft_free(char *str);
-char	*zek_strjoin(char *s1, char *s2, int i, int j);
+char	*zek_get_next(char *str);
+char	*zek_get_line(char *str);
+char	*zek_free(char *str);
 
 #endif

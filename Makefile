@@ -6,7 +6,7 @@
 #    By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/20 14:30:37 by iCARUS           ###   ########.fr        #
+#    Updated: 2023/10/20 17:24:35 by iCARUS           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,15 @@ SRCS_N	=	lem_in							\
 			utils/init						\
 			utils/bugs						\
 			utils/print_parsing				\
+			utils/delete_things				\
 			parsing/read_input				\
 			map_manipulation/add_link		\
 			map_manipulation/add_room		\
-			map_manipulation/delete_room	\
 			map_manipulation/include_link	\
 			processing/throw_ants			\
 			processing/process_map			\
 			processing/check_for_trivials	\
+			processing/conflicts			\
 
 SRCS	=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 OBJS	=	$(SRCS:.c=.o)
@@ -56,7 +57,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@printf $(CLN_COLOR)"\tFClean \t\t\t\t[ ✓ ]\n\e[0m"
+	@printf $(CLN_COLOR)"\tBinary clean \t\t\t[ ✓ ]\n\e[0m"
 
 re: fclean all
 

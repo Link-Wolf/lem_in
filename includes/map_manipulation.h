@@ -6,7 +6,7 @@
 /*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:32 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/20 17:24:35 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ int		add_room(
  *	@returns	The appropriate return code (or 0 if everything went OK)
  */
 int		add_link(t_room **rooms, char *room1_name, char *room2_name);
-
-/**
- *	@brief	Delete a room and it's childrens
- *	@param	room	The room to delete
- */
-void	delete_room(t_room *room);
 
 /**
  *	@brief	Check if a room is linked by another rooms

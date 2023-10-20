@@ -6,7 +6,7 @@
 /*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/20 17:24:35 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,23 @@ typedef struct s_room
 	int				*distances_to_ends;
 }	t_room;
 
+typedef struct s_pathes
+{
+	int				nb_children;
+	int				max_children;
+	int				is_motherfucking_good;
+	t_room			*room;
+	struct s_pathes	*parent;
+	struct s_pathes	**children;
+}	t_pathes;
+
 typedef struct s_lem_in
 {
-	int		nb_ants;
-	t_room	**rooms;
-	t_room	*start;
-	t_room	*end;
+	int			nb_ants;
+	t_pathes	**pathes;
+	t_room		**rooms;
+	t_room		*start;
+	t_room		*end;
 }	t_lem_in;
-
-
 
 #endif

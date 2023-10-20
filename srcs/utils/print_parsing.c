@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:52:15 by link              #+#    #+#             */
-/*   Updated: 2023/10/20 11:38:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,16 @@ void print_rooms(t_room *room) {
 		ft_printf("##start\n");
 	if (room->is_end)
 		ft_printf("##end\n");
-	ft_printf("%s %d %d\n", room->name, room->x_coord, room->y_coord);
+	ft_printf("%s %d %d [", room->name, room->x_coord, room->y_coord);
+
+	int	*distances = room->distances_to_ends;
+	while (distances && *distances)
+	{
+		ft_printf("%d,", *distances);
+		distances++;
+	}
+
+	ft_printf("]\n");
 	print_rooms(room->left);
 	print_rooms(room->right);
 }

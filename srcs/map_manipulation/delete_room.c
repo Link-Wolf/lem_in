@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:51:40 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 10:53:13 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:04:32 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	delete_room(t_room *room)
 	delete_room(room->left);
 	delete_room(room->right);
 	free(room->linked_rooms);
+	free(room->distances_to_ends);
 	free(room);
 }

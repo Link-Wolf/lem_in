@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/10/20 13:13:41 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:50:21 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static int	create_link(t_room *src, t_room *dest)
 {
 	if (include_link(src->linked_rooms, dest))
 		return (ERR_LINK_ALREADY_EXISTS);
-	if (src->max_linked - 1 == src->nb_linked)
+	if (src->nb_linked >= src->max_linked)
 	{
-		t_room	**new_linked = ft_calloc(src->max_linked * 2, sizeof (t_room *));
+		t_room	**new_linked = ft_calloc(src->max_linked * 2 + 1, sizeof (t_room *));
 		if (!new_linked)
 			return (-1);
 		ft_memcpy(new_linked, src->linked_rooms,
-			sizeof (t_room) * src->max_linked * 2);
+			sizeof (t_room *) * src->max_linked);
 		src->max_linked *= 2;
 		free(src->linked_rooms);
 		src->linked_rooms = new_linked;

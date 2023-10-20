@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 11:49:53 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_room
 	struct s_room	*left;
 	struct s_room	*right;
 	struct s_room	**linked_rooms;
+	int				*distances_to_ends;
 }	t_room;
 
 typedef struct s_lem_in
@@ -36,5 +37,7 @@ typedef struct s_lem_in
 	t_room	*start;
 	t_room	*end;
 }	t_lem_in;
+
+
 
 #endif

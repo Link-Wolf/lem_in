@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   check_for_trivials.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:32 by Link          ###   ########.fr       */
+/*   Created: 2023/10/20 13:18:02 by iCARUS            #+#    #+#             */
+/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "../../includes/processing.h"
 
-// TODO: use t_lem_in instead of t_room
-
-void	init(t_lem_in *lem_in)
+int	check_for_trivials(t_lem_in *lem_in)
 {
-	lem_in->rooms = ft_calloc(1, sizeof (t_room *));
-	lem_in->end = NULL;
-	lem_in->start = NULL;
-	lem_in->nb_ants = 0;
-}
+	(void) lem_in;
+	return 0;
+	// if (/* There is no Pe or Ps*/)
+	// 	; // error
+	// if (/*min(nb Pe, nb Ps) == 1*/)
+	// 	; // path + rapide, 1 par 1
 
-void	tini(t_lem_in *lem_in)
-{
-	delete_room(*(lem_in->rooms));
-	free(lem_in->rooms);
+	// if (include_link(lem_in->end->linked_rooms, lem_in->start))
+	// {
+	// 	throw_ants(); // sur le chemin le plus court
+	// }
 }

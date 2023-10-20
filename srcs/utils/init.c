@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 17:24:36 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/20 17:56:21 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ void	init(t_lem_in *lem_in)
 
 void	tini(t_lem_in *lem_in)
 {
-	delete_room(*(lem_in->rooms));
 	if (lem_in->pathes)
-		delete_pathes(*(lem_in->pathes));
+	{
+		for (int i = 0; i < lem_in->end->nb_linked ; i++)
+		{
+			delete_pathes(lem_in->pathes[i]);
+		}
+	}
+	delete_room(*(lem_in->rooms));
 	free(lem_in->rooms);
 	free(lem_in->pathes);
 }

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 17:52:47 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 17:59:17 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ t_pathes	*create_path(t_room *room, int pseudo_index, t_pathes *parent)
 	}
 	if (!ret->nb_children)
 	{
+		free(ret->children);
 		free(ret);
 		return (NULL);
 	}

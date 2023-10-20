@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 17:16:09 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 10:55:09 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@
 static int verify_numbers(char *line, int minus);
 
 void parse_file(t_lem_in *lem_in) {
-	char	*line;
+	char	*line = NULL;
 	int		status = ANTS;
 	int		cmd = NONE;
 
-	while ((line = get_next_line(0)) != NULL) {
+	// NOTE: clever use of , operator to free and allocate line in one scoop
+	//		and keep the functionnality
+	while ((free(line), line = get_next_line(0)) != NULL) {
 		// Verify that the line following a command is a room
 		if ((cmd == START || cmd == END) && (status != ROOMS || line[0] == '#'))
 			bugs(lem_in, ERR_CMD_ROOM);
-			
+
 		// Case of commands and comments lines
 		if (line[0] == '#')
 		{
 			if (line[1] && line[1] == '#')
 				process_cmd(line, &cmd);
 			continue;
-		}	
-			
+		}
+
 		// Case of ants, rooms and links lines
 		if (status == ANTS)
 			lem_in->nb_ants = process_ants(lem_in, line, &status);
@@ -58,7 +60,7 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 		*status = LINKS;
 		return;
 	}
-	
+
 	// Verify that the line contains a space after the name
 	char *find = ft_strchr(line, ' ') + 1;
 	if (find == NULL + 1 || find == line || find == line + 1)
@@ -67,7 +69,7 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 	// Get the room name
 	int i = 0;
 	char name[NAME_SIZE + 1];
-	
+
 	while (*find != *line && i < NAME_SIZE && *(line + i) && *(line + i) != ' ') {
 		name[i] = *(line + i);
 		i++;
@@ -101,7 +103,7 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 	coord2[i] = '\0';
 	if (verify_numbers(coord2, 1) || !ft_strlen(coord2))
 		bugs(lemin, ERR_ROOM_SYNTAX);
-	
+
 	// Add the room to the structure
 	int ret = add_room(
 		lemin->rooms,
@@ -124,7 +126,7 @@ void process_links(t_lem_in *lemin, char *line) {
 	// Get the first room name
 	int i = 0;
 	char name[NAME_SIZE + 1];
-	
+
 	while (i < NAME_SIZE && *(line + i) && *(line + i) != '-') {
 		name[i] = *(line + i);
 		i++;
@@ -141,7 +143,7 @@ void process_links(t_lem_in *lemin, char *line) {
 		j++;
 	}
 	name2[j] = '\0';
-	
+
 	// Add the link to the structure
 	int ret = add_link(lemin->rooms, name, name2);
 	if (ret > 0)
@@ -149,9 +151,9 @@ void process_links(t_lem_in *lemin, char *line) {
 }
 
 void process_cmd(char *line, int *cmd) {
-	if (ft_strcmp(line, "##start\n") == 0) 
+	if (ft_strcmp(line, "##start\n") == 0)
 		*cmd = START;
-	else if (ft_strcmp(line, "##end\n") == 0)	
+	else if (ft_strcmp(line, "##end\n") == 0)
 		*cmd = END;
 }
 

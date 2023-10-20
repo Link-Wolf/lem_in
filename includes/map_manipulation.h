@@ -28,7 +28,14 @@
  *	@param	y_coord		The y coordinate of the room
  *	@returns	The appropriate return code (or 0 if everything went OK)
 */
-int	add_room(t_room **rooms, char *name, int is_entry, int is_exit, int x_coord, int y_coord);
+int		add_room(
+			t_room **rooms,
+			char *name,
+			int is_entry,
+			int is_exit,
+			int x_coord,
+			int y_coord
+	);
 /**
  *	@brief	Add a link between 2 rooms
  *	@param	rooms		The structure of rooms
@@ -36,6 +43,11 @@ int	add_room(t_room **rooms, char *name, int is_entry, int is_exit, int x_coord,
  *	@param	room2_name	The name of the second room
  *	@returns	The appropriate return code (or 0 if everything went OK)
  */
-int	add_link(t_room **rooms, char *room1_name, char *room2_name);
+int		add_link(t_room **rooms, char *room1_name, char *room2_name);
+/**
+ *	@brief	Delete a room and it's childrens
+ *	@param	room	The room to delete
+ */
+void	delete_room(t_room *room);
 
 #endif

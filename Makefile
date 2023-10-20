@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: link <link@student.42.fr>                  +#+  +:+       +#+         #
+#    By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/18 15:57:41 by link             ###   ########.fr        #
+#    Updated: 2023/10/20 10:52:41 by iCARUS           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS_N	=	lem_in						\
 			utils/print_parsing			\
 			parsing/read_input			\
 			map_manipulation/add_link	\
-			map_manipulation/add_room				
+			map_manipulation/add_room	\
+			map_manipulation/delete_room
 
 SRCS	=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 OBJS	=	$(SRCS:.c=.o)

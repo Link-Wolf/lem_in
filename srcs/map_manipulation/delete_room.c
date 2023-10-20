@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   delete_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 15:41:00 by link             ###   ########.fr       */
+/*   Created: 2023/10/20 10:51:40 by iCARUS            #+#    #+#             */
+/*   Updated: 2023/10/20 10:53:13 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "../../includes/map_manipulation.h"
 
-// TODO: use t_lem_in instead of t_room
-
-t_room	**init(void)
+void	delete_room(t_room *room)
 {
-	return (ft_calloc(1, sizeof (t_room *)));
-}
-
-void	tini(t_lem_in *lem_in)
-{
-	delete_room(*(lem_in->rooms));
-	free(lem_in->rooms);
+	if (!room)
+		return ;
+	delete_room(room->left);
+	delete_room(room->right);
+	free(room->linked_rooms);
+	free(room);
 }

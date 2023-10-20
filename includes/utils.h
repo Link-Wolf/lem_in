@@ -13,8 +13,9 @@
 #ifndef INIT_H
 # define INIT_H
 
-# include "structures.h"
-# include "return_codes.h"
+# include "./structures.h"
+# include "./return_codes.h"
+# include "./map_manipulation.h"
 # include "../libft/libft.h"
 
 /**

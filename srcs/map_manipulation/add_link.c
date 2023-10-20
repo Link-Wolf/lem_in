@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_link.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/10/18 16:50:03 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 11:49:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	add_link(t_room **rooms, char *room1_name, char *room2_name)
 		return (ERR_ROOM_DOES_NOT_EXIST);
 	if (create_link(room1, room2) || create_link(room2, room1))
 		return (ERR_ALLOCATION);
+	ft_printf("%s-%s\n", room1_name, room2_name);
 	return (OK);
 }
 
@@ -71,7 +72,7 @@ t_room	*find_room(t_room **rooms, char *name)
 	{
 		if (cmp > 0)
 			ret = ret->right;
-		else	
+		else
 			ret = ret->left;
 	}
 	return (ret);

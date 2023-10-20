@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/20 10:55:09 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 11:43:05 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /**
  * @brief Verify that the line contains only digits
  * @param line The line to verify
+ * @param minus 1 if the line can contain a negative value, 0 otherwise
  * @return 0 if the line contains only digits, 1 otherwise
 */
 static int verify_numbers(char *line, int minus);
@@ -40,8 +41,11 @@ void parse_file(t_lem_in *lem_in) {
 		}
 
 		// Case of ants, rooms and links lines
-		if (status == ANTS)
+		if (status == ANTS) {
 			lem_in->nb_ants = process_ants(lem_in, line, &status);
+			ft_putnbr_fd(lem_in->nb_ants, 1);
+			ft_putchar_fd('\n', 1);
+		}
 		else if (status == ROOMS)
 			process_rooms(lem_in, line, &cmd, &status);
 		if (status == LINKS)
@@ -49,7 +53,8 @@ void parse_file(t_lem_in *lem_in) {
 	}
 	if (status != LINKS)
 		bugs(lem_in, ERR_NO_LINKS);
-	print_lemin(lem_in);
+	ft_putchar_fd('\n', 1);
+	// print_lemin(lem_in);
 }
 
 void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
@@ -58,6 +63,8 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 		if (*cmd != NONE)
 			bugs(lemin, ERR_CMD_LINK);
 		*status = LINKS;
+		if (!lemin->start || !lemin->end)
+			bugs(lemin, ERR_NO_START_END);
 		return;
 	}
 
@@ -106,7 +113,7 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 
 	// Add the room to the structure
 	int ret = add_room(
-		lemin->rooms,
+		lemin,
 		name,
 		*cmd & START,
 		*cmd & END,

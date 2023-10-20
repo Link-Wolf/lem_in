@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 16:50:46 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 11:49:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	main(int argc, char **argv)
 	(void) argv;
 
 	// Init
-	lem_in.rooms = init();
+	init(&lem_in);
 	// Parse file & store data
 	parse_file(&lem_in);
 
-	// Determine Pentries and Pexits
+	// Determine Pentries and Pends
 
-	// Check if Pentries and Pexits are connected OR Entry connected to Exit
+	// Check if Pentries and Pends are connected OR start connected to end
 
-	// Find all paths to Pexits to keep the min(Pentries, Pexits) shortest and parallels paths
+	// Find all paths to Pends to keep the min(Pentries, Pends) shortest and parallels paths
 
 	// Check for conflicts (warning infinite loop)
 

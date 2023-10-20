@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:52:15 by link              #+#    #+#             */
-/*   Updated: 2023/10/18 16:53:39 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 11:38:58 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void print_lemin(t_lem_in *lemin) {
 void print_rooms(t_room *room) {
 	if (room == NULL)
 		return ;
-	if (room->is_entry)
+	if (room->is_start)
 		ft_printf("##start\n");
-	if (room->is_exit)
+	if (room->is_end)
 		ft_printf("##end\n");
 	ft_printf("%s %d %d\n", room->name, room->x_coord, room->y_coord);
 	print_rooms(room->left);

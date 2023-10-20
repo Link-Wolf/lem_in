@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/18 15:41:00 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 11:49:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 // TODO: use t_lem_in instead of t_room
 
-t_room	**init(void)
+void	init(t_lem_in *lem_in)
 {
-	return (ft_calloc(1, sizeof (t_room *)));
+	lem_in->rooms = ft_calloc(1, sizeof (t_room *));
+	lem_in->end = NULL;
+	lem_in->start = NULL;
+	lem_in->nb_ants = 0;
 }
 
 void	tini(t_lem_in *lem_in)

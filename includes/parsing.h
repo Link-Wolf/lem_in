@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: link <link@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:14:15 by Link           #+#    #+#             */
-/*   Updated: 2023/10/18 14:29:26 by link             ###   ########.fr       */
+/*   Updated: 2023/10/20 11:33:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void process_cmd(char *line, int *cmd);
  * @brief      Processes the ants line from the input
  * @param      lemin  The lem_in global structure
  * @param      line   The line to process
+ * @param      status The status of the parsing
  * @return     0 if everything went well, > 0 otherwise
 */
 int process_ants(t_lem_in *lemin, char *line, int *status);
@@ -57,6 +58,7 @@ int process_ants(t_lem_in *lemin, char *line, int *status);
  * @param      lemin  The lem_in global structure
  * @param      line   The line to process
  * @param      cmd    The potential command to take into account to process the room
+ * @param      status The status of the parsing
 */
 void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status);
 

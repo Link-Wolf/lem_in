@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_codes.h                                     :+:      :+:    :+:   */
+/*   include_link.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 13:13:41 by iCARUS           ###   ########.fr       */
+/*   Created: 2023/10/20 11:57:06 by iCARUS            #+#    #+#             */
+/*   Updated: 2023/10/20 13:12:29 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RETURN_CODES_H
-# define RETURN_CODES_H
+#include "../../includes/map_manipulation.h"
 
-enum {
-	OK = 0,
-	ERR_ROOM_ALREADY_EXISTS,
-	ERR_ALLOCATION,
-	ERR_ROOM_TYPE_CONFLICT,
-	ERR_CMD_ROOM,
-	ERR_VALUE_ANTS,
-	ERR_ROOM_SYNTAX,
-	ERR_SELF_LINKING_ROOM,
-	ERR_ROOM_DOES_NOT_EXIST,
-	ERR_LINK_SYNTAX,
-	ERR_NO_LINKS,
-	ERR_CMD_LINK,
-	ERR_NO_START_END,
-	ERR_LINK_ALREADY_EXISTS
-};
-
-#endif
+int	include_link(t_room **linked_rooms, t_room *room)
+{
+	while (*linked_rooms)
+		if (*linked_rooms == room)
+			return (1);
+	return (0);
+}

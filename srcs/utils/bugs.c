@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/10/20 11:38:20 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 13:13:41 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ const char	*error_msgs[] = {
 	[ERR_NO_LINKS] = "The map is missing links",
 	[ERR_CMD_LINK] = "Commands cannot be followed by links",
 	[ERR_NO_START_END] = "The map is missing start and/or end room(s)",
+	[ERR_LINK_ALREADY_EXISTS] = "Links cannot be duplicated"
 };
 
 void	bugs(t_lem_in *lem_in, int code)

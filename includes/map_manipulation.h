@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 11:49:53 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/20 13:13:41 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,13 @@ int		add_link(t_room **rooms, char *room1_name, char *room2_name);
  *	@param	room	The room to delete
  */
 void	delete_room(t_room *room);
+
+/**
+ *	@brief	Check if a room is linked by another rooms
+ *	@param	linked_rooms	The rooms linked to test
+ *	@param	room			The room we are looking for
+ *	@returns	As a boolean, 1 if we found the room, 0 otherwise
+ */
+int		include_link(t_room **linked_rooms, t_room *room);
 
 #endif

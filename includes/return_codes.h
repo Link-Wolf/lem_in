@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   return_codes.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:07:10 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ enum {
 	ERR_NO_LINKS,
 	ERR_CMD_LINK,
 	ERR_NO_START_END,
-	ERR_LINK_ALREADY_EXISTS
+	ERR_LINK_ALREADY_EXISTS,
+	ERR_NO_SOLUTION,
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 11:24:48 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 18:00:44 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ t_pathes	*create_path(t_room *room, int pseudo_index, t_pathes *parent, int dept
 					free(lem_in->good_pathes[pseudo_index]);
 					lem_in->good_pathes[pseudo_index] = tmp;
 				}
-
 				lem_in->good_pathes[pseudo_index][lem_in->nb_pathes_leaves[pseudo_index]++] = ret;
 				return (ret);
 			}

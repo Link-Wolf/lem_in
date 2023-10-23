@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:52:15 by link              #+#    #+#             */
-/*   Updated: 2023/10/23 11:28:26 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 18:00:44 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void print_good_paths(t_lem_in *lem_in)
 {
 	for (int i = 0 ; i < lem_in->end->nb_linked ; i++)
 	{
-		ft_printf("\nExit %d:\n", i);
+		ft_printf("\nExit %s (%d):\n", lem_in->end->linked_rooms[i]->name, i);
 		if (!lem_in->good_pathes[i] || !lem_in->nb_pathes_leaves[i])
 		{
 			ft_printf("No valid path\n");
@@ -64,7 +64,10 @@ void print_good_paths(t_lem_in *lem_in)
 		}
 		for (int j = 0 ; j < lem_in->nb_pathes_leaves[i] ; j++)
 		{
-			ft_printf("Part de %s, pour une durée de %d rooms\n", lem_in->good_pathes[i][j]->room->name, lem_in->good_pathes[i][j]->depth);
+			ft_printf(
+				"Part de %s, pour une durée de %d rooms\n",
+				lem_in->good_pathes[i][j]->room->name,
+				lem_in->good_pathes[i][j]->depth);
 		}
 	}
 }

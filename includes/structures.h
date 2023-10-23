@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 10:54:19 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 16:05:42 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_pathes
 
 typedef struct s_lem_in
 {
+	int			nb_def_paths;
+	t_pathes	**def_paths;
 	int			nb_ants;
 	t_pathes	**pathes; // NOTE: act as a tree
 	int			*nb_pathes_leaves;
@@ -52,5 +54,12 @@ typedef struct s_lem_in
 	t_room		*start;
 	t_room		*end;
 }	t_lem_in;
+
+typedef struct s_cache
+{
+	int			**data;
+	int			nb_data;
+	int			max_data;
+}	t_cache;
 
 #endif

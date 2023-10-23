@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bugs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:08:11 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ const char	*error_msgs[] = {
 	[ERR_NO_LINKS] = "The map is missing links",
 	[ERR_CMD_LINK] = "Commands cannot be followed by links",
 	[ERR_NO_START_END] = "The map is missing start and/or end room(s)",
-	[ERR_LINK_ALREADY_EXISTS] = "Links cannot be duplicated"
+	[ERR_LINK_ALREADY_EXISTS] = "Links cannot be duplicated",
+	[ERR_NO_SOLUTION] = "No solution found, or we're fucked, or we're dumb, who knows",
 };
 
 void	bugs(t_lem_in *lem_in, int code)

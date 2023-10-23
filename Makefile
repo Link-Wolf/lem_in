@@ -6,7 +6,7 @@
 #    By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 17:15:33 by Link           #+#    #+#              #
-#    Updated: 2023/10/20 17:24:35 by iCARUS           ###   ########.fr        #
+#    Updated: 2023/10/23 17:18:31 by iCARUS           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS_N	=	lem_in							\
 			processing/process_map			\
 			processing/check_for_trivials	\
 			processing/conflicts			\
+			processing/sort_pathes			\
 
 SRCS	=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 OBJS	=	$(SRCS:.c=.o)

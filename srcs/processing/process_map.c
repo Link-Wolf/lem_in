@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 10:39:28 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 11:24:48 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int calc_dist(t_lem_in *lem_in, t_room *room, int dist, int nb_pseudo_end
 void	create_pathes(t_lem_in *lem_in)
 {
 	lem_in->pathes = ft_calloc(lem_in->end->nb_linked, sizeof (t_pathes *));
-	lem_in->pathes_leaves = ft_calloc(lem_in->end->nb_linked, sizeof (t_pathes **));
+	lem_in->good_pathes = ft_calloc(lem_in->end->nb_linked, sizeof (t_pathes **));
 	lem_in->nb_pathes_leaves = ft_calloc(lem_in->end->nb_linked, sizeof (int));
 	lem_in->max_pathes_leaves = ft_calloc(lem_in->end->nb_linked, sizeof (int));
 	if (!lem_in->pathes)
@@ -73,7 +73,7 @@ void	create_pathes(t_lem_in *lem_in)
 	for (int i = 0; i < lem_in->end->nb_linked ; i++)
 	{
 		lem_in->max_pathes_leaves[i] = 8;
-		lem_in->pathes_leaves[i] = ft_calloc(lem_in->max_pathes_leaves[i] + 1, sizeof (t_pathes *));
+		lem_in->good_pathes[i] = ft_calloc(lem_in->max_pathes_leaves[i] + 1, sizeof (t_pathes *));
 		lem_in->pathes[i] = create_path(lem_in->end->linked_rooms[i], i, NULL, 1, lem_in);
 	}
 }
@@ -85,6 +85,7 @@ t_pathes	*create_path(t_room *room, int pseudo_index, t_pathes *parent, int dept
 	ret = ft_calloc(1, sizeof (t_pathes));
 	ret->max_children = 8;
 	ret->children = ft_calloc(ret->max_children + 1, sizeof (t_pathes *));
+	ret->room = room;
 
 	for (int i = 0 ; i < room->nb_linked ; i++)
 	{
@@ -105,13 +106,13 @@ t_pathes	*create_path(t_room *room, int pseudo_index, t_pathes *parent, int dept
 				{
 					lem_in->max_pathes_leaves[pseudo_index] *= 2;
 					t_pathes **tmp = malloc((lem_in->max_pathes_leaves[pseudo_index] + 1) * sizeof (t_pathes **));
-					ft_memcpy(tmp, lem_in->pathes_leaves[pseudo_index], lem_in->nb_pathes_leaves[pseudo_index] * sizeof (t_pathes **));
-					free(lem_in->pathes_leaves[pseudo_index]);
-					lem_in->pathes_leaves[pseudo_index] = tmp;
+					ft_memcpy(tmp, lem_in->good_pathes[pseudo_index], lem_in->nb_pathes_leaves[pseudo_index] * sizeof (t_pathes **));
+					free(lem_in->good_pathes[pseudo_index]);
+					lem_in->good_pathes[pseudo_index] = tmp;
 				}
 
-				lem_in->pathes_leaves[pseudo_index][lem_in->nb_pathes_leaves[pseudo_index]++] = ret;
-				continue;
+				lem_in->good_pathes[pseudo_index][lem_in->nb_pathes_leaves[pseudo_index]++] = ret;
+				return (ret);
 			}
 			t_pathes *new_path = create_path(room->linked_rooms[i], pseudo_index, ret, depth + 1, lem_in);
 			if (!new_path)

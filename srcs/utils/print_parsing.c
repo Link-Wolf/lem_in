@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:52:15 by link              #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:31 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/23 11:28:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ void print_links(t_room *room)
 	}
 	print_links(room->left);
 	print_links(room->right);
+}
+
+void print_good_paths(t_lem_in *lem_in)
+{
+	for (int i = 0 ; i < lem_in->end->nb_linked ; i++)
+	{
+		ft_printf("\nExit %d:\n", i);
+		if (!lem_in->good_pathes[i] || !lem_in->nb_pathes_leaves[i])
+		{
+			ft_printf("No valid path\n");
+			continue;
+		}
+		for (int j = 0 ; j < lem_in->nb_pathes_leaves[i] ; j++)
+		{
+			ft_printf("Part de %s, pour une durée de %d rooms\n", lem_in->good_pathes[i][j]->room->name, lem_in->good_pathes[i][j]->depth);
+		}
+	}
 }

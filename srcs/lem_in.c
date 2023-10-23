@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/20 17:21:37 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 10:55:27 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 
 	// Find all paths to Pends to keep the min(Pentries, Pends) shortest and parallels paths
 	create_pathes(&lem_in);
+
+	print_good_paths(&lem_in);
 
 	// Check for conflicts
 	manage_conflicts(&lem_in);

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 16:35:27 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/23 11:28:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	print_rooms(t_room *room);
  *	@param	room	The parent room of all rooms to print
  */
 void	print_links(t_room *room);
+
+/**
+ *	@brief	Print all the paths ends
+ */
+void print_good_paths(t_lem_in *lem_in);
 
 /**
  *	@brief	Delete a room and it's childrens

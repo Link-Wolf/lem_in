@@ -15,11 +15,13 @@
 static int check_conflicts(int *initial_state, t_lem_in *lemin);
 static long long is_conflicts(int *current_state, t_lem_in *lemin);
 static t_pathes *get_parent_on_n_generations(t_pathes *path, int n);
-static t_state *create_state(int *initial_state, int state_size);
+static t_state *create_state(int *initial_state, int state_size, t_lem_in *lem_in);
 static void free_state(void *state);
 static int	is_in_cache(t_list **cache, int *state);
-void quick_sort(t_list* first, t_list* last);
-int compare_state(t_state *s1, t_state *s2);
+void quick_sort(t_list* first, t_list* last, t_lem_in *lem_in);
+int compare_state(t_state *s1, t_state *s2, t_lem_in *lem_in);
+t_list* partition(t_list* first, t_list* last, t_lem_in *lem_in);
+int	calculate_value(int *state, t_lem_in *lem_in);
 
 void	manage_conflicts(t_lem_in *lemin) {
 	int		nb_psexit = lemin->end->nb_linked;
@@ -53,18 +55,15 @@ void	manage_conflicts(t_lem_in *lemin) {
 	}
 	for (int i = 0; i < nb_def_paths; i++)
 	{
-		if (fastests[i] != -1)
+		if (fastests[i] != -1 && lemin->nb_pathes_leaves[fastests[i]])
 			initial_state[fastests[i]] = 0;
 	}
 
 	int ret = check_conflicts(initial_state, lemin);
+
 	free(fastests);
-	free(initial_state);
 	if (ret)
 		bugs(lemin, ret);
-	//for each path in fastests, check if it's in the other paths
-	//to do so, big recursive boi
-	// :D
 }
 
 static int check_conflicts(int *initial_state, t_lem_in *lemin)
@@ -75,27 +74,32 @@ static int check_conflicts(int *initial_state, t_lem_in *lemin)
 	ft_lstadd_back(
 		wait_list,
 		ft_lstnew(
-			create_state(initial_state, lemin->end->nb_linked * sizeof (int))));
+			create_state(initial_state, lemin->end->nb_linked * sizeof (int), lemin)));
 	while (*wait_list)
 	{
-		t_list		*current = *wait_list;
-		long long	conflicts = is_conflicts(((t_state *)current->content)->state, lemin);
+		t_state *current = ((t_state *) (*wait_list)->content);
+		long long	conflicts = is_conflicts(current->state, lemin);
+
+		ft_printf("testing state: (%d) ", current->value);
+		for (int i = 0; i < lemin->end->nb_linked; i++)
+			ft_printf("%d ", current->state[i]);
+		ft_printf("\n");
 
 		if (!conflicts)
 		{
 			int nb_pathes = 0;
 			for (int i = 0; i < ft_min(lemin->end->nb_linked, lemin->start->nb_linked); i++)
 			{
-				if (((t_state *) current->content)->state[i] != -1)
+				if (current->state[i] != -1)
 					nb_pathes++;
 			}
 			lemin->nb_def_paths = nb_pathes;
 			lemin->def_paths = malloc(sizeof(t_pathes *) * nb_pathes);
 			for (int i = 0, j = 0; i < ft_min(lemin->end->nb_linked, lemin->start->nb_linked); i++)
 			{
-				if (((t_state *) current->content)->state[i] != -1)
+				if (current->state[i] != -1)
 				{
-					lemin->def_paths[j++] = lemin->good_pathes[i][((t_state *) current->content)->state[i]];
+					lemin->def_paths[j++] = lemin->good_pathes[i][current->state[i]];
 				}
 			}
 			ft_lstclear(cache, free_state);
@@ -105,69 +109,84 @@ static int check_conflicts(int *initial_state, t_lem_in *lemin)
 			return (OK);
 		}
 
-		// move current from wait_list to cache
+		// move current->state from wait_list to cache
 		t_list *tmp = (*wait_list)->next;
 		(*wait_list)->next = *cache;
 		*cache = *wait_list;
 		*wait_list = tmp;
 
-		// generate all possible states from current that resolve conflicts
+		// generate all possible states from current->state that resolve conflicts
 		int		conflicted_pathes[2] = {conflicts & INT_MAX, conflicts >> 32};
 		t_list **new_states = ft_calloc(1, sizeof (t_list *));
 		for (int i = 0; i < 2 ; i++)
 		{
 			for (int j = 0; j < lemin->end->nb_linked; j++)
 			{
-				int *new_state = ft_memdup(((t_state *)current->content)->state, lemin->end->nb_linked * sizeof (int));
+				int *new_state = ft_memdup(current->state, lemin->end->nb_linked * sizeof (int));
 				// The conflicted path try to go to it nexts possible path, and to delete itself
 				if (j == conflicted_pathes[i])
 				{
-					new_state[j]++;
-					if (is_in_cache(cache, new_state))
+					for (int k = -1; k < lemin->nb_pathes_leaves[j]; k++)
 					{
-						free(new_state);
-						continue;
+						new_state[j] = k;
+						if (is_in_cache(cache, new_state))
+							continue;
+						ft_lstadd_back(
+							new_states,
+							ft_lstnew(
+								create_state(
+									ft_memdup(
+										new_state,
+										sizeof (int) * lemin->end->nb_linked),
+										lemin->end->nb_linked * sizeof (int),
+									lemin
+								)));
 					}
-					ft_lstadd_back(new_states, ft_lstnew(create_state(ft_memdup(new_state, sizeof (int) * lemin->end->nb_linked), lemin->end->nb_linked * sizeof (int))));
-					new_state[j] = -1;
-					if (is_in_cache(cache, new_state))
-					{
-						free(new_state);
-						continue;
-					}
-					ft_lstadd_back(new_states, ft_lstnew(create_state(ft_memdup(new_state, sizeof (int) * lemin->end->nb_linked), lemin->end->nb_linked * sizeof (int))));
-					free(new_state);
-					continue;
 				}
 				// The other pathes try to go in the place of the conflicted path
-				new_state[j] = 0;
-				new_state[conflicted_pathes[i]] = -1;
-				if (is_in_cache(cache, new_state))
+				else if (lemin->nb_pathes_leaves[j] && conflicted_pathes[i] != -1 && current->state[j] == -1)
 				{
-					free(new_state);
-					continue;
+					new_state[j] = 0;
+					new_state[conflicted_pathes[i]] = -1;
+					if (is_in_cache(cache, new_state))
+					{
+						free(new_state);
+						continue;
+					}
+						ft_lstadd_back(
+							new_states,
+							ft_lstnew(
+								create_state(
+									ft_memdup(
+										new_state,
+										sizeof (int) * lemin->end->nb_linked),
+										lemin->end->nb_linked * sizeof (int),
+									lemin
+								)));
 				}
-				ft_lstadd_back(new_states, ft_lstnew(create_state(ft_memdup(new_state, sizeof (int) * lemin->end->nb_linked), lemin->end->nb_linked * sizeof (int))));
+				free(new_state);
 			}
 		}
 
 		ft_lstadd_back(wait_list, *new_states);
 		free(new_states);
-		quick_sort(*wait_list,ft_lstlast(*wait_list));
+		quick_sort(*wait_list,ft_lstlast(*wait_list), lemin);
 	}
+	ft_lstclear(wait_list, free_state);
+	ft_lstclear(cache, free_state);
 	free(wait_list);
 	free(cache);
 	return (ERR_NO_SOLUTION);
 }
 
-t_list* partition(t_list* first, t_list* last)
+t_list* partition(t_list* first, t_list* last, t_lem_in *lem_in)
 {
     // Get first node of given linked list
     t_list* pivot = first;
     t_list* front = first;
     t_state *temp = 0;
     while (front != NULL && front != last) {
-        if (compare_state(front->content, pivot->content) < 0) {
+        if (compare_state(front->content, pivot->content, lem_in) < 0) {
             pivot = first;
 
             // Swapping  node values
@@ -183,43 +202,120 @@ t_list* partition(t_list* first, t_list* last)
         front = front->next;
     }
 
-    // Change last node value to current node
+    // Change last node value to current->state node
     temp = first->content;
     first->content = last->content;
     last->content = temp;
     return pivot;
 }
 
+static int tab_sum_min(int *tab1, int *tab2, int size) {
+	int	res;
+	int i = 0;
+
+	res = 2147483647;
+	while (size--)
+	{
+		if (res > tab1[i] + tab2[i])
+			res = tab1[i] + tab2[i];
+		i++;
+	}
+	return (res);
+}
+
+static int tab_sum_max(int *tab1, int *tab2, int size) {
+	int	res;
+	int i = 0;
+
+	res = -2147483648;
+	while (size--)
+	{
+		if (res < tab1[i] + tab2[i])
+			res = tab1[i] + tab2[i];
+		i++;
+	}
+	return (res);
+}
+
+
+int	calculate_value(int *state, t_lem_in *lem_in)
+{
+	int nb_paths = 0;
+	for (int i = 0; i < ft_min(lem_in->end->nb_linked, lem_in->start->nb_linked); i++)
+	{
+		if (state[i] != -1)
+			nb_paths++;
+	}
+	int *dist_by_path = ft_calloc(nb_paths, sizeof (int));
+	for (int i = 0, j = 0; i < ft_min(lem_in->end->nb_linked, lem_in->start->nb_linked); i++)
+	{
+		if (state[i] != -1)
+		{
+			dist_by_path[j++] = lem_in->good_pathes[i][state[i]]->depth;
+		}
+	}
+	int *ants_by_path = ft_calloc(nb_paths, sizeof (int));
+	int nb_ants = lem_in->nb_ants;
+	while (nb_ants) {
+		int min = tab_sum_min(dist_by_path, ants_by_path, nb_paths);
+		for (int i = 0; i < nb_paths; i++) {
+			if (dist_by_path[i] + ants_by_path[i] <= min) {
+				ants_by_path[i]++;
+				nb_ants--;
+				if (!nb_ants)
+					break ;
+			}
+		}
+	}
+	return (tab_sum_max(dist_by_path, ants_by_path, nb_paths));
+
+	// int nb_paths = 0;
+	// int total_depth = 0;
+	// for (int i = 0; i < ft_min(lem_in->end->nb_linked, lem_in->start->nb_linked); i++)
+	// {
+	// 	if (state[i] != -1)
+	// 	{
+	// 		nb_paths++;
+	// 		total_depth += lem_in->good_pathes[i][state[i]]->depth;
+	// 	}
+	// }
+	// if (!nb_paths)
+	// 	return (INT_MAX);
+	// return (total_depth / nb_paths);
+}
+
 // Performing quick sort in  the given linked list
-void quick_sort(t_list* first, t_list* last)
+void quick_sort(t_list* first, t_list* last, t_lem_in *lem_in)
 {
     if (first == last) {
         return;
     }
-    t_list* pivot = partition(first, last);
+    t_list* pivot = partition(first, last, lem_in);
 
     if (pivot != NULL && pivot->next != NULL) {
-        quick_sort(pivot->next, last);
+        quick_sort(pivot->next, last, lem_in);
     }
 
     if (pivot != NULL && first != pivot) {
-        quick_sort(first, pivot);
+        quick_sort(first, pivot, lem_in);
     }
 }
 
-int compare_state(t_state *s1, t_state *s2)
+int compare_state(t_state *s1, t_state *s2, t_lem_in *lem_in)
 {
-	return s1 - s2;
+	(void)lem_in;
+	return (s1->value - s2->value);
 }
 
-static t_state *create_state(int *initial_state, int state_size)
+static t_state *create_state(int *initial_state, int state_size, t_lem_in *lem_in)
 {
 	t_state	*ret = ft_calloc(1, sizeof (t_state));
 
 	if (!ret)
 		return (NULL);
-	ret->state = ft_memdup(initial_state, state_size);
+	ret->state = initial_state;
 	ret->state_size = state_size;
+	ret->value = calculate_value(ret->state, lem_in);
 	return (ret);
 }
 
@@ -257,7 +353,9 @@ static long long is_conflicts(int *current_state, t_lem_in *lemin)
 		{
 			if (current_state[j] == -1)
 				continue;
-			if (!lemin->nb_pathes_leaves[i] || !lemin->nb_pathes_leaves[j])
+			if (
+				lemin->nb_pathes_leaves[i] <= current_state[i]
+					|| lemin->nb_pathes_leaves[j] <= current_state[j])
 				return (i | (j << 32));
 			for (int k = 0; k < lemin->good_pathes[i][current_state[i]]->depth; k++)
 			{
@@ -266,7 +364,7 @@ static long long is_conflicts(int *current_state, t_lem_in *lemin)
 					t_pathes	*p1 = get_parent_on_n_generations(lemin->good_pathes[i][current_state[i]], k);
 					t_pathes	*p2 = get_parent_on_n_generations(lemin->good_pathes[j][current_state[j]], l);
 					if (!p1 || !p2)
-						continue;
+						return (i | (j << 32));
 					if (p1->room == p2->room)
 						return (i | (j << 32));
 				}

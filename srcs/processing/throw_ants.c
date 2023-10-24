@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:09 by Link           #+#    #+#             */
-/*   Updated: 2023/10/24 16:57:48 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/24 17:58:37 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void throw_ants(t_lem_in *lemin) {
 
 	ft_printf("nb_paths: %d\n", nb_paths);
 	for (int i = 0; i < nb_paths; i++) {
-		ft_printf("path %d: , depth %d, %p\n", i, lemin->def_paths[i]->depth, lemin->def_paths[i]);
+		ft_printf("path %d:  %p\n", i, lemin->def_paths[i]);
 		dist_by_path[i] = lemin->def_paths[i]->depth;
 	}
 

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:16:10 by iCARUS            #+#    #+#             */
-/*   Updated: 2022/11/28 08:29:03 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/24 13:51:28 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_tabmin(int *tab, size_t size)
 	res = 2147483647;
 	while (size--)
 	{
-		if (res < *tab)
+		if (res > *tab)
 			res = *tab;
 		tab++;
 	}

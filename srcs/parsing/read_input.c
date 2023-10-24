@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:32 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/24 14:24:31 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ void parse_file(t_lem_in *lem_in) {
 		{
 			if (line[1] && line[1] == '#')
 				process_cmd(line, &cmd);
+			else if (lem_in->verbose)
+				ft_putstr_fd(line, 1);
 			continue;
 		}
 
 		// Case of ants, rooms and links lines
 		if (status == ANTS) {
 			lem_in->nb_ants = process_ants(lem_in, line, &status);
+			if (lem_in->verbose)
+				ft_putstr_fd("------ ANT NUMBER ------\n", 1);
 			ft_putnbr_fd(lem_in->nb_ants, 1);
 			ft_putchar_fd('\n', 1);
 		}
@@ -65,6 +69,8 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 		*status = LINKS;
 		if (!lemin->start || !lemin->end)
 			bugs(lemin, ERR_NO_START_END);
+		if (lemin->verbose)
+			ft_putstr_fd("\n--- LINKS DEFINITION ---\n", 1);
 		return;
 	}
 
@@ -168,6 +174,8 @@ int process_ants(t_lem_in *lemin, char *line, int *status) {
 	if (verify_numbers(line, 0))
 		bugs(lemin, ERR_VALUE_ANTS);
 	*status = ROOMS;
+	if (lemin->verbose)
+		ft_putstr_fd("\n--- ROOMS DEFINITION ---\n", 1);
 	return (ft_atoi(line));
 }
 

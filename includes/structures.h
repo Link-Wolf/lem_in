@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 16:05:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/24 15:21:28 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ typedef struct s_pathes
 	int				is_motherfucking_good;
 	int				depth;
 	t_room			*room;
-	struct s_pathes	*parent;
+	struct s_pathes	*parent; // NULL if pathe is pseudo exit
 	struct s_pathes	**children;
 }	t_pathes;
 
 typedef struct s_lem_in
 {
+	int			verbose;
 	int			nb_def_paths;
 	t_pathes	**def_paths;
 	int			nb_ants;
@@ -55,11 +56,19 @@ typedef struct s_lem_in
 	t_room		*end;
 }	t_lem_in;
 
-typedef struct s_cache
+typedef struct s_ant
 {
-	int			**data;
-	int			nb_data;
-	int			max_data;
-}	t_cache;
+	int				id;
+	struct s_pathes	*where_to_go;
+	int				wait_turns;
+	int				is_arrived;
+} t_ant;
+
+typedef struct s_state
+{
+	int	value;
+	int	*state;
+	int	state_size;
+}	t_state;
 
 #endif

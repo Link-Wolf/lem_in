@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/23 18:00:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/24 14:38:18 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 int	main(int argc, char **argv)
 {
-	(void) argv;
-	if (argc != 1)
-	{
-		ft_putendl_fd("Usage: ./lem-in < map_file", 1);
-		return (1);
-	}
-
 	t_lem_in	lem_in;
 	init(&lem_in);
+
+	if (argc != 1)
+	{
+		if (!ft_strcmp(argv[1], "--verbose") || !ft_strcmp(argv[1], "-v"))
+			lem_in.verbose = 1;
+		else
+		{
+			ft_putendl_fd("Usage:\n\t./lem-in [ -v | --verbose ] < map_file\n\n\tNOTE: map_file can be replaced by the map generator as follow:\n\t\t./generator_linux [ --flow-one | --flow-ten | --flow-thousand | --big | --big-superposition ]", 1);
+			return (1);
+		}
+	}
 
 	// Parse file & store data
 	parse_file(&lem_in);

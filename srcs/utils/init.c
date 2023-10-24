@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 10:54:20 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/24 15:59:25 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ void	init(t_lem_in *lem_in)
 	lem_in->end = NULL;
 	lem_in->start = NULL;
 	lem_in->pathes = NULL;
+	lem_in->def_paths = NULL;
 	lem_in->good_pathes = NULL;
 	lem_in->nb_pathes_leaves = NULL;
 	lem_in->max_pathes_leaves = NULL;
 	lem_in->nb_ants = 0;
+	lem_in->verbose = 0;
+	lem_in->nb_def_paths = 0;
 }
 
 void	tini(t_lem_in *lem_in)
@@ -42,4 +45,5 @@ void	tini(t_lem_in *lem_in)
 	delete_room(*(lem_in->rooms));
 	free(lem_in->rooms);
 	free(lem_in->pathes);
+	free(lem_in->def_paths);
 }

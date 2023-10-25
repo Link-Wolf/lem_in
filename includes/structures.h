@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/24 15:21:28 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:11:49 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,60 @@
 
 # define NAME_SIZE 128
 
+struct s_pathes;
+
 typedef struct s_room
 {
+	char			name[NAME_SIZE + 1];
 	int				is_start;
 	int				is_end;
-	int				nb_linked;
-	int				max_linked;
 	int				x_coord;
 	int				y_coord;
-	char			name[NAME_SIZE + 1];
+	int				*distances_to_ends;
+
 	struct s_room	*left;
 	struct s_room	*right;
+
+	int				nb_linked;
+	int				max_linked;
 	struct s_room	**linked_rooms;
-	int				*distances_to_ends;
+
+	int				nb_path_users;
+	int				max_path_users;
+	struct s_pathes	**path_users;
 }	t_room;
 
 typedef struct s_pathes
 {
-	int				nb_children;
-	int				max_children;
 	int				is_motherfucking_good;
 	int				depth;
 	t_room			*room;
 	struct s_pathes	*parent; // NULL if pathe is pseudo exit
+
+	int				nb_children;
+	int				max_children;
 	struct s_pathes	**children;
+
+	int				nb_conflicts;
+	int				max_conflicts;
+	struct s_pathes	**conflicts;
 }	t_pathes;
 
 typedef struct s_lem_in
 {
 	int			verbose;
-	int			nb_def_paths;
 	t_pathes	**def_paths;
-	int			nb_ants;
-	t_pathes	**pathes; // NOTE: act as a tree
-	int			*nb_pathes_leaves;
-	int			*max_pathes_leaves;
-	t_pathes	***good_pathes; // NOTE: act as an array
 	t_room		**rooms;
 	t_room		*start;
 	t_room		*end;
+
+	int			nb_def_paths;
+	int			nb_ants;
+	t_pathes	**pathes; // NOTE: act as a tree
+
+	int			*nb_pathes_leaves;
+	int			*max_pathes_leaves;
+	t_pathes	***good_pathes; // NOTE: act as an array
 }	t_lem_in;
 
 typedef struct s_ant

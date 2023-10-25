@@ -80,10 +80,10 @@ static int check_conflicts(int *initial_state, t_lem_in *lemin)
 		t_state *current = ((t_state *) (*wait_list)->content);
 		long long	conflicts = is_conflicts(current->state, lemin);
 
-		ft_printf("testing state: (%d) ", current->value);
-		for (int i = 0; i < lemin->end->nb_linked; i++)
-			ft_printf("%d ", current->state[i]);
-		ft_printf("\n");
+		// ft_printf("testing state: (%d) ", current->value);
+		// for (int i = 0; i < lemin->end->nb_linked; i++)
+		// 	ft_printf("%d ", current->state[i]);
+		// ft_printf("\n");
 
 		if (!conflicts)
 		{
@@ -186,7 +186,7 @@ t_list* partition(t_list* first, t_list* last, t_lem_in *lem_in)
     t_list* front = first;
     t_state *temp = 0;
     while (front != NULL && front != last) {
-        if (compare_state(front->content, pivot->content, lem_in) < 0) {
+        if (compare_state(front->content, pivot->content, lem_in) > 0) {
             pivot = first;
 
             // Swapping  node values
@@ -209,65 +209,51 @@ t_list* partition(t_list* first, t_list* last, t_lem_in *lem_in)
     return pivot;
 }
 
-static int tab_sum_min(int *tab1, int *tab2, int size) {
-	int	res;
-	int i = 0;
+// static int tab_sum_min(int *tab1, int *tab2, int size) {
+// 	int	res;
+// 	int i = 0;
 
-	res = 2147483647;
-	while (size--)
-	{
-		if (res > tab1[i] + tab2[i])
-			res = tab1[i] + tab2[i];
-		i++;
-	}
-	return (res);
-}
+// 	res = 2147483647;
+// 	while (size--)
+// 	{
+// 		if (res > tab1[i] + tab2[i])
+// 			res = tab1[i] + tab2[i];
+// 		i++;
+// 	}
+// 	return (res);
+// }
 
-static int tab_sum_max(int *tab1, int *tab2, int size) {
-	int	res;
-	int i = 0;
+// static int tab_sum_max(int *tab1, int *tab2, int size) {
+// 	int	res;
+// 	int i = 0;
 
-	res = -2147483648;
-	while (size--)
-	{
-		if (res < tab1[i] + tab2[i])
-			res = tab1[i] + tab2[i];
-		i++;
-	}
-	return (res);
-}
+// 	res = -2147483648;
+// 	while (size--)
+// 	{
+// 		if (res < tab1[i] + tab2[i])
+// 			res = tab1[i] + tab2[i];
+// 		i++;
+// 	}
+// 	return (res);
+// }
 
 
 int	calculate_value(int *state, t_lem_in *lem_in)
 {
 	int nb_paths = 0;
+	int	smallest_path = INT_MAX;
 	for (int i = 0; i < ft_min(lem_in->end->nb_linked, lem_in->start->nb_linked); i++)
 	{
 		if (state[i] != -1)
-			nb_paths++;
-	}
-	int *dist_by_path = ft_calloc(nb_paths, sizeof (int));
-	for (int i = 0, j = 0; i < ft_min(lem_in->end->nb_linked, lem_in->start->nb_linked); i++)
-	{
-		if (state[i] != -1)
 		{
-			dist_by_path[j++] = lem_in->good_pathes[i][state[i]]->depth;
+			nb_paths++;
+			if (smallest_path > lem_in->good_pathes[i][state[i]]->depth)
+				smallest_path = lem_in->good_pathes[i][state[i]]->depth;
 		}
 	}
-	int *ants_by_path = ft_calloc(nb_paths, sizeof (int));
-	int nb_ants = lem_in->nb_ants;
-	while (nb_ants) {
-		int min = tab_sum_min(dist_by_path, ants_by_path, nb_paths);
-		for (int i = 0; i < nb_paths; i++) {
-			if (dist_by_path[i] + ants_by_path[i] <= min) {
-				ants_by_path[i]++;
-				nb_ants--;
-				if (!nb_ants)
-					break ;
-			}
-		}
-	}
-	return (tab_sum_max(dist_by_path, ants_by_path, nb_paths));
+	if (!nb_paths)
+		return (INT_MAX);
+	return (lem_in->nb_ants * smallest_path / nb_paths);
 
 	// int nb_paths = 0;
 	// int total_depth = 0;
@@ -279,8 +265,6 @@ int	calculate_value(int *state, t_lem_in *lem_in)
 	// 		total_depth += lem_in->good_pathes[i][state[i]]->depth;
 	// 	}
 	// }
-	// if (!nb_paths)
-	// 	return (INT_MAX);
 	// return (total_depth / nb_paths);
 }
 

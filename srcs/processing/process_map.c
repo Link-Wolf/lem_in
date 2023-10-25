@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 18:00:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:37:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_pathes	*create_path(t_room *room, int pseudo_index, t_pathes *parent, int dept
 		int is_my_ancestor = is_ancestor(parent, room->linked_rooms[i]);
 		if ((my_distance < child_distance || (
 				my_distance == child_distance
-				&& is_my_ancestor)) && !room->linked_rooms[i]->is_end)
+				&& !is_my_ancestor)) && !room->linked_rooms[i]->is_end)
 			{
 			if (room->linked_rooms[i]->is_start)
 			{

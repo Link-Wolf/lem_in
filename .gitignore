@@ -1,7 +1,7 @@
 *.o
 .vscode
 *.log
-visualizer
+vizualizer
 lem-in
 *.map
 generator*

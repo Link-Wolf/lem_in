@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/24 15:59:25 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 14:36:36 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	init(t_lem_in *lem_in)
 	lem_in->nb_ants = 0;
 	lem_in->verbose = 0;
 	lem_in->nb_def_paths = 0;
+	lem_in->nb_rooms = 0;
+	lem_in-> nb_links = 0;
 }
 
 void	tini(t_lem_in *lem_in)

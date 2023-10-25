@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/24 14:24:31 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 15:08:57 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void parse_file(t_lem_in *lem_in) {
 		if (status == ANTS) {
 			lem_in->nb_ants = process_ants(lem_in, line, &status);
 			if (lem_in->verbose)
-				ft_putstr_fd("------ ANT NUMBER ------\n", 1);
+				ft_putstr_fd("#------ ANT NUMBER ------\n", 1);
 			ft_putnbr_fd(lem_in->nb_ants, 1);
 			ft_putchar_fd('\n', 1);
 		}
@@ -70,7 +70,7 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 		if (!lemin->start || !lemin->end)
 			bugs(lemin, ERR_NO_START_END);
 		if (lemin->verbose)
-			ft_putstr_fd("\n--- LINKS DEFINITION ---\n", 1);
+			ft_putstr_fd("\n#--- LINKS DEFINITION ---\n", 1);
 		return;
 	}
 
@@ -117,6 +117,11 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 	if (verify_numbers(coord2, 1) || !ft_strlen(coord2))
 		bugs(lemin, ERR_ROOM_SYNTAX);
 
+
+	//TODO : delete
+	lemin->nb_rooms++;
+
+
 	// Add the room to the structure
 	int ret = add_room(
 		lemin,
@@ -157,6 +162,11 @@ void process_links(t_lem_in *lemin, char *line) {
 	}
 	name2[j] = '\0';
 
+
+	//TODO: delete
+	lemin->nb_links++;
+
+
 	// Add the link to the structure
 	int ret = add_link(lemin->rooms, name, name2);
 	if (ret > 0)
@@ -175,7 +185,7 @@ int process_ants(t_lem_in *lemin, char *line, int *status) {
 		bugs(lemin, ERR_VALUE_ANTS);
 	*status = ROOMS;
 	if (lemin->verbose)
-		ft_putstr_fd("\n--- ROOMS DEFINITION ---\n", 1);
+		ft_putstr_fd("\n#--- ROOMS DEFINITION ---\n", 1);
 	return (ft_atoi(line));
 }
 

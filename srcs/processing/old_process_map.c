@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_map.c                                      :+:      :+:    :+:   */
+/*   old_process_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/25 14:39:25 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 14:09:45 by Link          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,36 +70,16 @@ void	create_pathes(t_lem_in *lem_in)
 	lem_in->max_pathes_leaves = ft_calloc(lem_in->end->nb_linked, sizeof (int));
 	if (!lem_in->pathes)
 		bugs(lem_in, ERR_ALLOCATION);
-
-
-	int nb_pathes = 0;
 	for (int i = 0; i < lem_in->end->nb_linked ; i++)
 	{
 		lem_in->max_pathes_leaves[i] = 8;
 		lem_in->good_pathes[i] = ft_calloc(lem_in->max_pathes_leaves[i] + 1, sizeof (t_pathes *));
 		lem_in->pathes[i] = create_path(lem_in->end->linked_rooms[i], i, NULL, 1, lem_in);
-		
-		//print good pathes
-		ft_printf("End %d:\n", i);
-		for (int j = 0; j < lem_in->nb_pathes_leaves[i]; j++)
-		{
-			ft_printf("\t\t");
-			nb_pathes++;
-			t_pathes *tmp = lem_in->good_pathes[i][j];
-			while (tmp)
-			{
-				ft_printf("%s->", tmp->room->name);
-				tmp = tmp->parent;
-			}
-			ft_printf("\n");
-		}
 	}
-	ft_printf("\n\tNB PATHES : %d\n\tNB ROOMS : %d\n\tNB LINKS : %d\n\tNB START : %d\n\tNB EXIT : %d\n\n", nb_pathes, lem_in->nb_rooms, lem_in->nb_links, lem_in->start->nb_linked, lem_in->end->nb_linked);
 }
 
 t_pathes	*create_path(t_room *room, int end_index, t_pathes *parent, int depth, t_lem_in *lem_in)
 {
-	//create a path linked to a specific end, and recursively all other potential paths linked to this same end
 	t_pathes	*ret;
 
 	ret = ft_calloc(1, sizeof (t_pathes));
@@ -107,10 +87,16 @@ t_pathes	*create_path(t_room *room, int end_index, t_pathes *parent, int depth, 
 	ret->children = ft_calloc(ret->max_children + 1, sizeof (t_pathes *));
 	ret->room = room;
 
-	// Check all my linked rooms for start
-	for (int i = 0 ; i < room->nb_linked; i++)
+	for (int i = 0 ; i < room->nb_linked ; i++)
 	{
-		if (room->linked_rooms[i]->is_start)
+		int my_distance = room->distances_to_ends[end_index];
+		int child_distance = room->linked_rooms[i]->distances_to_ends[end_index];
+		int is_my_ancestor = is_ancestor(parent, room->linked_rooms[i]);
+		if ((my_distance < child_distance || (
+				my_distance == child_distance
+				&& !is_my_ancestor)) && !room->linked_rooms[i]->is_end)
+			{
+			if (room->linked_rooms[i]->is_start)
 			{
 				ret->is_motherfucking_good = 1;
 				ret->depth = depth;
@@ -127,15 +113,6 @@ t_pathes	*create_path(t_room *room, int end_index, t_pathes *parent, int depth, 
 				lem_in->good_pathes[end_index][lem_in->nb_pathes_leaves[end_index]++] = ret;
 				return (ret);
 			}
-	}
-	// Add my linked room to struct if needed
-	for (int i = 0 ; i < room->nb_linked ; i++)
-	{
-		// int my_distance = room->distances_to_ends[end_index];
-		// int child_distance = room->linked_rooms[i]->distances_to_ends[end_index];
-		int is_my_ancestor = is_ancestor(parent, room->linked_rooms[i]);
-		if (!is_my_ancestor && !room->linked_rooms[i]->is_end)
-		{
 			t_pathes *new_path = create_path(room->linked_rooms[i], end_index, ret, depth + 1, lem_in);
 			if (!new_path)
 				continue;
@@ -164,7 +141,7 @@ t_pathes	*create_path(t_room *room, int end_index, t_pathes *parent, int depth, 
 		free(ret);
 		return (NULL);
 	}
-	return (ret);	
+	return (ret);
 }
 
 static int	is_ancestor(t_pathes *parent, t_room *room)

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/24 14:38:18 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 14:27:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	manage_conflicts(&lem_in);
 
 	// Throw ants on the paths
-	throw_ants(&lem_in);
+	//throw_ants(&lem_in);
 
 	// Tini, propers frees and exit
 	tini(&lem_in);

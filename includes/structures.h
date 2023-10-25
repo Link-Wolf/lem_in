@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/25 13:11:49 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/25 14:35:09 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_pathes
 
 typedef struct s_lem_in
 {
+	int			nb_rooms;
+	int			nb_links;
 	int			verbose;
 	t_pathes	**def_paths;
 	t_room		**rooms;

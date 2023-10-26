@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/25 16:34:02 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:58:04 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,32 @@ int main()
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+
+
+
+
+	//get output du lem_in
+	//	parse it
+	//parcoure les rooms pour store min et max x et y
+	//reparcoure des rooms pour afficher dans mlx_image
+	//parcour des liens pour afficher dans same mlx_image
+	//aff image
+	// (aff ants turn by turn with delay etc... using pixel put)
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	return (EXIT_SUCCESS);
 }

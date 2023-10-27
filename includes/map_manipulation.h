@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 10:52:48 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 12:21:27 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include "return_codes.h"
 # include "structures.h"
+# include <limits.h>
 
 /**
  *	@brief	Add a room to the structure of rooms

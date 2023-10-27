@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 11:01:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 13:34:24 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,15 @@ enum {
 	ERR_NO_START_END,
 	ERR_LINK_ALREADY_EXISTS,
 	ERR_NO_SOLUTION,
-	ERR_INCOMPLETE_INPUT
+	ERR_USAGE,
+	ERR_MLX_INIT,
+	ERR_MLX_NEW_IMG,
+	ERR_MLX_IMG_TO_WIN,
+};
+
+enum {
+	VERBOSE = 1,
+	VISUALIZER = 2
 };
 
 #endif

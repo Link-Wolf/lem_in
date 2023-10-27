@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 10:52:57 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 16:40:42 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define NAME_SIZE 128
 
 struct s_pathes;
+struct s_visualiser;
 
 typedef struct s_room
 {
@@ -43,7 +44,7 @@ typedef struct s_pathes
 	int				is_motherfucking_good;
 	int				depth;
 	t_room			*room;
-	struct s_pathes	*parent; // NULL if pathe is pseudo exit
+	struct s_pathes	*parent; // NULL if path is pseudo exit
 
 	int				nb_children;
 	int				max_children;
@@ -54,23 +55,35 @@ typedef struct s_pathes
 	struct s_pathes	**conflicts;
 }	t_pathes;
 
+typedef struct s_visualiser
+{
+	int max_y;
+	int max_x;
+
+	int nb_allocated_room_lines;
+	int	*room_line_size;
+
+}	t_visualiser;
+
 typedef struct s_lem_in
 {
-	int			nb_rooms;
-	int			nb_links;
-	int			verbose;
-	t_pathes	**def_paths;
-	t_room		**rooms;
-	t_room		*start;
-	t_room		*end;
+	int				nb_rooms;
+	int				nb_links;
+	int				verbose;
+	int				has_visualizer;
+	t_pathes		**def_paths;
+	t_room			**rooms;
+	t_room			*start;
+	t_room			*end;
 
-	int			nb_def_paths;
-	int			nb_ants;
-	t_pathes	**pathes; // NOTE: act as a tree
+	int				nb_def_paths;
+	int				nb_ants;
+	t_pathes		**pathes; // NOTE: act as a tree
 
-	int			*nb_pathes_leaves;
-	int			*max_pathes_leaves;
-	t_pathes	***good_pathes; // NOTE: act as an array
+	int				*nb_pathes_leaves;
+	int				*max_pathes_leaves;
+	t_pathes		***good_pathes; // NOTE: act as an array
+	t_visualiser	*visualiser;
 }	t_lem_in;
 
 typedef struct s_ant
@@ -87,5 +100,6 @@ typedef struct s_state
 	int	*state;
 	int	state_size;
 }	t_state;
+
 
 #endif

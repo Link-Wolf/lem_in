@@ -6,17 +6,14 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/25 14:36:36 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 14:17:33 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-// TODO: use t_lem_in instead of t_room
-
 void	init(t_lem_in *lem_in)
 {
-	lem_in->rooms = ft_calloc(1, sizeof (t_room *));
 	lem_in->end = NULL;
 	lem_in->start = NULL;
 	lem_in->pathes = NULL;
@@ -29,6 +26,10 @@ void	init(t_lem_in *lem_in)
 	lem_in->nb_def_paths = 0;
 	lem_in->nb_rooms = 0;
 	lem_in-> nb_links = 0;
+	lem_in->rooms = ft_calloc(1, sizeof (t_room *));
+	lem_in->visualiser = ft_calloc(1, sizeof (t_visualiser));
+	if (!lem_in->rooms || !lem_in->visualiser)
+		bugs(lem_in, ERR_ALLOCATION);
 }
 
 void	tini(t_lem_in *lem_in)
@@ -48,4 +49,5 @@ void	tini(t_lem_in *lem_in)
 	free(lem_in->rooms);
 	free(lem_in->pathes);
 	free(lem_in->def_paths);
+	free(lem_in->visualiser);
 }

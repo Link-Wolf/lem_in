@@ -15,7 +15,7 @@ NAME_BONUS		=	vizualizer
 
 LIBMLX	:= libs/MLX42
 HEADERS	:= -I includes -I $(LIBMLX)/include -I libs/libft
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -Llibs/libft -lft
 
 LIBFT	=	libs/libft/libft.a
 
@@ -33,12 +33,10 @@ SRCS_N			=	lem_in							\
 					processing/check_for_trivials	\
 					processing/conflicts			\
 					processing/sort_pathes			\
+					visualiser/visualiser			\
+					visualiser/draw				\
 
 SRCS			=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
-
-SRCS_N_BONUS	=	visualizer/visualizer
-
-SRCS_BONUS		=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N_BONUS)))
 
 OBJS			=	$(SRCS:.c=.o)
 OBJS_BONUS		=	$(SRCS_BONUS:.c=.o)
@@ -58,22 +56,16 @@ $(LIBMLX)/build/libmlx42.a:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build > /dev/null && make -C $(LIBMLX)/build -j4 > /dev/null
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"libmlx"\t\t\t\t[ ✓ ]\n\e[0m"
 
-$(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) -Llibs/libft $(OBJS) -lft -fsanitize=address -static-libasan
+$(NAME): $(LIBFT) $(OBJS) $(LIBMLX)/build/libmlx42.a
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address -g -static-libasan
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 $(LIBFT):
 	@$(MAKE) -C libs/libft/
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) -fsanitize=address -g -static-libasan
 	@printf $(ERRASE_LINE)$(OBJ_COLOR)"\t"$@"\e[0m"
-
-bonus: $(NAME_BONUS)
-
-$(NAME_BONUS): $(LIBMLX)/build/libmlx42.a $(LIBFT) $(OBJS_BONUS)
-	@$(CC) $(OBJS_BONUS) $(LIBS) $(HEADERS) -o $(NAME_BONUS)
-	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME_BONUS)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 clean:
 	@$(MAKE) -C libs/libft/ fclean

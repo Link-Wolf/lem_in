@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/27 11:03:52 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 14:13:28 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ int	main(int argc, char **argv)
 	t_lem_in	lem_in;
 	init(&lem_in);
 
-	if (argc != 1)
+	int flags = 0;
+	for (int i = 1; i < argc; i++)
 	{
-		if (!ft_strcmp(argv[1], "--verbose") || !ft_strcmp(argv[1], "-v"))
-			lem_in.verbose = 1;
+		if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "--verbose"))
+			flags |= VERBOSE;
+		else if (!ft_strcmp(argv[i], "-b") || !ft_strcmp(argv[i], "--bonus"))
+			flags |= VISUALIZER;
 		else
-		{
-			ft_putendl_fd("Usage:\n\t./lem-in [ -v | --verbose ] < map_file\n\n\tNOTE: map_file can be replaced by the map generator as follow:\n\t\t./generator_linux [ --flow-one | --flow-ten | --flow-thousand | --big | --big-superposition ]", 1);
-			return (1);
-		}
+			bugs(&lem_in, ERR_USAGE);
 	}
+	lem_in.verbose = flags & VERBOSE;
+	lem_in.has_visualizer = flags & VISUALIZER;
 
 	// Parse file & store data
-	parse_file(&lem_in, 0);
+	parse_file(&lem_in);
 
 	// Check for trivial cases to avoid useless computations
 	// check_for_trivials(&lem_in);
@@ -45,6 +47,9 @@ int	main(int argc, char **argv)
 
 	// Check for conflicts
 	manage_conflicts(&lem_in);
+
+	if (lem_in.has_visualizer)
+		visualise(&lem_in);
 
 	// Throw ants on the paths
 	//throw_ants(&lem_in);

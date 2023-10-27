@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 13:12:29 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 14:01:15 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	add_room(t_lem_in *lem_in, char *name, int is_start, int is_end, int x_coord
 
 t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 {
+	(void) x_coord;
+	(void) y_coord;
 	t_room	*ret;
 
 	ret = ft_calloc(1, sizeof (t_room));
@@ -85,7 +87,7 @@ t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coo
 	ret->is_start = is_start;
 	ret->is_end = is_end;
 	ret->max_linked = 8;
-	ret->y_coord = y_coord;
+	ret->y_coord = INT_MAX;
 	ret->x_coord = x_coord;
 	ret->linked_rooms = ft_calloc(8, sizeof (t_room));
 	if (!ret->linked_rooms)

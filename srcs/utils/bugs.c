@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/10/23 17:08:11 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:41:45 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ const char	*error_msgs[] = {
 	[ERR_NO_START_END] = "The map is missing start and/or end room(s)",
 	[ERR_LINK_ALREADY_EXISTS] = "Links cannot be duplicated",
 	[ERR_NO_SOLUTION] = "No solution found, or we're fucked, or we're dumb, who knows",
+	[ERR_USAGE] = "Usage: ./lemin [-v|--verbose] [-b|--bonus] < map.map"
 };
 
 void	bugs(t_lem_in *lem_in, int code)

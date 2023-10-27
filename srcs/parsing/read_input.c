@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/27 11:08:11 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:44:23 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 */
 static int verify_numbers(char *line, int minus);
 
-void parse_file(t_lem_in *lem_in, int allow_ants)
-{
+void parse_file(t_lem_in *lem_in) {
 	char	*line = NULL;
 	int		status = ANTS;
 	int		cmd = NONE;
@@ -55,22 +54,9 @@ void parse_file(t_lem_in *lem_in, int allow_ants)
 			process_rooms(lem_in, line, &cmd, &status);
 		if (status == LINKS)
 			process_links(lem_in, line);
-		if (status == SEPARATOR)
-		{
-			if (line[0] != '\n' || !allow_ants)
-				bugs(lem_in, ERR_LINK_SYNTAX);
-			status = ANT_THROW;
-			continue ;
-		}
-		if (status == ANT_THROW)
-		{
-			// TODO: add ant throw parse
-		}
 	}
-	if (status != LINKS && !allow_ants)
+	if (status != LINKS)
 		bugs(lem_in, ERR_NO_LINKS);
-	if (status != ANT_THROW && allow_ants)
-		bugs(lem_in, ERR_INCOMPLETE_INPUT);
 	ft_putchar_fd('\n', 1);
 	// print_lemin(lem_in);
 }
@@ -150,7 +136,6 @@ void process_rooms(t_lem_in *lemin, char *line, int *cmd, int *status) {
 }
 
 void process_links(t_lem_in *lemin, char *line) {
-	if ()
 	// Verify that the line contains a dash
 	char *find = ft_strchr(line, '-') + 1;
 	if (find == NULL + 1 || find == line || find == line + 1)

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:14:15 by Link           #+#    #+#             */
-/*   Updated: 2023/10/20 15:04:32 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/27 10:52:50 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "../libft/libft.h"
+# include "../libs/libft/libft.h"
 # include "./structures.h"
 # include "./utils.h"
 # include "./return_codes.h"

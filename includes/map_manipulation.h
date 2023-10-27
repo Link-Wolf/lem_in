@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_manipulation.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 17:24:35 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/27 10:52:48 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_MANIPULATION_H
 # define MAP_MANIPULATION_H
 
-# include "../libft/libft.h"
+# include "../libs/libft/libft.h"
 
 # include "return_codes.h"
 # include "structures.h"

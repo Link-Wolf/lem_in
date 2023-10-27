@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 18:00:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 10:52:56 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "./structures.h"
 # include "./return_codes.h"
 # include "./map_manipulation.h"
-# include "../libft/libft.h"
+# include "../libs/libft/libft.h"
 
 /**
  *	@brief	Initialize the main room structure

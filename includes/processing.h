@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   processing.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:42 by Link           #+#    #+#             */
-/*   Updated: 2023/10/25 14:09:45 by Link          ###   ########.fr       */
+/*   Updated: 2023/10/27 10:52:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESSING_H
 # define PROCESSING_H
 
-# include "../libft/libft.h"
+# include "../libs/libft/libft.h"
 # include "./structures.h"
 # include "./return_codes.h"
 # include "./utils.h"

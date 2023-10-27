@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/23 17:07:10 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:01:58 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ enum {
 	ERR_NO_START_END,
 	ERR_LINK_ALREADY_EXISTS,
 	ERR_NO_SOLUTION,
+	ERR_INCOMPLETE_INPUT
 };
 
 #endif

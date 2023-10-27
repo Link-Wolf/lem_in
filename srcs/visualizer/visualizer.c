@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/27 10:49:39 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:05:24 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static mlx_image_t* image;
 
 int main()
 {
-	mlx_t* mlx;
+	t_lem_in	lem_in;
+	mlx_t*		mlx;
+
+	init(&lem_in);
+	parse_file(&lem_in, 1);
 
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))

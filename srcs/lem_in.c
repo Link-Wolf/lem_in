@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/10/25 14:27:26 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:03:52 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	}
 
 	// Parse file & store data
-	parse_file(&lem_in);
+	parse_file(&lem_in, 0);
 
 	// Check for trivial cases to avoid useless computations
 	// check_for_trivials(&lem_in);

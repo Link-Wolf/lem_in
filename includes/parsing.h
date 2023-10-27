@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:14:15 by Link           #+#    #+#             */
-/*   Updated: 2023/10/27 10:52:50 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:03:40 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ enum {
 enum {
 	ANTS = 0,
 	ROOMS = 1,
-	LINKS = 2
+	LINKS = 2,
+	SEPARATOR = 3,
+	ANT_THROW = 4
 };
 
 /**
  * @brief      Parses the input data
  * @param      lem_in  The lem_in global structure to fill
 */
-void parse_file(t_lem_in *lem_in);
+void parse_file(t_lem_in *lem_in, int allow_ants);
 
 /**
  * @brief      Processes the command line from the input

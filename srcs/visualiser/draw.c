@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 10:32:41 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 11:07:22 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,77 @@ void	draw_room(mlx_image_t *img, int x, int y, int d, int color)
 	}
 }
 
-void	draw_link(mlx_image_t *img, int x1, int y1, int x2, int y2, int color)
+static void	plotLineLow(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
 {
-	int dx = x2 - x1;
-	int dy = y2 - y1;
-	int D = 2 * dy - dx;
-	int y = y1;
+	int	dx = x1 - x0;
+	int	dy = y1 - y0;
+	int	yi = 1;
+	if (dy < 0)
+	{
+		yi = -1;
+		dy = -dy;
+	}
+	int	D = (2 * dy) - dx;
+	int	y = y0;
 
-	for (int x = x1 ; x <= x2 ; x++)
+	for (int x = x0; x <= x1 ; x++)
 	{
 		if (x >= 0 && x < (int) img->width
 			&& y >= 0 && y < (int) img->height)
-		set_pixel_color(get_pixel_address(img, x, y), color);
+			set_pixel_color(get_pixel_address(img, x, y), color);
 		if (D > 0)
 		{
-			y++;
-			D -= 2 * dx;
+			y = y + yi;
+			D = D + (2 * (dy - dx));
 		}
-		D += 2 * dy;
+		else
+			D = D + 2*dy;
+	}
+}
+
+
+static void	plotLineHigh(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
+{
+	int	dx = x1 - x0;
+	int	dy = y1 - y0;
+	int	xi = 1;
+	if (dx < 0)
+	{
+		xi = -1;
+		dx = -dx;
+	}
+	int	D = (2 * dx) - dy;
+	int	x = x0;
+
+	for (int y = y0; y <= y1 ; y++)
+    {
+		if (x >= 0 && x < (int) img->width
+			&& y >= 0 && y < (int) img->height)
+			set_pixel_color(get_pixel_address(img, x, y), color);
+        if (D > 0)
+        {
+			x = x + xi;
+            D = D + (2 * (dx - dy));
+		}
+        else
+            D = D + 2*dx;
+	}
+}
+
+void	draw_link(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
+{
+	if (ft_abs(y1 - y0) < ft_abs(x1 - x0))
+    {
+		if (x0 > x1)
+            plotLineLow(img, x1, y1, x0, y0, color);
+        else
+            plotLineLow(img, x0, y0, x1, y1, color);
+	}
+    else
+	{
+        if (y0 > y1)
+            plotLineHigh(img, x1, y1, x0, y0, color);
+        else
+            plotLineHigh(img, x0, y0, x1, y1, color);
 	}
 }

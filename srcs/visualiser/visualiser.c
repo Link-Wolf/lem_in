@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/30 10:37:59 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:40:57 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,7 @@ void visualise(t_lem_in *lemin)
 
 	ft_printf("max_room_size = %d\nroom_size = %d\ndesired size = %d\n", max_room_size, room_size, DESIRED_ROOM_SIZE);
 
-	// draw start
-	draw_room(
-		img,
-		WIDTH / 2,
-		room_size + (lemin->visualiser->max_y + 1) * room_size * 3,
-		room_size,
-		0xFF0000FF
-	);
-
+	// draw links
 	for (int i = 0 ; i < lemin->start->nb_linked ; i ++)
 	{
 		draw_link(
@@ -83,15 +75,7 @@ void visualise(t_lem_in *lemin)
 			0xFF0000FF
 		);
 	}
-
-	// draw all others
-	// loop over all lines
-	draw_all_rooms(*lemin->rooms, img, room_size, lemin);
 	draw_all_links(*lemin->rooms, img, room_size, lemin);
-
-	// draw end
-	draw_room(img, WIDTH / 2, room_size, room_size, 0x0000FFFF);
-
 	for (int i = 0 ; i < lemin->end->nb_linked ; i ++)
 	{
 		draw_link(
@@ -105,6 +89,17 @@ void visualise(t_lem_in *lemin)
 			0x0000FFFF
 		);
 	}
+
+	// draw rooms
+	draw_room(
+		img,
+		WIDTH / 2,
+		room_size + (lemin->visualiser->max_y + 1) * room_size * 3,
+		room_size,
+		0xFF0000FF
+	);
+	draw_all_rooms(*lemin->rooms, img, room_size, lemin);
+	draw_room(img, WIDTH / 2, room_size, room_size, 0x0000FFFF);
 
 	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
 		bugs(lemin, ERR_MLX_IMG_TO_WIN);

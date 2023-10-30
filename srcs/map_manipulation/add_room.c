@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 14:01:15 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 13:56:29 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coo
 	ret->y_coord = INT_MAX;
 	ret->x_coord = x_coord;
 	ret->linked_rooms = ft_calloc(8, sizeof (t_room));
+	ret->nb_visits = 0;
 	if (!ret->linked_rooms)
 	{
 		free(ret);

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 11:07:22 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 17:27:51 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@ static int get_a(int rgba)
     // Move 0 bytes to the right and mask out the first byte.
     return (rgba & 0xFF);
 }
-
-// static int point_in_circle(int x, int y, int cx, int cy, int r)
-// {
-// 	int radius_squared = r * r;
-// 	int distance_center_point_squared = (x - cx) * (x - cx) + (y - cy) * (y - cy);
-
-// 	return (distance_center_point_squared <= radius_squared);
-// }
 
 static void set_pixel_color(uint8_t *pixel, int color)
 {
@@ -91,7 +83,7 @@ void	draw_room(mlx_image_t *img, int x, int y, int d, int color)
 							get_pixel_address(
 								img, pixel_x, pixel_y), // X <= Y octants
 							color);
-					}
+				}
 			}
 		}
 
@@ -177,5 +169,51 @@ void	draw_link(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
             plotLineHigh(img, x1, y1, x0, y0, color);
         else
             plotLineHigh(img, x0, y0, x1, y1, color);
+	}
+}
+
+void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
+{
+	if (room->left)
+		draw_all_rooms(room->left, img, room_size, lemin, width, zoom);
+	if (room->right)
+		draw_all_rooms(room->right, img, room_size, lemin, width, zoom);
+	if (room->is_start || room->is_end)
+		return ;
+	draw_room(
+		img,
+		zoom->x + width
+			/ (lemin->visualiser->room_line_size[room->y_coord] + 1)
+			* (room->x_coord + 1),
+		zoom->y + room_size + room->y_coord * room_size * SPACE_BETWEEN_LINES,
+		room_size,
+		ROOM_COLOR
+	);
+}
+
+void draw_all_links(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
+{
+	if (room->left)
+		draw_all_links(room->left, img, room_size, lemin, width, zoom);
+	if (room->right)
+		draw_all_links(room->right, img, room_size, lemin, width, zoom);
+	if (room->is_start || room->is_end)
+		return ;
+	for (int i = 0 ; i < room->nb_linked ; i++)
+	{
+		if (room->linked_rooms[i]->is_end || room->linked_rooms[i]->is_start)
+			continue ;
+		draw_link(
+			img,
+			zoom->x + width
+				/ (lemin->visualiser->room_line_size[room->y_coord] + 1)
+				* (room->x_coord + 1),
+			zoom->y + room_size + room->y_coord * room_size * SPACE_BETWEEN_LINES,
+			zoom->x + width
+				/ (lemin->visualiser->room_line_size[room->linked_rooms[i]->y_coord] + 1)
+				* (room->linked_rooms[i]->x_coord + 1),
+			zoom->y + room_size + room->linked_rooms[i]->y_coord * room_size * SPACE_BETWEEN_LINES,
+			get_random_color()
+		);
 	}
 }

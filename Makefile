@@ -34,7 +34,8 @@ SRCS_N			=	lem_in							\
 					processing/conflicts			\
 					processing/sort_pathes			\
 					visualiser/visualiser			\
-					visualiser/draw				\
+					visualiser/draw					\
+					visualiser/hook					\
 
 SRCS			=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 

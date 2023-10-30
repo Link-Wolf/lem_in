@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 16:40:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 11:59:44 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_room
 	int				is_end;
 	int				x_coord;
 	int				y_coord;
+	int				nb_visits;
 	int				*distances_to_ends;
 
 	struct s_room	*left;

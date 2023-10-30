@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 14:17:33 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:20:00 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init(t_lem_in *lem_in)
 	lem_in-> nb_links = 0;
 	lem_in->rooms = ft_calloc(1, sizeof (t_room *));
 	lem_in->visualiser = ft_calloc(1, sizeof (t_visualiser));
+	lem_in->visualiser->room_line_size = NULL;
 	if (!lem_in->rooms || !lem_in->visualiser)
 		bugs(lem_in, ERR_ALLOCATION);
 }
@@ -49,5 +50,6 @@ void	tini(t_lem_in *lem_in)
 	free(lem_in->rooms);
 	free(lem_in->pathes);
 	free(lem_in->def_paths);
+	free(lem_in->visualiser->room_line_size);
 	free(lem_in->visualiser);
 }

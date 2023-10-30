@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/30 09:38:49 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:17:42 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 #include "../../includes/visualiser.h"
 
 static void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin);
+
+static void	handle_inputs(mlx_key_data_t keydata, void* param)
+{
+	mlx_t *mlx = (mlx_t *)param;
+
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(mlx);
+}
+static void	handle_window_close(void* param)
+{
+	mlx_t *mlx = (mlx_t *)param;
+
+	mlx_close_window(mlx);
+}
 
 void visualise(t_lem_in *lemin)
 {
@@ -64,6 +78,10 @@ void visualise(t_lem_in *lemin)
 
 	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
 		bugs(lemin, ERR_MLX_IMG_TO_WIN);
+
+	mlx_close_hook(mlx, handle_window_close, mlx);
+	mlx_key_hook(mlx, handle_inputs, mlx);
+
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 

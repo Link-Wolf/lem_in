@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 17:40:32 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 09:57:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@
 # define ROOM_COLOR 0x00FF00FF
 
 void 	visualise(t_lem_in *lemin);
+
+/**
+ *	@brief Draw a room in the image. Using Breseham's midpoint algorithm.
+ *	@param img The image to draw in.
+ *	@param x The x coordinate of the center of the room.
+ *	@param y The y coordinate of the center of the room.
+ *	@param d The diameter of the room.
+ *	@param color The color of the room.
+ */
 void	draw_room(mlx_image_t *img, int x, int y, int d, int color);
 
 #endif

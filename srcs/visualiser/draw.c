@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 10:06:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:32:41 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,26 @@ void	draw_room(mlx_image_t *img, int x, int y, int d, int color)
 			E -= 2 * X - 1;
 			X--;
 		}
+	}
+}
+
+void	draw_link(mlx_image_t *img, int x1, int y1, int x2, int y2, int color)
+{
+	int dx = x2 - x1;
+	int dy = y2 - y1;
+	int D = 2 * dy - dx;
+	int y = y1;
+
+	for (int x = x1 ; x <= x2 ; x++)
+	{
+		if (x >= 0 && x < (int) img->width
+			&& y >= 0 && y < (int) img->height)
+		set_pixel_color(get_pixel_address(img, x, y), color);
+		if (D > 0)
+		{
+			y++;
+			D -= 2 * dx;
+		}
+		D += 2 * dy;
 	}
 }

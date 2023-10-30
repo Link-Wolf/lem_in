@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 09:57:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:39:24 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,16 @@ void 	visualise(t_lem_in *lemin);
  *	@param color The color of the room.
  */
 void	draw_room(mlx_image_t *img, int x, int y, int d, int color);
+
+/**
+ *	@brief Draw a link between two rooms. Using Breseham's line algorithm.
+ *	@param img The image to draw in.
+ *	@param x1 The x coordinate of the first room.
+ *	@param y1 The y coordinate of the first room.
+ *	@param x2 The x coordinate of the second room.
+ *	@param y2 The y coordinate of the second room.
+ *	@param color The color of the link.
+ */
+void	draw_link(mlx_image_t *img, int x1, int y1, int x2, int y2, int color);
 
 #endif

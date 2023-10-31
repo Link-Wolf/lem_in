@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 17:27:51 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 10:49:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,46 +174,53 @@ void	draw_link(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
 
 void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
 {
+	int color = ROOM_COLOR;
+
 	if (room->left)
 		draw_all_rooms(room->left, img, room_size, lemin, width, zoom);
 	if (room->right)
 		draw_all_rooms(room->right, img, room_size, lemin, width, zoom);
-	if (room->is_start || room->is_end)
-		return ;
+	if (room->is_start)
+		color = START_ROOM_COLOR;
+	if (room->is_end)
+		color = EXIT_ROOM_COLOR;
+	// TODO: skip way too far rooms
 	draw_room(
 		img,
-		zoom->x + width
-			/ (lemin->visualiser->room_line_size[room->y_coord] + 1)
-			* (room->x_coord + 1),
-		zoom->y + room_size + room->y_coord * room_size * SPACE_BETWEEN_LINES,
-		room_size,
-		ROOM_COLOR
+		zoom->x_offset + room->x_coord * zoom->zoom_ratio,
+		zoom->y_offset + room->y_coord * zoom->zoom_ratio,
+		room_size * zoom->zoom_ratio,
+		color
 	);
 }
 
 void draw_all_links(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
 {
+	int color = get_random_color();
+
 	if (room->left)
 		draw_all_links(room->left, img, room_size, lemin, width, zoom);
 	if (room->right)
 		draw_all_links(room->right, img, room_size, lemin, width, zoom);
-	if (room->is_start || room->is_end)
-		return ;
+	if (room->is_start)
+		color = START_ROOM_COLOR;
+	if (room->is_end)
+		color = EXIT_ROOM_COLOR;\
+	// TODO: skip way too far rooms
 	for (int i = 0 ; i < room->nb_linked ; i++)
 	{
-		if (room->linked_rooms[i]->is_end || room->linked_rooms[i]->is_start)
-			continue ;
+		if (room->linked_rooms[i]->is_start)
+			color = START_ROOM_COLOR;
+		if (room->linked_rooms[i]->is_end)
+			color = EXIT_ROOM_COLOR;\
+		// TODO: skip way too far rooms
 		draw_link(
 			img,
-			zoom->x + width
-				/ (lemin->visualiser->room_line_size[room->y_coord] + 1)
-				* (room->x_coord + 1),
-			zoom->y + room_size + room->y_coord * room_size * SPACE_BETWEEN_LINES,
-			zoom->x + width
-				/ (lemin->visualiser->room_line_size[room->linked_rooms[i]->y_coord] + 1)
-				* (room->linked_rooms[i]->x_coord + 1),
-			zoom->y + room_size + room->linked_rooms[i]->y_coord * room_size * SPACE_BETWEEN_LINES,
-			get_random_color()
+			zoom->x_offset + room->x_coord * zoom->zoom_ratio,
+			zoom->y_offset + room->y_coord * zoom->zoom_ratio,
+			zoom->x_offset + room->linked_rooms[i]->x_coord * zoom->zoom_ratio,
+			zoom->y_offset + room->linked_rooms[i]->y_coord * zoom->zoom_ratio,
+			color
 		);
 	}
 }

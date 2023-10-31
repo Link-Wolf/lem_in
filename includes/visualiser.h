@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 17:42:49 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:44:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,19 @@
 # define SPACE_BETWEEN_LINES 5
 # define ROOM_COLOR 0x904D50FF
 
+# define MARGIN_SIZE 80
+# define ROOM_DIAMETER 80
+# define SCROLL_POWER 10
+
 typedef	struct	s_zoom
 {
-	double		x;
-	double		y;
-	double		zoom;
+	char	scroll_direction;
+	char	scroll_mode;
+	int		width;
+	int		height;
+	double	x_offset;
+	double	y_offset;
+	double	zoom_ratio;
 }				t_zoom;
 
 typedef	struct	s_param{
@@ -45,8 +53,8 @@ typedef	struct	s_param{
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_zoom			*zoom;
-	double			last_resize_age;
-	bool			need_to_resize;
+	double			last_redraw_request_age;
+	bool			need_to_redraw;
 }					t_param;
 
 void 	visualise(t_lem_in *lemin);

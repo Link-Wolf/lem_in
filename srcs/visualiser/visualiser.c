@@ -6,20 +6,20 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/30 17:43:18 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:47:17 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/visualiser.h"
 
+static void	set_room_locations(t_room *room, t_lem_in *lem_in, int width, int height);
 
 void visualise(t_lem_in *lemin)
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
-	t_zoom			zoom = {0.0, 0.0, 1.0};
+	t_zoom			zoom;
 
-	srand(time(NULL));
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "lem-in", true)))
 		bugs(lemin, ERR_MLX_INIT);
 
@@ -32,10 +32,25 @@ void visualise(t_lem_in *lemin)
 		bugs(lemin, ERR_MLX_IMG_TO_WIN);
 
 	mlx_close_hook(mlx, handle_window_close, mlx);
-	mlx_key_hook(mlx, handle_inputs, mlx);
+	mlx_key_hook(mlx, handle_inputs, &params);
 	mlx_resize_hook(mlx, resize_window, &params);
 	mlx_scroll_hook(mlx, scroll_handler, &params);
 	mlx_loop_hook(mlx, loop_handler, &params);
+
+	double virtual_width = lemin->visualiser->max_x
+		* ROOM_DIAMETER * 3 + ROOM_DIAMETER * 2 * 2;
+	double virtual_height = (lemin->visualiser->max_y + 1)
+		* (SPACE_BETWEEN_LINES * ROOM_DIAMETER)
+		+ ROOM_DIAMETER
+		+ ROOM_DIAMETER * 2 * 2;
+	set_room_locations(*lemin->rooms, lemin, virtual_width, virtual_height);
+	zoom.scroll_direction = 'y';
+	zoom.scroll_mode = 's';
+	zoom.height = virtual_height;
+	zoom.width = virtual_width;
+	zoom.x_offset = 0;
+	zoom.y_offset = 0;
+	zoom.zoom_ratio = (double) WIDTH / virtual_width;
 
 	generate_image(mlx, &img, &zoom, lemin);
 
@@ -45,11 +60,48 @@ void visualise(t_lem_in *lemin)
 	return ;
 }
 
+static void	set_room_locations(t_room *room, t_lem_in *lem_in, int width, int height)
+{
+	if (!room)
+		return ;
+	set_room_locations(room->left, lem_in, width, height);
+	set_room_locations(room->right, lem_in, width, height);
+	if (room->is_end)
+	{
+		room->x_coord = width / 2; // Center of the virtual space
+		room->y_coord = ROOM_DIAMETER * 2 + ROOM_DIAMETER / 2; // Top of the virtual space
+		return ;
+	}
+	if (room->is_start)
+	{
+		room->x_coord = width / 2; // Center of the virtual space
+		room->y_coord = height - ROOM_DIAMETER * 2 - ROOM_DIAMETER / 2; // Bottom of the virtual space
+		return ;
+	}
+	int current_x = room->x_coord;
+	int current_y = room->y_coord;
+	int current_line_size = lem_in->visualiser->room_line_size[current_y];
+	int nb_lines = lem_in->visualiser->max_y;
+
+	if (current_line_size == 1)
+		room->x_coord = width / 2; // Center of the virtual space
+	else
+		room->x_coord = ROOM_DIAMETER * 2 + ROOM_DIAMETER / 2 // Minimum x
+			+ (width - ROOM_DIAMETER * 2 * 2 - ROOM_DIAMETER) // Empty space between the left and the right
+				/ (current_line_size - 1) // Number of spaces between rooms
+				* current_x; // Position of the room in the line
+	room->y_coord = ROOM_DIAMETER * 2 + ROOM_DIAMETER / 2 // Minimum y
+		+ (height - ROOM_DIAMETER * 2 * 2 - ROOM_DIAMETER) // Empty space between the top and the bottom
+			/ (nb_lines + 1) // Number of spaces between lines, +1 instad of -1 because we want to count the first line and the last line
+			* (current_y); // Line of the room + 1 because we want to count the first line
+}
+
 void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom, t_lem_in *lemin)
 {
 	mlx_image_t	*tmp = *img;
 
 	int	must_put_image = 0;
+	srand(3141595);
 
 	if (mlx->width != (int) (*img)->width || mlx->height != (int) (*img)->height)
 	{
@@ -60,56 +112,8 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom, t_lem_in *lemin
 
 	ft_memset(tmp->pixels, 0xFF, tmp->width * tmp->height * 4);
 
-	int max_line_size = lemin->visualiser->max_x;
-	int actual_space_between_rooms = SPACE_BETWEEN_ROOMS;
-	while ((max_line_size + 1) * actual_space_between_rooms > mlx->width - max_line_size * 10)
-		actual_space_between_rooms--;
-	int max_room_size = (mlx->width - ((max_line_size + 1) * actual_space_between_rooms)) / max_line_size;
-	int room_size = ft_min(max_room_size, DESIRED_ROOM_SIZE);
-
-	// draw start links
-	for (int i = 0 ; i < lemin->start->nb_linked ; i ++)
-	{
-		draw_link(
-			tmp,
-			zoom->x + mlx->width / 2,
-			zoom->y + room_size + (lemin->visualiser->max_y + 1) * room_size * 3,
-			zoom->x + mlx->width
-				/ (lemin->visualiser->room_line_size[lemin->start->linked_rooms[i]->y_coord] + 1)
-				* (lemin->start->linked_rooms[i]->x_coord + 1),
-			zoom->y	+ room_size	+ lemin->start->linked_rooms[i]->y_coord * room_size * SPACE_BETWEEN_LINES,
-			START_ROOM_COLOR
-		);
-	}
-	// draw end links
-	for (int i = 0 ; i < lemin->end->nb_linked ; i ++)
-	{
-		draw_link(
-			tmp,
-			zoom->x + mlx->width / 2,
-			zoom->y +room_size,
-			zoom->x + mlx->width
-				/ (lemin->visualiser->room_line_size[lemin->end->linked_rooms[i]->y_coord] + 1)
-				* (lemin->end->linked_rooms[i]->x_coord + 1),
-			zoom->y +room_size + lemin->end->linked_rooms[i]->y_coord * room_size * SPACE_BETWEEN_LINES,
-			EXIT_ROOM_COLOR
-		);
-	}
-	// draw all others links
-	draw_all_links(*lemin->rooms, tmp, room_size, lemin, tmp->width, zoom);
-
-	// draw start room
-	draw_room(
-		tmp,
-		zoom->x + mlx->width / 2,
-		zoom->y + room_size + (lemin->visualiser->max_y + 1) * room_size * 3,
-		room_size,
-		START_ROOM_COLOR
-	);
-	// draw end room
-	draw_room(tmp, zoom->x + mlx->width / 2, zoom->y + room_size, room_size, EXIT_ROOM_COLOR);
-	// draw all others rooms
-	draw_all_rooms(*lemin->rooms, tmp, room_size, lemin, tmp->width, zoom);
+	draw_all_links(*lemin->rooms, tmp, ROOM_DIAMETER, lemin, tmp->width, zoom);
+	draw_all_rooms(*lemin->rooms, tmp, ROOM_DIAMETER, lemin, tmp->width, zoom);
 
 	if (must_put_image)
 	{

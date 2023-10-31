@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 17:40:51 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:52:14 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,26 @@
 
 void	handle_inputs(mlx_key_data_t keydata, void* param)
 {
-	mlx_t *mlx = param;
+	t_param *params = param;
 
 	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_close_window(mlx);
-
+		mlx_close_window(params->mlx);
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_PRESS)
+	{
+		params->zoom->scroll_direction = 'x';
+	}
+	if (keydata.key == MLX_KEY_LEFT_SHIFT && keydata.action == MLX_RELEASE)
+	{
+		params->zoom->scroll_direction = 'y';
+	}
+	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_PRESS)
+	{
+		params->zoom->scroll_mode = 'z';
+	}
+	if (keydata.key == MLX_KEY_LEFT_CONTROL && keydata.action == MLX_RELEASE)
+	{
+		params->zoom->scroll_mode = 's';
+	}
 }
 void	handle_window_close(void* param)
 {
@@ -31,17 +46,20 @@ void	scroll_handler(double xdelta, double ydelta, void* param)
 {
 	t_param *params = param;
 
-	if (ydelta != 0) {
-		// scroll up or down, move the content of the img vertically as ydelta * constant
-		params->zoom->y += ydelta * 10;
-		generate_image(params->mlx, &params->img, params->zoom, params->lemin);
+	params->last_redraw_request_age = 0;
+	if (params->zoom->scroll_mode == 'z')
+	{
+		params->zoom->zoom_ratio *= (1 + (xdelta + ydelta) / 10) ;
+		if (params->zoom->zoom_ratio < 0.1)
+			params->zoom->zoom_ratio = 0.1;
 	}
-
-	if (xdelta != 0) {
-		// scroll left or right, move the content of the img horizontally as xdelta * constant
-		params->zoom->x += xdelta * 10;
-		generate_image(params->mlx, &params->img, params->zoom, params->lemin);
+	else
+	{	if (params->zoom->scroll_direction == 'x')
+			params->zoom->x_offset += (xdelta + ydelta) * SCROLL_POWER;
+		else
+			params->zoom->y_offset += (xdelta + ydelta) * SCROLL_POWER;
 	}
+	params->need_to_redraw = true;
 
 	return;
 }
@@ -50,11 +68,11 @@ void	loop_handler(void* param)
 {
 	t_param *params = param;
 
-	params->last_resize_age += params->mlx->delta_time;
-	if (params->last_resize_age > 0.05 && params->need_to_resize)
+	params->last_redraw_request_age += params->mlx->delta_time;
+	if (params->last_redraw_request_age > 0.05 && params->need_to_redraw)
 	{
 		generate_image(params->mlx, &params->img, params->zoom, params->lemin);
-		params->need_to_resize = false;
+		params->need_to_redraw = false;
 	}
 }
 
@@ -64,6 +82,6 @@ void	resize_window(int width, int height, void* param)
 	(void) height;
 	t_param *params = param;
 
-	params->last_resize_age = 0;
-	params->need_to_resize = true;
+	params->last_redraw_request_age = 0;
+	params->need_to_redraw = true;
 }

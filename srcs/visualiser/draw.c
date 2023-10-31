@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/31 10:49:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 14:28:52 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,8 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lem
 	// TODO: skip way too far rooms
 	draw_room(
 		img,
-		zoom->x_offset + room->x_coord * zoom->zoom_ratio,
-		zoom->y_offset + room->y_coord * zoom->zoom_ratio,
+		zoom->x_offset + (room->x_coord ) * zoom->zoom_ratio ,
+		zoom->y_offset + (room->y_coord ) * zoom->zoom_ratio ,
 		room_size * zoom->zoom_ratio,
 		color
 	);
@@ -216,10 +216,10 @@ void draw_all_links(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lem
 		// TODO: skip way too far rooms
 		draw_link(
 			img,
-			zoom->x_offset + room->x_coord * zoom->zoom_ratio,
-			zoom->y_offset + room->y_coord * zoom->zoom_ratio,
-			zoom->x_offset + room->linked_rooms[i]->x_coord * zoom->zoom_ratio,
-			zoom->y_offset + room->linked_rooms[i]->y_coord * zoom->zoom_ratio,
+			zoom->x_offset + (room->x_coord ) * zoom->zoom_ratio ,
+			zoom->y_offset + (room->y_coord) * zoom->zoom_ratio,
+			zoom->x_offset + (room->linked_rooms[i]->x_coord ) * zoom->zoom_ratio ,
+			zoom->y_offset + (room->linked_rooms[i]->y_coord ) * zoom->zoom_ratio ,
 			color
 		);
 	}

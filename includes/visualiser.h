@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/31 11:44:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/10/31 14:31:18 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define MARGIN_SIZE 80
 # define ROOM_DIAMETER 80
-# define SCROLL_POWER 10
+# define SCROLL_POWER 40
 
 typedef	struct	s_zoom
 {

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 12:21:27 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:12:09 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include "return_codes.h"
 # include "structures.h"
+# include "matrix.h"
 # include <limits.h>
 
 /**
@@ -45,7 +46,7 @@ int		add_room(
  *	@param	room2_name	The name of the second room
  *	@returns	The appropriate return code (or 0 if everything went OK)
  */
-int		add_link(t_room **rooms, char *room1_name, char *room2_name);
+int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_name);
 
 /**
  *	@brief	Check if a room is linked by another rooms

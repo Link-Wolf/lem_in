@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:21:12 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 10:41:10 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:18:36 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_room_matrix	*create_matrix(int dimension);
  *	@brief Destroy a matrix
  *	@param matrix The matrix to destroy
  */
-void			destroy_matrix(t_room_matrix *matrix);
+void			delete_matrix(t_room_matrix *matrix);
 
 /**
  *	@brief Get the value of a cell in a matrix
@@ -60,6 +60,6 @@ void			print_matrix(t_room_matrix *matrix);
  *	@param i The index of the first room
  *	@param j The index of the second room
  */
-void	swap_rooms(t_room_matrix *matrix, int i, int j);
+void			swap_rooms(t_room_matrix *matrix, int i, int j);
 
 #endif

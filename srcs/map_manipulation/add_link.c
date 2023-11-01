@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_link.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Link <Link@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/10/20 17:24:36 by Link          ###   ########.fr       */
+/*   Updated: 2023/11/01 11:13:29 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,19 @@ static int		create_link(t_room *src, t_room *dest);
  *	@param	name	The name of the room
  *	@returns	A pointer on the room, NULL if it doesn't exist
  */
-t_room			*find_room(t_room **rooms, char *name);
+static t_room	*find_room(t_room **rooms, char *name);
 
-int	add_link(t_room **rooms, char *room1_name, char *room2_name)
+int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_name)
 {
 	t_room	*room1;
 	t_room	*room2;
+
+	if (!lem_in->matrix)
+		lem_in->matrix = create_matrix(lem_in->nb_rooms);
+	if (!lem_in->matrix)
+		return (ERR_ALLOCATION);
+	set_cell(lem_in->matrix, find_room(rooms, room1_name)->id,
+		find_room(rooms, room2_name)->id, 1);
 
 	if (!ft_strcmp(room1_name, room2_name))
 		return (ERR_SELF_LINKING_ROOM);
@@ -63,7 +70,7 @@ static int	create_link(t_room *src, t_room *dest)
 	return (0);
 }
 
-t_room	*find_room(t_room **rooms, char *name)
+static t_room	*find_room(t_room **rooms, char *name)
 {
 	t_room	*ret;
 	int		cmp;

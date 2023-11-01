@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/10/27 11:44:23 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:14:59 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ void process_links(t_lem_in *lemin, char *line) {
 
 
 	// Add the link to the structure
-	int ret = add_link(lemin->rooms, name, name2);
+	int ret = add_link(lemin, lemin->rooms, name, name2);
 	if (ret > 0)
 		bugs(lemin, ret);
 }

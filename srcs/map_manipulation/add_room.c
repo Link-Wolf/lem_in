@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 10:56:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:04:16 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	add_room(t_lem_in *lem_in, char *name, int is_start, int is_end, int x_coord
 		ft_printf("##end\n");
 		lem_in->end = new_room;
 	}
-	ft_printf("%s %d %d\n", new_room->name, new_room->x_coord, new_room->y_coord);
+	ft_printf("%s %d %d\n", name, x_coord, y_coord);
 	return (OK);
 }
 

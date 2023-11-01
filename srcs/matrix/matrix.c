@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:20:47 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 10:43:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:18:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ t_room_matrix	*create_matrix(int dimension)
 			free(matrix);
 			return (NULL);
 		}
+		matrix->matrix[i][i] = -1;
 		matrix->swaps[i] = i;
 	}
 	return (matrix);
 }
 
-void	destroy_matrix(t_room_matrix *matrix)
+void	delete_matrix(t_room_matrix *matrix)
 {
 	for (int i = 0; i < matrix->dimension; i++)
 		free(matrix->matrix[i]);

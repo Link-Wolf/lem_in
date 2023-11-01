@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 10:18:18 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:59:51 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,41 +27,24 @@ typedef struct s_room_matrix
 
 typedef struct s_room
 {
+	// Basic stuff
 	char			name[NAME_SIZE + 1];
+	int				id;
 	int				is_start;
 	int				is_end;
-	int				x_coord;
-	int				y_coord;
-	int				nb_visits;
-	int				*distances_to_ends;
 
+	// Tree stuff
 	struct s_room	*left;
 	struct s_room	*right;
 
+	// Visualizer stuff
+	int				x_coord;
+	int				y_coord;
+	int				*distances_to_ends;
 	int				nb_linked;
 	int				max_linked;
 	struct s_room	**linked_rooms;
-
-	int				nb_path_users;
-	int				max_path_users;
-	struct s_pathes	**path_users;
 }	t_room;
-
-typedef struct s_pathes
-{
-	int				is_motherfucking_good;
-	int				depth;
-	t_room			*room;
-	struct s_pathes	*parent; // NULL if path is pseudo exit
-
-	int				nb_children;
-	int				max_children;
-	struct s_pathes	**children;
-
-	int				nb_conflicts;
-	int				max_conflicts;
-	struct s_pathes	**conflicts;
-}	t_pathes;
 
 typedef struct s_visualiser
 {
@@ -75,39 +58,34 @@ typedef struct s_visualiser
 
 typedef struct s_lem_in
 {
-	int				nb_rooms;
-	int				nb_links;
+	// Options
 	int				verbose;
 	int				has_visualizer;
-	t_pathes		**def_paths;
+
+	// Counter
+	int				nb_rooms;
+	int				nb_links;
+	int				nb_ants;
+
+	// Room tree
 	t_room			**rooms;
 	t_room			*start;
 	t_room			*end;
 
-	int				nb_def_paths;
-	int				nb_ants;
-	t_pathes		**pathes; // NOTE: act as a tree
+	// Room matrix
+	t_room_matrix	*matrix;
 
-	int				*nb_pathes_leaves;
-	int				*max_pathes_leaves;
-	t_pathes		***good_pathes; // NOTE: act as an array
+	// Visualizer
 	t_visualiser	*visualiser;
 }	t_lem_in;
 
 typedef struct s_ant
 {
-	int				id;
-	struct s_pathes	*where_to_go;
-	int				wait_turns;
-	int				is_arrived;
+	int			id;
+	int			wait_turns;
+	int			is_arrived;
+
+	// Add a way to know where she is and where she is going
 } t_ant;
-
-typedef struct s_state
-{
-	int	value;
-	int	*state;
-	int	state_size;
-}	t_state;
-
 
 #endif

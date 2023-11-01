@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 13:56:29 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:56:42 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  *	@param	is_end		Used as a boolean, indicate if the room is the end
  *	@returns	The newly allocated room filled
  */
-static t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord);
+static t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord, int id);
 
 int	add_room(t_lem_in *lem_in, char *name, int is_start, int is_end, int x_coord, int y_coord)
 {
@@ -51,7 +51,7 @@ int	add_room(t_lem_in *lem_in, char *name, int is_start, int is_end, int x_coord
 		}
 		return (ERR_ROOM_ALREADY_EXISTS);
 	}
-	new_room = create_room(name, is_start, is_end, x_coord, y_coord);
+	new_room = create_room(name, is_start, is_end, x_coord, y_coord, lem_in->nb_rooms++);
 	if (!new_room)
 		return (ERR_ALLOCATION);
 	if (name_comparaison < 0)
@@ -74,7 +74,7 @@ int	add_room(t_lem_in *lem_in, char *name, int is_start, int is_end, int x_coord
 	return (OK);
 }
 
-t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
+t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord, int id)
 {
 	(void) x_coord;
 	(void) y_coord;
@@ -86,11 +86,11 @@ t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coo
 	ft_strlcpy(ret->name, name, NAME_SIZE + 1);
 	ret->is_start = is_start;
 	ret->is_end = is_end;
+	ret->id = id;
 	ret->max_linked = 8;
 	ret->y_coord = INT_MAX;
 	ret->x_coord = x_coord;
 	ret->linked_rooms = ft_calloc(8, sizeof (t_room));
-	ret->nb_visits = 0;
 	if (!ret->linked_rooms)
 	{
 		free(ret);

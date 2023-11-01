@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/01 10:44:47 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:59:03 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,12 @@ int	main(int argc, char **argv)
 	// check_for_trivials(&lem_in);
 
 	// Evaluate distances between each room and each Pend (aka a room connected to the end)
-	evaluate_distances(&lem_in);
-
-	// Find all paths to Pends to keep the min(Pentries, Pends) shortest and parallels paths
-	create_pathes(&lem_in);
-
-	// Sort all the stored paths depending on their distance between their Pentry and Pend
-	sort_pathes(&lem_in);
-
-	// Check for conflicts
-	manage_conflicts(&lem_in);
 
 	if (lem_in.has_visualizer)
+	{
+		evaluate_distances(&lem_in);
 		visualise(&lem_in);
+	}
 
 	// Throw ants on the paths
 	//throw_ants(&lem_in);

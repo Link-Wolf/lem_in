@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/30 11:59:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:18:18 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 
 struct s_pathes;
 struct s_visualiser;
+
+typedef struct s_room_matrix
+{
+	int	dimension;
+	int	*swaps;
+	int	**matrix;
+} t_room_matrix;
 
 typedef struct s_room
 {

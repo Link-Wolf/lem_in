@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   swap_rooms.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 17:23:25 by Link           #+#    #+#             */
-/*   Updated: 2023/11/01 10:35:33 by iCARUS           ###   ########.fr       */
+/*   Created: 2023/11/01 10:34:45 by iCARUS            #+#    #+#             */
+/*   Updated: 2023/11/01 10:40:56 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "../../includes/matrix.h"
 
-# include "../libs/libft/libft.h"
-# include "./structures.h"
-# include "./utils.h"
-# include "./parsing.h"
-# include "./processing.h"
-# include "./visualiser.h"
-# include "./matrix.h"
+void	swap_rooms(t_room_matrix *matrix, int i, int j)
+{
+	int	tmp;
 
-
-#endif
+	if (i >= matrix->dimension || j >= matrix->dimension)
+		return ;
+	if (i == j)
+		return ;
+	tmp = matrix->swaps[i];
+	matrix->swaps[i] = matrix->swaps[j];
+	matrix->swaps[j] = tmp;
+}

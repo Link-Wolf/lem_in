@@ -31,6 +31,7 @@ SRCS_N			=	lem_in							\
 					processing/throw_ants			\
 					processing/process_map			\
 					processing/check_for_trivials	\
+					processing/resolve				\
 					visualiser/visualiser			\
 					visualiser/draw					\
 					visualiser/hook					\

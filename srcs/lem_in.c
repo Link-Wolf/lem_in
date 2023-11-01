@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/01 11:15:28 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:30:03 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ int	main(int argc, char **argv)
 
 	// Parse file & store data
 	parse_file(&lem_in);
-	print_matrix(lem_in.matrix);
 
-	// Check for trivial cases to avoid useless computations
-	// check_for_trivials(&lem_in);
-
-	// Evaluate distances between each room and each Pend (aka a room connected to the end)
+	// Swap matrix cols and rows until we happy (in a smart order)
+	resolve(&lem_in);
 
 	if (lem_in.has_visualizer)
 	{
@@ -46,7 +43,7 @@ int	main(int argc, char **argv)
 	}
 
 	// Throw ants on the paths
-	//throw_ants(&lem_in);
+	throw_ants(&lem_in);
 
 	// Tini, propers frees and exit
 	tini(&lem_in);

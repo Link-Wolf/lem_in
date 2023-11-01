@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:42 by Link           #+#    #+#             */
-/*   Updated: 2023/11/01 10:58:45 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:30:35 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 void		check_for_trivials(t_lem_in *lem_in);
 void		evaluate_distances(t_lem_in *lem_in);
 void		throw_ants(t_lem_in *lemin);
+void		resolve(t_lem_in *lem_in);
 
 #endif

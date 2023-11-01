@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/11/01 11:13:29 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:33:45 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_nam
 	set_cell(lem_in->matrix, find_room(rooms, room1_name)->id,
 		find_room(rooms, room2_name)->id, 1);
 
+	if (!lem_in->has_visualizer)
+		return (OK);
 	if (!ft_strcmp(room1_name, room2_name))
 		return (ERR_SELF_LINKING_ROOM);
 	room1 = find_room(rooms, room1_name);

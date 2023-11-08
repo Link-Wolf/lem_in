@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:18:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:50:00 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,17 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 	}
 	else
 		out_node = init_node(lem_in->graph);
-	create_edge(in_node, out_node, lem_in->graph);
+	if (in_node && out_node)
+		create_edge(in_node, out_node, lem_in->graph);
+	else
+	{
+		if (out_node)
+			lem_in->graph->source = out_node;
+		else if (in_node)
+			lem_in->graph->sink = in_node;
+	}
+	new_room->in_node = in_node;
+	new_room->out_node = out_node;
 	ft_printf("%s %d %d\n", name, x_coord, y_coord);
 	return (OK);
 }
@@ -116,12 +126,12 @@ static t_node *init_node(t_graph *graph)
 	t_node *node;
 	t_node **tmp;
 
-	node = ft_calloc(1, sizeof(node));
+	node = malloc(sizeof(t_node));
 	if (!node)
 		bugs(ERR_ALLOCATION);
 	node->max_outing_edge_count = 8;
 	node->nb_outing_edges = 0;
-	node->outing_edges = ft_calloc(sizeof(t_edge *), node->max_outing_edge_count); //malloc(8 * sizeof (t_edge *));
+		node->outing_edges = malloc(sizeof(t_edge *) * node->max_outing_edge_count); //malloc(8 * sizeof (t_edge *));
 	if (!node->outing_edges)
 		bugs(ERR_ALLOCATION);
 	if (graph->nb_nodes == graph->max_node_count)
@@ -168,7 +178,7 @@ void	create_edge(t_node *node_in, t_node *node_out, t_graph *graph)
 	reverse_edge->out = node_in;
 	reverse_edge->previous_edge = NULL;
 
-	if (graph->nb_edges + 1 == graph->max_edge_count)
+	if (graph->nb_edges + 1 >= graph->max_edge_count)
 	{
 		graph->max_edge_count *= 2;
 		tmp = malloc(sizeof (t_edge *) * graph->max_edge_count);

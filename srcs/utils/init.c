@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:04:13 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:29:43 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	init()
 	lem_in->visualiser = ft_calloc(1, sizeof (t_visualiser));
 	if (!lem_in->rooms || !lem_in->visualiser || !lem_in->graph)
 		bugs(ERR_ALLOCATION);
+	lem_in->graph->nb_nodes = 0;
+	lem_in->graph->nb_edges = 0;
+	lem_in->graph->max_edge_count = 8;
+	lem_in->graph->max_node_count = 8;
+	lem_in->graph->nodes = ft_calloc(lem_in->graph->max_node_count, sizeof (t_node *));
+	lem_in->graph->edges = ft_calloc(lem_in->graph->max_edge_count, sizeof (t_edge *));
+	if (!lem_in->graph->nodes || !lem_in->graph->edges)
+		bugs(ERR_ALLOCATION);
+	lem_in->graph->source = NULL;
+	lem_in->graph->sink = NULL;
 	lem_in->visualiser->room_line_size = NULL;
 }
 

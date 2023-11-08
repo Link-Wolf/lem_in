@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 15:38:55 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:22:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 struct s_pathes;
 struct s_visualiser;
+struct s_edge;
+struct s_node;
 
 typedef struct s_node
 {

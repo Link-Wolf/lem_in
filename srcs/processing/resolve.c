@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 17:00:39 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:02:43 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ static void push_elem(t_queue *queue, void *elem)
 	if (queue->size == queue->allocated_space)
 	{
 		queue->allocated_space *= 2;
-		tmp = malloc(queue->size * sizeof (void *));
+		tmp = malloc(queue->allocated_space * sizeof (void *));
 		ft_memcpy(tmp, queue->elements, queue->size * sizeof (void *));
 		free(queue->elements);
 		queue->elements = tmp;

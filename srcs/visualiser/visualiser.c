@@ -6,30 +6,32 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/10/31 11:47:17 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:04:04 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/visualiser.h"
 
-static void	set_room_locations(t_room *room, t_lem_in *lem_in, int width, int height);
+extern t_lem_in *lem_in;
 
-void visualise(t_lem_in *lemin)
+static void	set_room_locations(t_room *room, int width, int height);
+
+void visualise()
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
 	t_zoom			zoom;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "lem-in", true)))
-		bugs(lemin, ERR_MLX_INIT);
+		bugs(ERR_MLX_INIT);
 
 	if (!(img = mlx_new_image(mlx, WIDTH, HEIGHT)))
-		bugs(lemin, ERR_MLX_NEW_IMG);
+		bugs(ERR_MLX_NEW_IMG);
 
-	t_param			params = {lemin, mlx, img, &zoom, 0.0, 0};
+	t_param			params = {mlx, img, &zoom, 0.0, 0};
 
 	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
-		bugs(lemin, ERR_MLX_IMG_TO_WIN);
+		bugs(ERR_MLX_IMG_TO_WIN);
 
 	mlx_close_hook(mlx, handle_window_close, mlx);
 	mlx_key_hook(mlx, handle_inputs, &params);
@@ -37,13 +39,13 @@ void visualise(t_lem_in *lemin)
 	mlx_scroll_hook(mlx, scroll_handler, &params);
 	mlx_loop_hook(mlx, loop_handler, &params);
 
-	double virtual_width = lemin->visualiser->max_x
+	double virtual_width = lem_in->visualiser->max_x
 		* ROOM_DIAMETER * 3 + ROOM_DIAMETER * 2 * 2;
-	double virtual_height = (lemin->visualiser->max_y + 1)
+	double virtual_height = (lem_in->visualiser->max_y + 1)
 		* (SPACE_BETWEEN_LINES * ROOM_DIAMETER)
 		+ ROOM_DIAMETER
 		+ ROOM_DIAMETER * 2 * 2;
-	set_room_locations(*lemin->rooms, lemin, virtual_width, virtual_height);
+	set_room_locations(*lem_in->rooms, virtual_width, virtual_height);
 	zoom.scroll_direction = 'y';
 	zoom.scroll_mode = 's';
 	zoom.height = virtual_height;
@@ -52,7 +54,7 @@ void visualise(t_lem_in *lemin)
 	zoom.y_offset = 0;
 	zoom.zoom_ratio = (double) WIDTH / virtual_width;
 
-	generate_image(mlx, &img, &zoom, lemin);
+	generate_image(mlx, &img, &zoom);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
@@ -60,12 +62,12 @@ void visualise(t_lem_in *lemin)
 	return ;
 }
 
-static void	set_room_locations(t_room *room, t_lem_in *lem_in, int width, int height)
+static void	set_room_locations(t_room *room, int width, int height)
 {
 	if (!room)
 		return ;
-	set_room_locations(room->left, lem_in, width, height);
-	set_room_locations(room->right, lem_in, width, height);
+	set_room_locations(room->left, width, height);
+	set_room_locations(room->right, width, height);
 	if (room->is_end)
 	{
 		room->x_coord = width / 2; // Center of the virtual space
@@ -96,7 +98,7 @@ static void	set_room_locations(t_room *room, t_lem_in *lem_in, int width, int he
 			* (current_y); // Line of the room + 1 because we want to count the first line
 }
 
-void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom, t_lem_in *lemin)
+void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom)
 {
 	mlx_image_t	*tmp = *img;
 
@@ -106,14 +108,14 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom, t_lem_in *lemin
 	if (mlx->width != (int) (*img)->width || mlx->height != (int) (*img)->height)
 	{
 		if (!(tmp = mlx_new_image(mlx, mlx->width, mlx->height)))
-			bugs(lemin, ERR_MLX_NEW_IMG);
+			bugs(ERR_MLX_NEW_IMG);
 		must_put_image = 1;
 	}
 
 	ft_memset(tmp->pixels, 0xFF, tmp->width * tmp->height * 4);
 
-	draw_all_links(*lemin->rooms, tmp, ROOM_DIAMETER, lemin, tmp->width, zoom);
-	draw_all_rooms(*lemin->rooms, tmp, ROOM_DIAMETER, lemin, tmp->width, zoom);
+	draw_all_links(*lem_in->rooms, tmp, ROOM_DIAMETER, tmp->width, zoom);
+	draw_all_rooms(*lem_in->rooms, tmp, ROOM_DIAMETER, tmp->width, zoom);
 
 	if (must_put_image)
 	{

@@ -6,16 +6,17 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/01 11:30:03 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:07:25 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
+t_lem_in	*lem_in = NULL;
+
 int	main(int argc, char **argv)
 {
-	t_lem_in	lem_in;
-	init(&lem_in);
+	init();
 
 	int flags = 0;
 	for (int i = 1; i < argc; i++)
@@ -25,28 +26,27 @@ int	main(int argc, char **argv)
 		else if (!ft_strcmp(argv[i], "-b") || !ft_strcmp(argv[i], "--bonus"))
 			flags |= VISUALIZER;
 		else
-			bugs(&lem_in, ERR_USAGE);
+			bugs(ERR_USAGE);
 	}
-	lem_in.verbose = flags & VERBOSE;
-	lem_in.has_visualizer = flags & VISUALIZER;
+	lem_in->verbose = flags & VERBOSE;
+	lem_in->has_visualizer = flags & VISUALIZER;
 
 	// Parse file & store data
-	parse_file(&lem_in);
+	parse_file();
 
-	// Swap matrix cols and rows until we happy (in a smart order)
-	resolve(&lem_in);
+	resolve();
 
-	if (lem_in.has_visualizer)
+	if (lem_in->has_visualizer)
 	{
-		evaluate_distances(&lem_in);
-		visualise(&lem_in);
+		evaluate_distances();
+		visualise();
 	}
 
 	// Throw ants on the paths
-	throw_ants(&lem_in);
+	throw_ants();
 
 	// Tini, propers frees and exit
-	tini(&lem_in);
+	tini();
 
 	return (0);
 }

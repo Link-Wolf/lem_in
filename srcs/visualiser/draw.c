@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/31 14:28:52 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:52:41 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,14 @@ void	draw_link(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
 	}
 }
 
-void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
+void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom)
 {
 	int color = ROOM_COLOR;
 
 	if (room->left)
-		draw_all_rooms(room->left, img, room_size, lemin, width, zoom);
+		draw_all_rooms(room->left, img, room_size, width, zoom);
 	if (room->right)
-		draw_all_rooms(room->right, img, room_size, lemin, width, zoom);
+		draw_all_rooms(room->right, img, room_size, width, zoom);
 	if (room->is_start)
 		color = START_ROOM_COLOR;
 	if (room->is_end)
@@ -194,14 +194,14 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lem
 	);
 }
 
-void draw_all_links(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom)
+void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom)
 {
 	int color = get_random_color();
 
 	if (room->left)
-		draw_all_links(room->left, img, room_size, lemin, width, zoom);
+		draw_all_links(room->left, img, room_size, width, zoom);
 	if (room->right)
-		draw_all_links(room->right, img, room_size, lemin, width, zoom);
+		draw_all_links(room->right, img, room_size, width, zoom);
 	if (room->is_start)
 		color = START_ROOM_COLOR;
 	if (room->is_end)

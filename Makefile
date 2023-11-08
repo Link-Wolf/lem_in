@@ -35,9 +35,6 @@ SRCS_N			=	lem_in							\
 					visualiser/visualiser			\
 					visualiser/draw					\
 					visualiser/hook					\
-					matrix/matrix					\
-					matrix/cell						\
-					matrix/swap_rooms				\
 
 SRCS			=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 

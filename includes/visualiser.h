@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/31 14:31:18 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:34:45 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef	struct	s_zoom
 }				t_zoom;
 
 typedef	struct	s_param{
-	t_lem_in		*lemin;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_zoom			*zoom;
@@ -57,7 +56,7 @@ typedef	struct	s_param{
 	bool			need_to_redraw;
 }					t_param;
 
-void 	visualise(t_lem_in *lemin);
+void 	visualise();
 
 /**
  *	@brief Draw a room in the image. Using Breseham's midpoint algorithm.
@@ -88,7 +87,7 @@ void	draw_link(mlx_image_t *img, int x1, int y1, int x2, int y2, int color);
  *	@param lemin The lem_in structure.
  *	@param width The width of the window ? maybe :shrug:
  */
-void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom);
+void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom);
 
 /**
  *	@brief Draw all links by calling draw_link for each link.
@@ -98,7 +97,7 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lem
  *	@param lemin The lem_in structure.
  *	@param width The width of the window ? maybe :shrug:
  */
-void draw_all_links(t_room *room, mlx_image_t *img, int room_size, t_lem_in *lemin, int width, t_zoom *zoom);
+void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom);
 
 /**
  * 	@brief Handle the inputs of the user inside a mlx loop.
@@ -142,7 +141,7 @@ void	scroll_handler(double xdelta, double ydelta, void* param);
  * 	@param zoom The zoom structure.
  * 	@param lemin The lem_in structure.
  */
-void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom, t_lem_in *lemin);
+void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom);
 
 /**
  * 	@brief Generate a random color.

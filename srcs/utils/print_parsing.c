@@ -6,16 +6,18 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:52:15 by link              #+#    #+#             */
-/*   Updated: 2023/11/01 11:00:41 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:06:10 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-void print_lemin(t_lem_in *lemin) {
-	ft_printf("%d\n", lemin->nb_ants);
-	print_rooms(*(lemin->rooms));
-	print_links(*(lemin->rooms));
+extern t_lem_in *lem_in;
+
+void print_lemin() {
+	ft_printf("%d\n", lem_in->nb_ants);
+	print_rooms(*(lem_in->rooms));
+	print_links(*(lem_in->rooms));
 	ft_printf("\net la on met les tours qui passent\n");
 }
 

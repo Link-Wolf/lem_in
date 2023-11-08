@@ -6,15 +6,14 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:02 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/20 16:46:29 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:03:19 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/processing.h"
 
-void	check_for_trivials(t_lem_in *lem_in)
+void	check_for_trivials()
 {
-	(void) lem_in;
 	return;
 	// if (/* There is no Pe or Ps*/)
 	// 	; // error

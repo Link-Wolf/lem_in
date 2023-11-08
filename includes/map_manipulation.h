@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 11:12:09 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:11:36 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # include "return_codes.h"
 # include "structures.h"
-# include "matrix.h"
+# include "utils.h"
 # include <limits.h>
 
 /**
@@ -31,7 +31,6 @@
  *	@returns	The appropriate return code (or 0 if everything went OK)
 */
 int		add_room(
-			t_lem_in *lem_in,
 			char *name,
 			int is_start,
 			int is_end,
@@ -46,7 +45,7 @@ int		add_room(
  *	@param	room2_name	The name of the second room
  *	@returns	The appropriate return code (or 0 if everything went OK)
  */
-int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_name);
+int	add_link(t_room **rooms, char *room1_name, char *room2_name);
 
 /**
  *	@brief	Check if a room is linked by another rooms
@@ -55,5 +54,14 @@ int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_nam
  *	@returns	As a boolean, 1 if we found the room, 0 otherwise
  */
 int		include_link(t_room **linked_rooms, t_room *room);
+
+/**
+ *	@brief	Create a new edge from node_in to node_out and the reversal_edge
+ *		from node_in to node_out
+ *	@param	node_in		The emiter node
+ *	@param	node_out	The receiver node
+ *	@param	graph		The structure of node and edges to update
+ */
+void	create_edge(t_node *node_in, t_node *node_out, t_graph *graph);
 
 #endif

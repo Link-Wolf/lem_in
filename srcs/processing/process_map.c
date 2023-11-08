@@ -6,16 +6,18 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:45:56 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 10:56:36 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:03:37 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/processing.h"
 
-static int calc_dist(t_lem_in *lem_in, t_room *room, int dist, int nb_pseudo_ends, int pseudo_end_idx);
-static void calc_x(t_lem_in *lem_in, t_room *room, int *tmp);
+extern t_lem_in *lem_in;
 
-void evaluate_distances(t_lem_in *lem_in)
+static int calc_dist(t_room *room, int dist, int nb_pseudo_ends, int pseudo_end_idx);
+static void calc_x(t_room *room, int *tmp);
+
+void evaluate_distances()
 {
 	//get nb sorties/entress to init array in t_rooms
 	int		nb_pseudo_ends = lem_in->end->nb_linked;
@@ -33,8 +35,8 @@ void evaluate_distances(t_lem_in *lem_in)
 
 	while (*pseudo_ends) {
 
-		if (calc_dist(lem_in, *pseudo_ends, 1, nb_pseudo_ends, pseudo_end_idx) < 0)
-			bugs(lem_in, ERR_ALLOCATION);
+		if (calc_dist(*pseudo_ends, 1, nb_pseudo_ends, pseudo_end_idx) < 0)
+			bugs(ERR_ALLOCATION);
 
 		pseudo_ends++;
 		pseudo_end_idx++;
@@ -43,25 +45,25 @@ void evaluate_distances(t_lem_in *lem_in)
 	{
 		int *tmp = ft_calloc(lem_in->visualiser->max_y + 1, sizeof(int));
 		if (!tmp)
-			bugs(lem_in, ERR_ALLOCATION);
-		calc_x(lem_in, lem_in->start, tmp);
+			bugs(ERR_ALLOCATION);
+		calc_x(lem_in->start, tmp);
 		ft_memcpy(lem_in->visualiser->room_line_size, tmp, (lem_in->visualiser->max_y + 1) * sizeof(int));
 		free(tmp);
 	}
 }
 
-static void calc_x(t_lem_in *lem_in, t_room *room, int *tmp)
+static void calc_x(t_room *room, int *tmp)
 {
 	if (!room) return;
-	calc_x(lem_in, room->left, tmp);
-	calc_x(lem_in, room->right, tmp);
+	calc_x(room->left, tmp);
+	calc_x(room->right, tmp);
 	if (room->y_coord == INT_MAX) return;
 	room->x_coord = tmp[room->y_coord]++;
 	if (room->x_coord > lem_in->visualiser->max_x)
 		lem_in->visualiser->max_x = room->x_coord;
 }
 
-static int calc_dist(t_lem_in *lem_in, t_room *room, int dist, int nb_pseudo_ends, int pseudo_end_idx)
+static int calc_dist(t_room *room, int dist, int nb_pseudo_ends, int pseudo_end_idx)
 {
 	if (!room->distances_to_ends)
 	{
@@ -93,7 +95,7 @@ static int calc_dist(t_lem_in *lem_in, t_room *room, int dist, int nb_pseudo_end
 				{
 					int *tmp = ft_calloc(dist + 1, sizeof(int));
 					if (!tmp)
-						bugs(lem_in, ERR_ALLOCATION);
+						bugs(ERR_ALLOCATION);
 					ft_memcpy(tmp, lem_in->visualiser->room_line_size, lem_in->visualiser->nb_allocated_room_lines * sizeof(int));
 					free(lem_in->visualiser->room_line_size);
 					lem_in->visualiser->room_line_size = tmp;
@@ -114,7 +116,7 @@ static int calc_dist(t_lem_in *lem_in, t_room *room, int dist, int nb_pseudo_end
 
 		while (*linked_rooms)
 		{
-			calc_dist(lem_in, *linked_rooms, dist + 1, nb_pseudo_ends, pseudo_end_idx);
+			calc_dist(*linked_rooms, dist + 1, nb_pseudo_ends, pseudo_end_idx);
 			linked_rooms++;
 		}
 	}

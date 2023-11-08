@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 11:18:01 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:35:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,28 @@
 # include "./return_codes.h"
 # include "./map_manipulation.h"
 # include "../libs/libft/libft.h"
-# include "./matrix.h"
 
 /**
  *	@brief	Initialize the main room structure
- *  @param	lem_in		Pointer to the main room structure
  *	@note	Must call tini() to free it
  */
-void	init(t_lem_in *lem_in);
+void	init();
 
 /**
  *	@brief	Free the main room structure
- *	@param	lem_in		Pointer to the main room structure
  */
-void	tini(t_lem_in *lem_in);
+void	tini();
 
 /**
  *	@brief	Print the error message corresponding to the code and exit
- *	@param	lem_in		Pointer to the main room structure
  *	@param	code		Error code
  */
-void	bugs(t_lem_in *lem_in, int code);
+void	bugs(int code);
 
 /**
  *	@brief	Print the lem_in structure by calling the print functions for ants, rooms and links
- *	@param	lem_in		Pointer to the main room structure
  */
-void	print_lemin(t_lem_in *lemin);
+void	print_lemin();
 
 /**
  *	@brief	Print all the rooms recursively

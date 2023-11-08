@@ -6,11 +6,13 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/11/01 11:36:00 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:14:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/map_manipulation.h"
+
+extern t_lem_in *lem_in;
 
 /**
  *	@brief	Add a link from src to dest
@@ -27,17 +29,10 @@ static int		create_link(t_room *src, t_room *dest);
  */
 static t_room	*find_room(t_room **rooms, char *name);
 
-int	add_link(t_lem_in *lem_in, t_room **rooms, char *room1_name, char *room2_name)
+int	add_link(t_room **rooms, char *room1_name, char *room2_name)
 {
 	t_room	*room1;
 	t_room	*room2;
-
-	if (!lem_in->matrix)
-		lem_in->matrix = create_matrix(lem_in->nb_rooms);
-	if (!lem_in->matrix)
-		return (ERR_ALLOCATION);
-	set_cell(lem_in->matrix, find_room(rooms, room1_name)->id,
-		find_room(rooms, room2_name)->id, 1);
 
 	if (!ft_strcmp(room1_name, room2_name))
 		return (ERR_SELF_LINKING_ROOM);
@@ -59,7 +54,7 @@ static int	create_link(t_room *src, t_room *dest)
 	{
 		t_room	**new_linked = ft_calloc(src->max_linked * 2 + 1, sizeof (t_room *));
 		if (!new_linked)
-			return (-1);
+			bugs(ERR_ALLOCATION);
 		ft_memcpy(new_linked, src->linked_rooms,
 			sizeof (t_room *) * src->max_linked);
 		src->max_linked *= 2;
@@ -67,6 +62,8 @@ static int	create_link(t_room *src, t_room *dest)
 		src->linked_rooms = new_linked;
 	}
 	src->linked_rooms[src->nb_linked++] = dest;
+	create_edge(src->out_node, dest->in_node, lem_in->graph);
+	create_edge(dest->out_node, src->in_node, lem_in->graph);
 	return (0);
 }
 

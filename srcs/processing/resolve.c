@@ -6,140 +6,169 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/01 16:53:41 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:03:39 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/processing.h"
 
+extern t_lem_in *lem_in;
 
-static int	**tuples(int sum, int size , int *count);
-static void	free_tuples(int** tuples, int count);
-static void	generate_tuple(int* tuple, int index, int current_sum, int** tuples, int* tuples_count, int tuples_capacity, int size, int sum);
-static int	min_lenght(t_lem_in *lem_in);
-static int	max_lenght(t_lem_in *lem_in);
-static int	max_path(t_lem_in *lem_in);
+static void 	set_null_flow(t_graph *graph);
+static t_path 	*find_simple_path(t_graph *graph);
+static int 		is_in_graph(t_edge *edge);
+static t_edge	*find_antiparallele(t_edge *edge);
+static void		init_queue(t_queue *queue);
+static void		*pop_elem(t_queue *queue);
+static void		push_elem(t_queue *queue, void *elem);
 
-void	resolve(t_lem_in *lem_in)
+
+void	resolve()
 {
-	// if (/*start is connected to exit*/)
-	// {
-	// 	// throw all ants to exit at once
-	// 	//return
-	// }
+	int		nb_pathes;
+	int		nb_ants;
+	int		delta;
+	t_graph	*graph;
+	t_path	*gamma;
+	t_edge	*edge;
 
-	// From short paths to long paths
-	for (int lenght = min_lenght(lem_in); lenght <= max_lenght(lem_in); lenght++)
+	nb_ants = lem_in->nb_ants;
+	nb_pathes = 0;
+
+	//	Contains all edges and the way they are organised,
+	//		even the ones that doen't exists yet but will be used later
+	//		as "reverse edge"
+	graph = lem_in->graph;
+
+	set_null_flow(graph); // Set all flows to 0
+	// While we need path
+	//	And we find a graph in the Residual graph
+	while (nb_pathes <= nb_ants && (gamma = find_simple_path(graph)))
 	{
-		// Try with all possible number of paths
-		for (int nb_path = 1 ; nb_path <= max_path(lem_in) ; nb_path++)
+		delta = 1; // 1 because all edges have capacity 1
+
+		//	loop over all edges that compose the path gamma
+		edge = gamma->last_edge;
+		while (edge)
 		{
-			// Try all the legal sum of path lenghts
-			for (int i = 0; i < nb_path; i++)
+			// If the edge is a normal edge
+			if (is_in_graph(edge))
+				edge->flow += delta;
+			else // If the edge is a undo edge
+				edge->flow -= delta;
+			edge = edge->previous_edge;
+		}
+	}
+}
+
+static void set_null_flow(t_graph *graph)
+{
+	for (int i = 0 ; i < graph->nb_edges ; i++)
+		graph->edges[i]->flow = 0;
+}
+
+static t_path *find_simple_path(t_graph *graph)
+{
+	//	Find a path in the residual graph
+	//		Using BFS
+	//		And return it
+
+	t_path	*path;
+	t_edge	*source;
+	t_edge	*edge;
+	t_queue	queue;
+
+	path = NULL;
+	source = NULL;
+	edge = NULL;
+	init_queue(&queue);
+
+	// set all edges of the graph depth to 0 and previous edge to null
+	for (int i = 0 ; i < graph->nb_edges ; i++)
+	{
+		graph->edges[i]->depth = 0;
+		graph->edges[i]->previous_edge = NULL;
+		graph->edges[i]->residual_capacity = is_in_graph(edge)
+			? edge->capacity - edge->flow
+			: ((find_antiparallele(edge))->flow);
+		/*
+		 *	(capacity - flow)								si edge is in graph
+		 *	flow of the antiparrelle						if not
+		 */
+	}
+
+	// Add all entry exiting edges to the queue
+	for (int i = 0 ; i < graph->source->nb_outing_edges ; i++)
+	{
+		edge = graph->source->outing_edges[i];
+		push_elem(&queue, edge);
+	}
+
+	while ((source = pop_elem(&queue)))
+	{
+		// loop over all edges in source->out->outing_edges
+		for (int i = 0 ; i < source->out->nb_outing_edges ; i++)
+		{
+			if (edge->residual_capacity <= 0)
+				continue;
+			if (edge->out == graph->sink)
 			{
-				int	sum = nb_path * lenght - lem_in->nb_ants - i;
-				int nb_tuples = 0;
-				int **scenari = tuples(sum, nb_path, &nb_tuples);
-
-				ft_printf("%d - %d\n", sum, nb_path);
-				for (int i = 0; i < nb_tuples; i++)
-				{
-					for (int j = 0; j < lenght; j++)
-					{
-						ft_printf("%d ", scenari[i][j]);
-					}
-					ft_printf("\n");
-				}
-				ft_printf("\n");
-
-
-				// int **ptr_scenari = scenari;
-				// while (*ptr_scenari)
-				// {
-				// 	int *ptr_scenario = *ptr_scenari;
-				// 	while (*ptr_scenario)
-				// 	{
-				// 		for (/* all permutation of the scenario */)
-				// 			if (/* permutation is valid */)
-				// 				return (/* permutation */);
-				// 		*ptr_scenario++;
-				// 	}
-				// 	ptr_scenari++;
-				// }
-				free_tuples(scenari, nb_tuples);
+				path = malloc(sizeof (t_path));
+				path->last_edge = edge;
+				return (path);
+			}
+			if (edge->depth == 0)
+			{
+				edge->depth = source->depth + 1;
+				push_elem(&queue, edge);
+				edge->previous_edge = source;
 			}
 		}
 	}
+	return (NULL);
 }
 
-int	min_lenght(t_lem_in *lem_in)
+static t_edge *find_antiparallele(t_edge *edge)
 {
-	(void)lem_in;
-	return (1);
-}
-
-int	max_lenght(t_lem_in *lem_in)
-{
-	(void)lem_in;
-	return (10);
-}
-
-int	max_path(t_lem_in *lem_in)
-{
-	(void)lem_in;
-	return (5);
-}
-
-// int main() {
-// 	int count;
-// 	int ***my_tuples = tuples(2, 1, &count)
-// }
-
-static void free_tuples(int** tuples, int count)
-{
-    for (int i = 0; i < count; i++) {
-        free(tuples[i]);
-    }
-    free(tuples);
-}
-
-static void generate_tuple(int* tuple, int index, int current_sum, int** tuples, int* tuples_count, int tuples_capacity, int size, int sum)
-{
-	if (index == size) {
-		if (current_sum == sum) {
-			if (*tuples_count == tuples_capacity) {
-				tuples_capacity *= 2;
-				int** new_tuples = (int**)malloc(tuples_capacity * sizeof(int*));
-				ft_memcpy(new_tuples, tuples, *tuples_count * sizeof(int*));
-				free(tuples);
-				tuples = new_tuples;
-			}
-			tuples[*tuples_count] = (int*)malloc(size * sizeof(int));
-			for (int i = 0; i < size; i++) {
-				tuples[*tuples_count][i] = tuple[i];
-			}
-			(*tuples_count)++;
-		}
-		return;
+	for (int i = 0 ; i < edge->out->nb_outing_edges ; i++)
+	{
+		if (edge->out->outing_edges[i]->out == edge->in)
+			return (edge->out->outing_edges[i]);
 	}
-
-	for (int i = 1; i <= sum - current_sum; i++) {
-		tuple[index] = i;
-		generate_tuple(tuple, index + 1, current_sum + i, tuples, tuples_count, tuples_capacity, size, sum);
-	}
+	return (NULL);
 }
 
-static int **tuples(int sum, int size , int *count)
+static int is_in_graph(t_edge *edge)
 {
-	int** tuples = NULL;
-    int tuples_count = 0;
-    int tuples_capacity = 32;
+	return (!edge->is_reversal_edge);
+}
 
-    tuples = (int**)malloc(tuples_capacity * sizeof(int*));
+static void	init_queue(t_queue *queue)
+{
+	queue->allocated_space = 8;
+	queue->elements = malloc(queue->allocated_space * sizeof (void *));
+	queue->first_element_index = 0;
+	queue->size = 0;
+}
 
-    int* tuple = (int*)malloc(size * sizeof(int));
-    generate_tuple(tuple, 0, 0, tuples, &tuples_count, tuples_capacity, size, sum);
-	free(tuple);
-    *count = tuples_count;
-    return tuples;
+static void	*pop_elem(t_queue *queue)
+{
+	if (queue->first_element_index >= queue->size)
+		return (NULL);
+	return (queue->elements[queue->first_element_index++]);
+}
+
+static void push_elem(t_queue *queue, void *elem)
+{
+	void	**tmp;
+
+	if (queue->size == queue->allocated_space)
+	{
+		queue->allocated_space *= 2;
+		tmp = malloc(queue->size * sizeof (void *));
+		ft_memcpy(tmp, queue->elements, queue->size * sizeof (void *));
+		free(queue->elements);
+		queue->elements = tmp;
+	}
+	queue->elements[queue->size++] = elem;
 }

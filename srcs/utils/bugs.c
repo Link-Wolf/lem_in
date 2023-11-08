@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/10/27 11:41:45 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:51:47 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ const char	*error_msgs[] = {
 	[ERR_USAGE] = "Usage: ./lemin [-v|--verbose] [-b|--bonus] < map.map"
 };
 
-void	bugs(t_lem_in *lem_in, int code)
+void	bugs(int code)
 {
 	ft_printf("ERROR %d: %s\n", code, error_msgs[code]);
-	tini(lem_in);
+	tini();
 	exit(code);
 }

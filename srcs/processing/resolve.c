@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:03:39 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:00:39 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ static t_path *find_simple_path(t_graph *graph)
 	{
 		graph->edges[i]->depth = 0;
 		graph->edges[i]->previous_edge = NULL;
-		graph->edges[i]->residual_capacity = is_in_graph(edge)
-			? edge->capacity - edge->flow
-			: ((find_antiparallele(edge))->flow);
+		graph->edges[i]->residual_capacity = is_in_graph(graph->edges[i])
+			? graph->edges[i]->capacity - graph->edges[i]->flow
+			: ((find_antiparallele(graph->edges[i]))->flow);
 		/*
 		 *	(capacity - flow)								si edge is in graph
 		 *	flow of the antiparrelle						if not
@@ -100,7 +100,10 @@ static t_path *find_simple_path(t_graph *graph)
 	// Add all entry exiting edges to the queue
 	for (int i = 0 ; i < graph->source->nb_outing_edges ; i++)
 	{
+		if (graph->source->outing_edges[i]->residual_capacity <= 0)
+			continue;
 		edge = graph->source->outing_edges[i];
+		edge->previous_edge = NULL;
 		push_elem(&queue, edge);
 	}
 

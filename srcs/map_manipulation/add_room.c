@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:50:00 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:20:58 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static t_node *init_node(t_graph *graph)
 		bugs(ERR_ALLOCATION);
 	node->max_outing_edge_count = 8;
 	node->nb_outing_edges = 0;
-		node->outing_edges = malloc(sizeof(t_edge *) * node->max_outing_edge_count); //malloc(8 * sizeof (t_edge *));
+	node->outing_edges = malloc(sizeof(t_edge *) * node->max_outing_edge_count); //malloc(8 * sizeof (t_edge *));
 	if (!node->outing_edges)
 		bugs(ERR_ALLOCATION);
 	if (graph->nb_nodes == graph->max_node_count)

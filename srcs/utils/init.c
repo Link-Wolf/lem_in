@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:18:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:29:43 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:20:47 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void	tini()
 	free(lem_in->rooms);
 	free(lem_in->visualiser->room_line_size);
 	free(lem_in->visualiser);
+	for (int i = 0 ; i < lem_in->graph->nb_edges; i++)
+	{
+		free(lem_in->graph->edges[i]);
+	}
+	free(lem_in->graph->edges);
+	for (int i = 0 ; i < lem_in->graph->nb_nodes;i++)
+	{
+		free(lem_in->graph->nodes[i]->outing_edges);
+		free(lem_in->graph->nodes[i]);
+	}
+	free(lem_in->graph->nodes);
 	free(lem_in->graph);
 	free(lem_in);
 }

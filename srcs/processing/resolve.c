@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 17:02:43 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:32:13 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_edge	*find_antiparallele(t_edge *edge);
 static void		init_queue(t_queue *queue);
 static void		*pop_elem(t_queue *queue);
 static void		push_elem(t_queue *queue, void *elem);
-
+static void		delete_queue(t_queue *queue);
 
 void	resolve()
 {
@@ -58,6 +58,7 @@ void	resolve()
 				edge->flow -= delta;
 			edge = edge->previous_edge;
 		}
+		free(gamma);
 	}
 }
 
@@ -112,12 +113,15 @@ static t_path *find_simple_path(t_graph *graph)
 		// loop over all edges in source->out->outing_edges
 		for (int i = 0 ; i < source->out->nb_outing_edges ; i++)
 		{
+			edge = source->out->outing_edges[i];
 			if (edge->residual_capacity <= 0)
 				continue;
 			if (edge->out == graph->sink)
 			{
+				ft_printf("on a trouver chemin %p\n", edge);
 				path = malloc(sizeof (t_path));
 				path->last_edge = edge;
+				delete_queue(&queue);
 				return (path);
 			}
 			if (edge->depth == 0)
@@ -128,6 +132,7 @@ static t_path *find_simple_path(t_graph *graph)
 			}
 		}
 	}
+	delete_queue(&queue);
 	return (NULL);
 }
 
@@ -174,4 +179,9 @@ static void push_elem(t_queue *queue, void *elem)
 		queue->elements = tmp;
 	}
 	queue->elements[queue->size++] = elem;
+}
+
+static void delete_queue(t_queue *queue)
+{
+	free(queue->elements);
 }

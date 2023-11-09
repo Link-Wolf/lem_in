@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 17:20:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 10:54:22 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ extern t_lem_in *lem_in;
  *	@returns	The newly allocated room filled
  */
 static t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord, int id);
-static t_node *init_node(t_graph *graph);
+static t_node	*init_node(t_graph *graph, t_room *room);
 
 int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 {
@@ -72,7 +72,7 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 		in_node = NULL;
 	}
 	else
-		in_node = init_node(lem_in->graph);
+		in_node = init_node(lem_in->graph, new_room);
 	if (new_room->is_end)
 	{
 		ft_printf("##end\n");
@@ -80,7 +80,7 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 		out_node = NULL;
 	}
 	else
-		out_node = init_node(lem_in->graph);
+		out_node = init_node(lem_in->graph, new_room);
 	if (in_node && out_node)
 		create_edge(in_node, out_node, lem_in->graph);
 	else
@@ -121,7 +121,7 @@ static t_room	*create_room(char *name, int is_start, int is_end, int x_coord, in
 	return (ret);
 }
 
-static t_node *init_node(t_graph *graph)
+static t_node *init_node(t_graph *graph, t_room *room)
 {
 	t_node *node;
 	t_node **tmp;
@@ -144,6 +144,7 @@ static t_node *init_node(t_graph *graph)
 		free(graph->nodes);
 		graph->nodes = tmp;
 	}
+	node->room = room;
 	graph->nodes[graph->nb_nodes++] = node;
 	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 15:52:41 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 11:22:42 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		color = START_ROOM_COLOR;
 	if (room->is_end)
 		color = EXIT_ROOM_COLOR;
+	if (room->in_node && room->in_node->nb_outing_edges && room->in_node->outing_edges[0]->flow)
+		color = 0xFF00FFFF;
 	// TODO: skip way too far rooms
 	draw_room(
 		img,

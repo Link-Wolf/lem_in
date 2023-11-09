@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:22:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 10:55:04 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ struct s_pathes;
 struct s_visualiser;
 struct s_edge;
 struct s_node;
+struct s_room;
 
 typedef struct s_node
 {
 	int				nb_outing_edges;
 	int				max_outing_edge_count;
 	struct s_edge	**outing_edges;
+	struct s_room	*room;
 
 }	t_node;
 

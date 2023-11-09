@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 17:32:13 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 11:18:01 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void		init_queue(t_queue *queue);
 static void		*pop_elem(t_queue *queue);
 static void		push_elem(t_queue *queue, void *elem);
 static void		delete_queue(t_queue *queue);
+static void		print_path(t_edge *edge);
 
 void	resolve()
 {
@@ -105,12 +106,12 @@ static t_path *find_simple_path(t_graph *graph)
 			continue;
 		edge = graph->source->outing_edges[i];
 		edge->previous_edge = NULL;
+		edge->depth = 1;
 		push_elem(&queue, edge);
 	}
 
 	while ((source = pop_elem(&queue)))
 	{
-		// loop over all edges in source->out->outing_edges
 		for (int i = 0 ; i < source->out->nb_outing_edges ; i++)
 		{
 			edge = source->out->outing_edges[i];
@@ -118,22 +119,33 @@ static t_path *find_simple_path(t_graph *graph)
 				continue;
 			if (edge->out == graph->sink)
 			{
-				ft_printf("on a trouver chemin %p\n", edge);
+				edge->previous_edge = source;
 				path = malloc(sizeof (t_path));
 				path->last_edge = edge;
+				print_path(edge);
 				delete_queue(&queue);
 				return (path);
 			}
 			if (edge->depth == 0)
 			{
+				edge->previous_edge = source;
 				edge->depth = source->depth + 1;
 				push_elem(&queue, edge);
-				edge->previous_edge = source;
 			}
 		}
 	}
 	delete_queue(&queue);
 	return (NULL);
+}
+
+static void	print_path(t_edge *edge)
+{
+	while(edge)
+	{
+		ft_printf("%s <= ", edge->out->room->name);
+		edge = edge->previous_edge;
+	}
+	ft_printf("\n");
 }
 
 static t_edge *find_antiparallele(t_edge *edge)

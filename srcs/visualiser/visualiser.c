@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/11/08 16:04:04 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:25:05 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom)
 		*img = tmp;
 		mlx_image_to_window(mlx, tmp, 0, 0);
 	}
+	draw_room_names(*lem_in->rooms, mlx, tmp->width, zoom);
 }
 
 

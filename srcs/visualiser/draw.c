@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 11:22:42 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:38:16 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,10 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		color = START_ROOM_COLOR;
 	if (room->is_end)
 		color = EXIT_ROOM_COLOR;
-	if (room->in_node && room->in_node->nb_outing_edges && room->in_node->outing_edges[0]->flow)
-		color = 0xFF00FFFF;
+	if (room->in_node)
+		for (int i = 0 ; i < room->in_node->nb_outing_edges; i++)
+			if (!room->in_node->outing_edges[i]->is_reversal_edge && room->in_node->outing_edges[i]->flow)
+			color = 0xFF00FFFF;
 	// TODO: skip way too far rooms
 	draw_room(
 		img,
@@ -194,6 +196,7 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		room_size * zoom->zoom_ratio,
 		color
 	);
+
 }
 
 void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom)
@@ -226,3 +229,19 @@ void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		);
 	}
 }
+
+void draw_room_names(t_room *room, mlx_t *mlx, int width, t_zoom *zoom)
+{
+	if (room->left)
+		draw_room_names(room->left, mlx, width, zoom);
+	if (room->right)
+		draw_room_names(room->right, mlx, width, zoom);
+	mlx_put_string(
+		mlx,
+		room->name,
+		zoom->x_offset + (room->x_coord ) * zoom->zoom_ratio,
+		zoom->y_offset + (room->y_coord ) * zoom->zoom_ratio
+	);
+
+}
+

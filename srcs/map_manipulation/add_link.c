@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/11/08 16:46:48 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:05:08 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	create_link(t_room *src, t_room *dest)
 
 	if (!dest->is_start && !src->is_end)
 		create_edge(src->out_node, dest->in_node, lem_in->graph);
-	if (!dest->is_end & !src->is_start)
+	if (!dest->is_end && !src->is_start)
 		create_edge(dest->out_node, src->in_node, lem_in->graph);
 	return (0);
 }

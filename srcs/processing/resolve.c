@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 11:18:01 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:46:28 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		init_queue(t_queue *queue);
 static void		*pop_elem(t_queue *queue);
 static void		push_elem(t_queue *queue, void *elem);
 static void		delete_queue(t_queue *queue);
-static void		print_path(t_edge *edge);
+static void print_path(t_path *path);
 
 void	resolve()
 {
@@ -44,7 +44,7 @@ void	resolve()
 	set_null_flow(graph); // Set all flows to 0
 	// While we need path
 	//	And we find a graph in the Residual graph
-	while (nb_pathes <= nb_ants && (gamma = find_simple_path(graph)))
+	while (nb_pathes < nb_ants && (gamma = find_simple_path(graph)))
 	{
 		delta = 1; // 1 because all edges have capacity 1
 
@@ -56,10 +56,11 @@ void	resolve()
 			if (is_in_graph(edge))
 				edge->flow += delta;
 			else // If the edge is a undo edge
-				edge->flow -= delta;
+				find_antiparallele(edge)->flow -= delta;
 			edge = edge->previous_edge;
 		}
 		free(gamma);
+		nb_pathes++;
 	}
 }
 
@@ -122,7 +123,7 @@ static t_path *find_simple_path(t_graph *graph)
 				edge->previous_edge = source;
 				path = malloc(sizeof (t_path));
 				path->last_edge = edge;
-				print_path(edge);
+				print_path(path);
 				delete_queue(&queue);
 				return (path);
 			}
@@ -138,14 +139,18 @@ static t_path *find_simple_path(t_graph *graph)
 	return (NULL);
 }
 
-static void	print_path(t_edge *edge)
+static void print_path(t_path *path)
 {
-	while(edge)
+	t_edge *edge = path->last_edge;
+	int	nb_path = 0;
+
+	while (edge)
 	{
-		ft_printf("%s <= ", edge->out->room->name);
+		ft_printf("%s<=", edge->out->room->name);
+		nb_path++;
 		edge = edge->previous_edge;
 	}
-	ft_printf("\n");
+	ft_printf(" (%d) \n", nb_path / 2 + 1);
 }
 
 static t_edge *find_antiparallele(t_edge *edge)

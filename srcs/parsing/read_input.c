@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/11/08 16:03:15 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:05:03 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void parse_file() {
 	}
 	if (status != LINKS)
 		bugs(ERR_NO_LINKS);
-	ft_putchar_fd('\n', 1);
 	// print_lem_in(lem_in);
 }
 

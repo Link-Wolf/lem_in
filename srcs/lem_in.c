@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/08 16:07:25 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:18:17 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ int	main(int argc, char **argv)
 
 	resolve();
 
+
+	// Throw ants on the paths
+	throw_ants();
+
 	if (lem_in->has_visualizer)
 	{
 		evaluate_distances();
 		visualise();
 	}
-
-	// Throw ants on the paths
-	throw_ants();
 
 	// Tini, propers frees and exit
 	tini();

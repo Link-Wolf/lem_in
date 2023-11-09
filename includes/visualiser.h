@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 15:34:45 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:27:00 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,10 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom);
  * 	@return The random color.
  */
 int 	get_random_color(void);
+
+/**
+ *	@brief draw room names
+ */
+void draw_room_names(t_room *room, mlx_t *mlx, int width, t_zoom *zoom);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 15:18:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/09 17:37:14 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_ultimate_definitive_edition_deluxe_master_path
 	int	 													size;
 	struct s_room											*room;
 	struct s_ultimate_definitive_edition_deluxe_master_path *next;
+	int 													ants;
 }	t_ultimate_definitive_edition_deluxe_master_path;
 
 typedef struct s_node
@@ -131,8 +132,7 @@ typedef struct s_lem_in
 
 typedef struct s_ant
 {
-	t_room													*current_room;
-	t_room													*room_to_go;
+	t_ultimate_definitive_edition_deluxe_master_path		*path;
 	int														is_arrived;
 } t_ant;
 

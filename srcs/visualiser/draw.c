@@ -6,7 +6,7 @@
 /*   By: laird_### <laird_###@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/10 21:13:55 by laird_###       ###   ########.fr       */
+/*   Updated: 2023/11/10 21:35:09 by laird_###       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_
 
 void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom)
 {
-	int color = 0;
+	unsigned int color = 0;
 
 	if (room->left)
 		draw_all_links(room->left, img, room_size, width, zoom);

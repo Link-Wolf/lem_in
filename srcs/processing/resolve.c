@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 16:30:18 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 10:59:02 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@ static void		init_queue(t_queue *queue);
 static void		*pop_elem(t_queue *queue);
 static void		push_elem(t_queue *queue, void *elem);
 static void		delete_queue(t_queue *queue);
+static void	save_best_graph(int *save, t_graph *graph);
+static void	load_best_graph(int *save, t_graph *graph);
 
 void	resolve()
 {
 	int		nb_pathes;
 	int		nb_ants;
 	int		delta;
+	int		best_case = INT_MAX;
+	int		*save = NULL;
 	t_graph	*graph;
 	t_path	*gamma;
 	t_edge	*edge;
@@ -43,6 +47,7 @@ void	resolve()
 	set_null_flow(graph); // Set all flows to 0
 	// While we need path
 	//	And we find a graph in the Residual graph
+	save = malloc(sizeof (int) * graph->nb_edges);
 	while (nb_pathes < nb_ants && (gamma = find_simple_path(graph)))
 	{
 		delta = 1; // 1 because all edges have capacity 1
@@ -60,7 +65,27 @@ void	resolve()
 		}
 		free(gamma);
 		nb_pathes++;
+		int current_case = throw_ants(SILENT);
+		if (current_case < best_case)
+		{
+			best_case = current_case;
+			save_best_graph(save, graph);
+		}
 	}
+	load_best_graph(save, graph);
+	free(save);
+}
+
+static void	save_best_graph(int *save, t_graph *graph)
+{
+	for (int i = 0; i < graph->nb_edges; i++)
+		save[i] = graph->edges[i]->flow;
+}
+
+static void	load_best_graph(int *save, t_graph *graph)
+{
+	for (int i = 0; i < graph->nb_edges; i++)
+		graph->edges[i]->flow = save[i];
 }
 
 static void set_null_flow(t_graph *graph)

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:09 by Link           #+#    #+#             */
-/*   Updated: 2023/11/09 18:29:32 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 10:52:27 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_lem_in *lem_in;
 
-static int		make_ants_advance(t_ant *ants, int nb_ants_sent);
+static int		make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode silent);
 static void		fill_ultimate_definitive_edition_deluxe_master_path(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
 static void		delete_ultimate_definitive_edition_deluxe_master_path(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
 static t_room 	*find_next_room(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
@@ -22,7 +22,7 @@ static int calc_min(t_ultimate_definitive_edition_deluxe_master_path **ant_pathe
 static void	sort_ant_pathes(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes);
 static void 	init_ant_path_send(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes, int total_ants);
 
-void throw_ants() {
+int throw_ants(t_mode mode) {
 	int														total_ants = lem_in->nb_ants;
 	int														nb_ants_sent;
 	int														nb_turn;
@@ -34,7 +34,6 @@ void throw_ants() {
 	ants = malloc(sizeof(t_ant) * total_ants);
 	if (!ants)
 		bugs(ERR_ALLOCATION);
-	ft_printf("# nb ants: %d\n", total_ants);
 	for (int i = 0; i < lem_in->graph->source->nb_outing_edges; i++)
 	{
 		t_edge *edge = lem_in->graph->source->outing_edges[i];
@@ -79,14 +78,15 @@ void throw_ants() {
 	nb_ants_sent = 0;
 	nb_turn = -1; // The first round is a init_round with no ant movement
 	nb_ants_arrived = 0;
-	for (int i = 0; i < nb_pathes; i++)
-	{
-		ft_printf("# Path of %d that starts on %s\n", ant_pathes[i]->size, ant_pathes[i]->room->name);
-	}
+	if (lem_in->verbose && mode == DEFAULT)
+		for (int i = 0; i < nb_pathes; i++)
+		{
+			ft_printf("# Path of %d that starts on %s\n", ant_pathes[i]->size, ant_pathes[i]->room->name);
+		}
 
 	while (nb_ants_arrived < total_ants)
 	{
-		nb_ants_arrived += make_ants_advance(ants, nb_ants_sent);
+		nb_ants_arrived += make_ants_advance(ants, nb_ants_sent, mode);
 		for (int i = 0; i < nb_pathes; i++)
 		{
 			// ft_printf("%s : %d ; ", ant_pathes[i]->room->name , ant_pathes[i]->ants);
@@ -108,8 +108,9 @@ void throw_ants() {
 	for (int i = 0; i < nb_pathes; i++)
 		delete_ultimate_definitive_edition_deluxe_master_path(ant_pathes[i]);
 	free(ant_pathes);
-	if (lem_in->verbose)
+	if (lem_in->verbose && mode == DEFAULT)
 		ft_printf("#Solved in %d turns fro %d ants for %d rooms\n", nb_turn, total_ants, lem_in->nb_rooms);
+	return (nb_turn);
 }
 
 static int calc_min(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes)
@@ -124,7 +125,7 @@ static int calc_min(t_ultimate_definitive_edition_deluxe_master_path **ant_pathe
 	return (min);
 }
 
-static int	make_ants_advance(t_ant *ants, int nb_ants_sent)
+static int	make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode mode)
 {
 	int	arriving_count = 0;
 
@@ -132,10 +133,17 @@ static int	make_ants_advance(t_ant *ants, int nb_ants_sent)
 	{
 		if (ants[i].is_arrived)
 		{
-			ft_printf("          ");
+			if (lem_in->verbose && mode == DEFAULT)
+				ft_printf("          ");
 			continue;
 		}
-		ft_printf("L%03d-%s ", i + 1, ants[i].path->room->name);
+		if (mode == DEFAULT)
+		{
+			if (lem_in->verbose)
+				ft_printf("L%03d-%s ", i + 1, ants[i].path->room->name);
+			else
+				ft_printf("L%d-%s ", i + 1, ants[i].path->room->name);
+		}
 		if (ants[i].path->room->is_end || !ants[i].path->next)
 		{
 			arriving_count++;
@@ -144,7 +152,8 @@ static int	make_ants_advance(t_ant *ants, int nb_ants_sent)
 		}
 		ants[i].path = ants[i].path->next;
 	}
-	ft_printf("\n");
+	if (mode == DEFAULT)
+		ft_printf("\n");
 	return (arriving_count);
 }
 

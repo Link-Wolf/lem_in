@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/09 13:18:17 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 10:46:40 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 
 
 	// Throw ants on the paths
-	throw_ants();
+	throw_ants(DEFAULT);
 
 	if (lem_in->has_visualizer)
 	{

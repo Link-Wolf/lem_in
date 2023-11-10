@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:09 by Link           #+#    #+#             */
-/*   Updated: 2023/11/10 10:52:27 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:01:52 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int throw_ants(t_mode mode) {
 	int														nb_pathes = 0;
 	t_ant													*ants;
 	t_ultimate_definitive_edition_deluxe_master_path		**ant_pathes;
+
+	if (lem_in->verbose && mode == DEFAULT)
+		ft_printf("# There are %d ants.\n", total_ants);
 
 	ants = malloc(sizeof(t_ant) * total_ants);
 	if (!ants)

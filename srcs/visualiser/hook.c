@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 15:52:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:48:29 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	loop_handler(void* param)
 	params->last_redraw_request_age += params->mlx->delta_time;
 	if (params->last_redraw_request_age > 0.05 && params->need_to_redraw)
 	{
-		generate_image(params->mlx, &params->img, params->zoom);
+		generate_image(params->mlx, &params->img, params->bg, params->zoom);
 		params->need_to_redraw = false;
 	}
 }

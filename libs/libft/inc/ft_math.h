@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 08:41:40 by iCARUS            #+#    #+#             */
-/*   Updated: 2022/12/02 09:51:55 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:33:23 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,12 @@ int	ft_min(int a, int b);
 
 /* Return the sign of x*/
 int	ft_sign(int x);
+
+/**
+ *	@brief	Quack fast inverse square root
+ *	@param	x	The number inverse the square root to
+ *	@return		A approximation of x^(-1/2)
+ */
+float	ft_rsqrt(float x);
 
 #endif

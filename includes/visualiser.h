@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 13:27:00 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:48:19 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef	struct	s_zoom
 typedef	struct	s_param{
 	mlx_t			*mlx;
 	mlx_image_t		*img;
+	mlx_image_t		*bg;
 	t_zoom			*zoom;
 	double			last_redraw_request_age;
 	bool			need_to_redraw;
@@ -141,7 +142,7 @@ void	scroll_handler(double xdelta, double ydelta, void* param);
  * 	@param zoom The zoom structure.
  * 	@param lemin The lem_in structure.
  */
-void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom);
+void	generate_image(mlx_t *mlx, mlx_image_t **img, mlx_image_t *bg, t_zoom *zoom);
 
 /**
  * 	@brief Generate a random color.
@@ -153,5 +154,13 @@ int 	get_random_color(void);
  *	@brief draw room names
  */
 void draw_room_names(t_room *room, mlx_t *mlx, int width, t_zoom *zoom);
+
+int		get_r(int rgba);
+int		get_g(int rgba);
+int		get_b(int rgba);
+int		get_a(int rgba);
+void	set_pixel_color(uint8_t *pixel, int color);
+uint8_t	*get_pixel_address(mlx_image_t *img, int x, int y);
+
 
 #endif

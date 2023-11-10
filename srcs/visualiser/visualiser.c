@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/11/09 13:25:05 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:52:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void visualise()
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;
+	mlx_image_t*	bg;
 	t_zoom			zoom;
 
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "lem-in", true)))
@@ -28,8 +29,20 @@ void visualise()
 	if (!(img = mlx_new_image(mlx, WIDTH, HEIGHT)))
 		bugs(ERR_MLX_NEW_IMG);
 
-	t_param			params = {mlx, img, &zoom, 0.0, 0};
+	if (!(bg = mlx_new_image(mlx, WIDTH, HEIGHT)))
+		bugs(ERR_MLX_NEW_IMG);
 
+	for (uint32_t x = 0; x < bg->width; x++)
+		for (uint32_t y = 0; y < bg->height; y++)
+			set_pixel_color(
+				get_pixel_address(bg, x, y),
+				0x000000FF
+			);
+
+	t_param			params = {mlx, img, bg, &zoom, 0.0, 0};
+
+	if (mlx_image_to_window(mlx, bg, 0, 0) == -1)
+		bugs(ERR_MLX_IMG_TO_WIN);
 	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
 		bugs(ERR_MLX_IMG_TO_WIN);
 
@@ -54,7 +67,7 @@ void visualise()
 	zoom.y_offset = 0;
 	zoom.zoom_ratio = (double) WIDTH / virtual_width;
 
-	generate_image(mlx, &img, &zoom);
+	generate_image(mlx, &img, bg, &zoom);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
@@ -98,13 +111,14 @@ static void	set_room_locations(t_room *room, int width, int height)
 			* (current_y); // Line of the room + 1 because we want to count the first line
 }
 
-void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom)
+void	generate_image(mlx_t *mlx, mlx_image_t **img, mlx_image_t *bg, t_zoom *zoom)
 {
 	mlx_image_t	*tmp = *img;
 
 	int	must_put_image = 0;
 	srand(3141595);
 
+	ft_bzero((*img)->pixels, sizeof (uint32_t) * (*img)->width * (*img)->height);
 	if (mlx->width != (int) (*img)->width || mlx->height != (int) (*img)->height)
 	{
 		if (!(tmp = mlx_new_image(mlx, mlx->width, mlx->height)))
@@ -112,17 +126,15 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, t_zoom *zoom)
 		must_put_image = 1;
 	}
 
-	ft_memset(tmp->pixels, 0xFF, tmp->width * tmp->height * 4);
-
 	draw_all_links(*lem_in->rooms, tmp, ROOM_DIAMETER, tmp->width, zoom);
 	draw_all_rooms(*lem_in->rooms, tmp, ROOM_DIAMETER, tmp->width, zoom);
 
 	if (must_put_image)
 	{
 		*img = tmp;
+		mlx_image_to_window(mlx, bg, 0, 0);
 		mlx_image_to_window(mlx, tmp, 0, 0);
 	}
-	draw_room_names(*lem_in->rooms, mlx, tmp->width, zoom);
 }
 
 

@@ -6,7 +6,7 @@
 #    By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 13:24:40 by iCARUS            #+#    #+#              #
-#    Updated: 2023/04/28 10:56:25 by iCARUS           ###   ########.fr        #
+#    Updated: 2023/11/10 11:31:12 by iCARUS           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,8 @@ FT_MATH_FIL		=		\
 	ft_max				\
 	ft_min				\
 	ft_sqrt				\
-	ft_sign
+	ft_sign				\
+	ft_rsqrt
 FT_MATH_SRC		=		\
 	$(addsuffix .c, $(addprefix $(FT_MATH_DIR), $(FT_MATH_FIL)))
 

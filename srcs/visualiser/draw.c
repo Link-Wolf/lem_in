@@ -6,41 +6,41 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 13:38:16 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:54:02 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/visualiser.h"
 
 // Get the red channel.
-static int get_r(int rgba)
+int get_r(int rgba)
 {
     // Move 3 bytes to the right and mask out the first byte.
     return ((rgba >> 24) & 0xFF);
 }
 
 // Get the green channel.
-static int get_g(int rgba)
+int get_g(int rgba)
 {
     // Move 2 bytes to the right and mask out the first byte.
     return ((rgba >> 16) & 0xFF);
 }
 
 // Get the blue channel.
-static int get_b(int rgba)
+int get_b(int rgba)
 {
     // Move 1 byte to the right and mask out the first byte.
     return ((rgba >> 8) & 0xFF);
 }
 
 // Get the alpha channel.
-static int get_a(int rgba)
+int get_a(int rgba)
 {
     // Move 0 bytes to the right and mask out the first byte.
     return (rgba & 0xFF);
 }
 
-static void set_pixel_color(uint8_t *pixel, int color)
+void set_pixel_color(uint8_t *pixel, int color)
 {
 	pixel[0] = get_r(color);
 	pixel[1] = get_g(color);
@@ -48,7 +48,7 @@ static void set_pixel_color(uint8_t *pixel, int color)
 	pixel[3] = get_a(color);
 }
 
-static uint8_t *get_pixel_address(mlx_image_t *img, int x, int y)
+uint8_t *get_pixel_address(mlx_image_t *img, int x, int y)
 {
 	return img->pixels + (x + y * img->width) * 4;
 }
@@ -65,25 +65,22 @@ void	draw_room(mlx_image_t *img, int x, int y, int d, int color)
 		{
 			for (int j = -1 ; j <= 1 ; j += 2) // up down reflexion
 			{
-				for (int k = 0; k < d * 5; k++) // fill the circle (5 is arbitrary)
-				{
-					int pixel_x = x + i * X * k / d / 5;
-					int pixel_y = y + j * Y * k / d / 5;
-					if (pixel_x >= 0 && pixel_x < (int) img->width
-						&& pixel_y >= 0 && pixel_y < (int) img->height)
-						set_pixel_color(
-							get_pixel_address(
-								img, pixel_x, pixel_y), // X >= Y octants
-							color);
-					pixel_x = x + i * Y * k / d / 5;
-					pixel_y = y + j * X * k / d / 5;
-					if (pixel_x >= 0 && pixel_x < (int) img->width
-						&& pixel_y >= 0 && pixel_y < (int) img->height)
-						set_pixel_color(
-							get_pixel_address(
-								img, pixel_x, pixel_y), // X <= Y octants
-							color);
-				}
+				int pixel_x = x + i * X;
+				int pixel_y = y + j * Y;
+				if (pixel_x >= 0 && pixel_x < (int) img->width
+					&& pixel_y >= 0 && pixel_y < (int) img->height)
+					set_pixel_color(
+						get_pixel_address(
+							img, pixel_x, pixel_y), // X >= Y octants
+						color);
+				pixel_x = x + i * Y;
+				pixel_y = y + j * X;
+				if (pixel_x >= 0 && pixel_x < (int) img->width
+					&& pixel_y >= 0 && pixel_y < (int) img->height)
+					set_pixel_color(
+						get_pixel_address(
+							img, pixel_x, pixel_y), // X <= Y octants
+						color);
 			}
 		}
 
@@ -210,7 +207,7 @@ void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_
 	if (room->is_start)
 		color = START_ROOM_COLOR;
 	if (room->is_end)
-		color = EXIT_ROOM_COLOR;\
+		color = EXIT_ROOM_COLOR;
 	// TODO: skip way too far rooms
 	for (int i = 0 ; i < room->nb_linked ; i++)
 	{
@@ -219,12 +216,23 @@ void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		if (room->linked_rooms[i]->is_end)
 			color = EXIT_ROOM_COLOR;\
 		// TODO: skip way too far rooms
+
+		double	room_A_x = room->x_coord;
+		double	room_A_y = room->y_coord;
+		double	room_B_x = room->linked_rooms[i]->x_coord;
+		double	room_B_y = room->linked_rooms[i]->y_coord;
+		float	reverse_distance = ft_rsqrt( // time to use the quack inverse square root
+			(room_A_x - room_B_x) * (room_A_x - room_B_x)
+			+ (room_A_y - room_B_y) * (room_A_y - room_B_y));
+		double delta_x = (room_A_x - room_B_x) * room_size / 2 * reverse_distance;
+		double delta_y = (room_A_y - room_B_y) * room_size / 2 * reverse_distance;
+
 		draw_link(
 			img,
-			zoom->x_offset + (room->x_coord ) * zoom->zoom_ratio ,
-			zoom->y_offset + (room->y_coord) * zoom->zoom_ratio,
-			zoom->x_offset + (room->linked_rooms[i]->x_coord ) * zoom->zoom_ratio ,
-			zoom->y_offset + (room->linked_rooms[i]->y_coord ) * zoom->zoom_ratio ,
+			zoom->x_offset + (room->x_coord - delta_x) * zoom->zoom_ratio,
+			zoom->y_offset + (room->y_coord - delta_y) * zoom->zoom_ratio,
+			zoom->x_offset + (room->linked_rooms[i]->x_coord + delta_x) * zoom->zoom_ratio ,
+			zoom->y_offset + (room->linked_rooms[i]->y_coord + delta_y) * zoom->zoom_ratio ,
 			color
 		);
 	}

@@ -57,14 +57,14 @@ $(LIBMLX)/build/libmlx42.a:
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"libmlx"\t\t\t\t[ ✓ ]\n\e[0m"
 
 $(NAME): $(LIBFT) $(OBJS) $(LIBMLX)/build/libmlx42.a
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address -g -static-libasan
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address -g
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 $(LIBFT):
 	@$(MAKE) -C libs/libft/
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) -fsanitize=address -g -static-libasan
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) -fsanitize=address -g
 	@printf $(ERRASE_LINE)$(OBJ_COLOR)"\t"$@"\e[0m"
 
 clean:

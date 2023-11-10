@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/11/10 11:52:53 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 12:30:39 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 extern t_lem_in *lem_in;
 
 static void	set_room_locations(t_room *room, int width, int height);
+static int	rgb(int h, int s, int v);
+
+time_t seed;
 
 void visualise()
 {
@@ -23,6 +26,7 @@ void visualise()
 	mlx_image_t*	bg;
 	t_zoom			zoom;
 
+	seed = time(NULL);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "lem-in", true)))
 		bugs(ERR_MLX_INIT);
 
@@ -36,7 +40,7 @@ void visualise()
 		for (uint32_t y = 0; y < bg->height; y++)
 			set_pixel_color(
 				get_pixel_address(bg, x, y),
-				0x000000FF
+				BACKGROUND_COLOR
 			);
 
 	t_param			params = {mlx, img, bg, &zoom, 0.0, 0};
@@ -113,10 +117,10 @@ static void	set_room_locations(t_room *room, int width, int height)
 
 void	generate_image(mlx_t *mlx, mlx_image_t **img, mlx_image_t *bg, t_zoom *zoom)
 {
+	srand(seed);
 	mlx_image_t	*tmp = *img;
 
 	int	must_put_image = 0;
-	srand(3141595);
 
 	ft_bzero((*img)->pixels, sizeof (uint32_t) * (*img)->width * (*img)->height);
 	if (mlx->width != (int) (*img)->width || mlx->height != (int) (*img)->height)
@@ -137,13 +141,52 @@ void	generate_image(mlx_t *mlx, mlx_image_t **img, mlx_image_t *bg, t_zoom *zoom
 	}
 }
 
-
 int get_random_color(void)
 {
-	int r = rand() % 255;
-	int g = rand() % 255;
-	int b = rand() % 255;
+	int h = rand() % 360;
+	int s = rand() % 100;
+	int v = rand() % 50 + 50;
 
-	return (r << 24 | g << 16 | b << 8 | 0xFF);
+	return (rgb(h,s,v));
+}
+
+static int	rgb(int h, int s, int v)
+{
+	int	c = v * s;
+	int	x = c * (1 - (((h / 60) % 2 - 1)));
+	int m = v - c;
+
+	int r_ = 0;
+	int g_ = 0;
+	int b_ = 0;
+
+	switch (h / 60)
+	{
+	case 0:
+		r_ = c;
+		g_ = x;
+		break;
+	case 1:
+		r_ = x;
+		g_ = c;
+		break;
+	case 2:
+		g_ = c;
+		b_ = x;
+		break;
+	case 3:
+		g_ = x;
+		b_ = c;
+		break;
+	case 4:
+		r_ = x;
+		b_ = c;
+		break;
+	default:
+		r_ = c;
+		b_ = x;
+	}
+
+	return (((r_ + m) * 255) << 24 | ((g_ + m) * 255) << 16 | ((b_ + m) * 255) << 8 | 0xFF);
 }
 

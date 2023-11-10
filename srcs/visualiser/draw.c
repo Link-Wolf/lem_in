@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/10 11:54:02 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 12:32:54 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void draw_all_rooms(t_room *room, mlx_image_t *img, int room_size, int width, t_
 
 void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_zoom *zoom)
 {
-	int color = get_random_color();
+	int color = 0;
 
 	if (room->left)
 		draw_all_links(room->left, img, room_size, width, zoom);
@@ -214,7 +214,9 @@ void draw_all_links(t_room *room, mlx_image_t *img, int room_size, int width, t_
 		if (room->linked_rooms[i]->is_start)
 			color = START_ROOM_COLOR;
 		if (room->linked_rooms[i]->is_end)
-			color = EXIT_ROOM_COLOR;\
+			color = EXIT_ROOM_COLOR;
+		if (!color)
+			color = get_random_color();
 		// TODO: skip way too far rooms
 
 		double	room_A_x = room->x_coord;

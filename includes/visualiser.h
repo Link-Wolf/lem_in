@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/10 11:48:19 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/10 12:21:34 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define EXIT_ROOM_COLOR 0x0000FFFF
 # define SPACE_BETWEEN_LINES 5
 # define ROOM_COLOR 0x904D50FF
+# define BACKGROUND_COLOR 0x101010FF
 
 # define MARGIN_SIZE 80
 # define ROOM_DIAMETER 80

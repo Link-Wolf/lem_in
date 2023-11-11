@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/09 17:37:14 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:22:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define STRUCTURES_H
 
 # define NAME_SIZE 128
+
+typedef enum e_mode {
+	DEFAULT,
+	SILENT
+} t_mode;
 
 struct s_pathes;
 struct s_visualiser;

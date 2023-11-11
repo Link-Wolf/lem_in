@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/11/09 14:05:08 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:33:43 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		create_link(t_room *src, t_room *dest);
  */
 static t_room	*find_room(t_room **rooms, char *name);
 
-int	add_link(t_room **rooms, char *room1_name, char *room2_name)
+int	add_link(t_room **rooms, char *room1_name, char *room2_name, t_mode mode)
 {
 	t_room	*room1;
 	t_room	*room2;
@@ -42,7 +42,8 @@ int	add_link(t_room **rooms, char *room1_name, char *room2_name)
 		return (ERR_ROOM_DOES_NOT_EXIST);
 	if (create_link(room1, room2) || create_link(room2, room1))
 		return (ERR_ALLOCATION);
-	ft_printf("%s-%s\n", room1_name, room2_name);
+	if (mode == DEFAULT)
+		ft_printf("%s-%s\n", room1_name, room2_name);
 	return (OK);
 }
 

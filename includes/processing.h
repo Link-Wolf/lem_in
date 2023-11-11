@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:42 by Link           #+#    #+#             */
-/*   Updated: 2023/11/11 14:53:59 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:22:40 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 # include "./return_codes.h"
 # include "./utils.h"
 # include <limits.h>
-
-typedef enum e_mode {
-	DEFAULT,
-	SILENT
-} t_mode;
 
 void		check_for_trivials();
 int			throw_ants(t_mode silent);

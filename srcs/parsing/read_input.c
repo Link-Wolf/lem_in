@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/11/09 13:05:03 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:38:11 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ extern t_lem_in *lem_in;
 */
 static int verify_numbers(char *line, int minus);
 
-void parse_file() {
+void parse_file(t_mode mode) {
 	char	*line = NULL;
 	int		status = ANTS;
 	int		cmd = NONE;
@@ -38,7 +38,7 @@ void parse_file() {
 		if (line[0] == '#')
 		{
 			if (line[1] && line[1] == '#')
-				process_cmd(line, &cmd);
+				process_cmd(line, &cmd, mode);
 			else if (lem_in->verbose)
 				ft_putstr_fd(line, 1);
 			continue;
@@ -46,23 +46,25 @@ void parse_file() {
 
 		// Case of ants, rooms and links lines
 		if (status == ANTS) {
-			lem_in->nb_ants = process_ants(line, &status);
-			if (lem_in->verbose)
+			lem_in->nb_ants = process_ants(line, &status, mode);
+			if (lem_in->verbose && mode == DEFAULT)
+			{
 				ft_putstr_fd("#------ ANT NUMBER ------\n", 1);
-			ft_putnbr_fd(lem_in->nb_ants, 1);
+				ft_putnbr_fd(lem_in->nb_ants, 1);
+			}
 			ft_putchar_fd('\n', 1);
 		}
 		else if (status == ROOMS)
-			process_rooms(line, &cmd, &status);
+			process_rooms(line, &cmd, &status, mode);
 		if (status == LINKS)
-			process_links(line);
+			process_links(line, mode);
 	}
 	if (status != LINKS)
 		bugs(ERR_NO_LINKS);
 	// print_lem_in(lem_in);
 }
 
-void process_rooms(char *line, int *cmd, int *status) {
+void process_rooms(char *line, int *cmd, int *status, t_mode mode) {
 
 	if (ft_strchr(line, ' ') == NULL) {
 		if (*cmd != NONE)
@@ -70,7 +72,7 @@ void process_rooms(char *line, int *cmd, int *status) {
 		*status = LINKS;
 		if (!lem_in->start || !lem_in->end)
 			bugs(ERR_NO_START_END);
-		if (lem_in->verbose)
+		if (lem_in->verbose && mode == DEFAULT)
 			ft_putstr_fd("\n#--- LINKS DEFINITION ---\n", 1);
 		return;
 	}
@@ -129,13 +131,15 @@ void process_rooms(char *line, int *cmd, int *status) {
 		*cmd & START,
 		*cmd & END,
 		ft_atoi(coord),
-		ft_atoi(coord2));
+		ft_atoi(coord2)
+		,mode
+	);
 	*cmd = NONE;
 	if (ret > 0)
 		bugs(ret);
 }
 
-void process_links(char *line) {
+void process_links(char *line, t_mode mode) {
 	// Verify that the line contains a dash
 	char *find = ft_strchr(line, '-') + 1;
 	if (find == NULL + 1 || find == line || find == line + 1)
@@ -168,23 +172,24 @@ void process_links(char *line) {
 
 
 	// Add the link to the structure
-	int ret = add_link(lem_in->rooms, name, name2);
+	int ret = add_link(lem_in->rooms, name, name2, mode);
 	if (ret > 0)
 		bugs(ret);
 }
 
-void process_cmd(char *line, int *cmd) {
+void process_cmd(char *line, int *cmd, t_mode mode) {
+	(void) mode;
 	if (ft_strcmp(line, "##start\n") == 0)
 		*cmd = START;
 	else if (ft_strcmp(line, "##end\n") == 0)
 		*cmd = END;
 }
 
-int process_ants(char *line, int *status) {
+int process_ants(char *line, int *status, t_mode mode) {
 	if (verify_numbers(line, 0))
 		bugs(ERR_VALUE_ANTS);
 	*status = ROOMS;
-	if (lem_in->verbose)
+	if (lem_in->verbose && mode == DEFAULT)
 		ft_putstr_fd("\n#--- ROOMS DEFINITION ---\n", 1);
 	return (ft_atoi(line));
 }

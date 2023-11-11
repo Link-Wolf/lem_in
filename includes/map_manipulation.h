@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 16:11:36 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:34:08 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		add_room(
 			int is_start,
 			int is_end,
 			int x_coord,
-			int y_coord
+			int y_coord,
+			t_mode mode
 	);
 
 /**
@@ -45,7 +46,7 @@ int		add_room(
  *	@param	room2_name	The name of the second room
  *	@returns	The appropriate return code (or 0 if everything went OK)
  */
-int	add_link(t_room **rooms, char *room1_name, char *room2_name);
+int	add_link(t_room **rooms, char *room1_name, char *room2_name, t_mode mode);
 
 /**
  *	@brief	Check if a room is linked by another rooms

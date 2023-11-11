@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:34:51 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/11 15:00:03 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:38:22 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ extern t_lem_in *lem_in;
 static t_room	*create_room(char *name, int is_start, int is_end, int x_coord, int y_coord, int id);
 static t_node	*init_node(t_graph *graph, t_room *room);
 
-int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
+int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord, t_mode mode)
 {
 	t_room	*current_room;
 	t_room	*previous_room;
@@ -67,6 +67,7 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 		*lem_in->rooms = new_room;
 	if (new_room->is_start)
 	{
+		if (mode == DEFAULT)
 		ft_printf("##start\n");
 		lem_in->start = new_room;
 		in_node = NULL;
@@ -75,6 +76,7 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 		in_node = init_node(lem_in->graph, new_room);
 	if (new_room->is_end)
 	{
+		if (mode == DEFAULT)
 		ft_printf("##end\n");
 		lem_in->end = new_room;
 		out_node = NULL;
@@ -92,7 +94,8 @@ int	add_room(char *name, int is_start, int is_end, int x_coord, int y_coord)
 	}
 	new_room->in_node = in_node;
 	new_room->out_node = out_node;
-	ft_printf("%s %d %d\n", name, x_coord, y_coord);
+	if (mode == DEFAULT)
+		ft_printf("%s %d %d\n", name, x_coord, y_coord);
 	return (OK);
 }
 

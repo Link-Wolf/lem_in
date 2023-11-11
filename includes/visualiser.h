@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/10 12:21:34 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 14:53:53 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef	struct	s_param{
 	bool			need_to_redraw;
 }					t_param;
 
+void evaluate_coords();
 void 	visualise();
 
 /**

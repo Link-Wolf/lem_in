@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/10 10:46:40 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 14:53:38 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 
 	if (lem_in->has_visualizer)
 	{
-		evaluate_distances();
+		evaluate_coords();
 		visualise();
 	}
 

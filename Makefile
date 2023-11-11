@@ -24,17 +24,18 @@ SRCS_N			=	lem_in							\
 					utils/bugs						\
 					utils/print_parsing				\
 					utils/delete_things				\
+					utils/queue						\
 					parsing/read_input				\
 					map_manipulation/add_link		\
 					map_manipulation/add_room		\
 					map_manipulation/include_link	\
-					processing/throw_ants			\
-					processing/process_map			\
 					processing/check_for_trivials	\
 					processing/resolve				\
+					processing/throw_ants			\
 					visualiser/visualiser			\
 					visualiser/draw					\
 					visualiser/hook					\
+					visualiser/evaluate_coords		\
 
 SRCS			=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 

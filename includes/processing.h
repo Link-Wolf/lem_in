@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:42 by Link           #+#    #+#             */
-/*   Updated: 2023/11/10 10:49:44 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 14:53:59 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef enum e_mode {
 } t_mode;
 
 void		check_for_trivials();
-void		evaluate_distances();
 int			throw_ants(t_mode silent);
 void		resolve();
 

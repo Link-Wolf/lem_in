@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:31:48 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/08 15:35:26 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 14:57:55 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,10 @@ void	print_links(t_room *room);
  *	@param	room	The room to delete
  */
 void	delete_room(t_room *room);
+
+void	init_queue(t_queue *queue);
+void	*pop_elem(t_queue *queue);
+void	push_elem(t_queue *queue, void *elem);
+void	delete_queue(t_queue *queue);
 
 #endif

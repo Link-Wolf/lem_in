@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/10 10:59:02 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/11 14:57:30 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ static void 	set_null_flow(t_graph *graph);
 static t_path 	*find_simple_path(t_graph *graph);
 static int 		is_in_graph(t_edge *edge);
 static t_edge	*find_antiparallele(t_edge *edge);
-static void		init_queue(t_queue *queue);
-static void		*pop_elem(t_queue *queue);
-static void		push_elem(t_queue *queue, void *elem);
-static void		delete_queue(t_queue *queue);
 static void	save_best_graph(int *save, t_graph *graph);
 static void	load_best_graph(int *save, t_graph *graph);
 
@@ -175,39 +171,4 @@ static t_edge *find_antiparallele(t_edge *edge)
 static int is_in_graph(t_edge *edge)
 {
 	return (!edge->is_reversal_edge);
-}
-
-static void	init_queue(t_queue *queue)
-{
-	queue->allocated_space = 8;
-	queue->elements = malloc(queue->allocated_space * sizeof (void *));
-	queue->first_element_index = 0;
-	queue->size = 0;
-}
-
-static void	*pop_elem(t_queue *queue)
-{
-	if (queue->first_element_index >= queue->size)
-		return (NULL);
-	return (queue->elements[queue->first_element_index++]);
-}
-
-static void push_elem(t_queue *queue, void *elem)
-{
-	void	**tmp;
-
-	if (queue->size == queue->allocated_space)
-	{
-		queue->allocated_space *= 2;
-		tmp = malloc(queue->allocated_space * sizeof (void *));
-		ft_memcpy(tmp, queue->elements, queue->size * sizeof (void *));
-		free(queue->elements);
-		queue->elements = tmp;
-	}
-	queue->elements[queue->size++] = elem;
-}
-
-static void delete_queue(t_queue *queue)
-{
-	free(queue->elements);
 }

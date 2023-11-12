@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/11 14:53:53 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 14:07:51 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,18 @@ typedef	struct	s_param{
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_image_t		*bg;
+	mlx_image_t		*ants;
+	double			time;
+	int				is_animating;
 	t_zoom			*zoom;
 	double			last_redraw_request_age;
 	bool			need_to_redraw;
 }					t_param;
 
 void evaluate_coords();
-void 	visualise();
+void 	debug();
+void	visualize();
+
 
 /**
  *	@brief Draw a room in the image. Using Breseham's midpoint algorithm.

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/11/08 15:51:47 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 13:48:21 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ const char	*error_msgs[] = {
 	[ERR_NO_START_END] = "The map is missing start and/or end room(s)",
 	[ERR_LINK_ALREADY_EXISTS] = "Links cannot be duplicated",
 	[ERR_NO_SOLUTION] = "No solution found, or we're fucked, or we're dumb, who knows",
-	[ERR_USAGE] = "Usage: ./lemin [-v|--verbose] [-b|--bonus] < map.map"
+	[ERR_USAGE] = "Usage: ./lemin [-v|--verbose] < map.map",
+	[ERR_MLX_INIT] = "Error encountered while setting the MLX up",
+	[ERR_MLX_NEW_IMG] = "Error encoutered while creating MLX Image",
+	[ERR_MLX_IMG_TO_WIN] = "Error encountered while puting MLX Image to Window",
+	[ERR_USAGE_BONUS] = "Usage: ./visualizer [-d|--debugger]"
 };
 
 void	bugs(int code)

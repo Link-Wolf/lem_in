@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/11 15:21:30 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 13:55:46 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	main(int argc, char **argv)
 	init();
 
 	int flags = 0;
+	t_mode	mode = SILENT;
 	for (int i = 1; i < argc; i++)
 	{
-		if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "--verbose"))
-			flags |= VERBOSE;
-		else if (!ft_strcmp(argv[i], "-b") || !ft_strcmp(argv[i], "--bonus"))
-			flags |= VISUALIZER;
+		if (!ft_strcmp(argv[i], "-d") || !ft_strcmp(argv[i], "--debugger"))
+			flags |= DEBUGGER;
+		else if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "--verbose"))
 		else
-			bugs(ERR_USAGE);
+			bugs(ERR_USAGE_BONUS);
 	}
 	lem_in->verbose = flags & VERBOSE;
 	lem_in->has_visualizer = flags & VISUALIZER;
@@ -35,10 +35,14 @@ int	main(int argc, char **argv)
 	parse_file(SILENT);
 	resolve();
 
-	if (lem_in->has_visualizer)
+	if (flags & DEBUGGER)
 	{
 		evaluate_coords();
-		visualise();
+		debug();
+	}
+	else
+	{
+		visualize(mode);
 	}
 
 	// Tini, propers frees and exit

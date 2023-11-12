@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/11/11 15:01:05 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 13:53:35 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	rgb(int h, int s, int v);
 
 time_t seed;
 
-void visualise()
+void debug()
 {
 	mlx_t*			mlx;
 	mlx_image_t*	img;

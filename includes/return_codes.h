@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/10/27 13:34:24 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 13:46:26 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ enum {
 	ERR_MLX_INIT,
 	ERR_MLX_NEW_IMG,
 	ERR_MLX_IMG_TO_WIN,
+	ERR_USAGE_BONUS
 };
 
 enum {
-	VERBOSE = 1,
-	VISUALIZER = 2
+	VERBOSE = 1 << 0,
+	VISUALIZER = 1 << 1,
+	DEBUGGER = 1 << 2
 };
 
 #endif

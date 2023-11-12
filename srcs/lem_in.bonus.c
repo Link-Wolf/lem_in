@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/12 13:55:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 15:59:32 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 		if (!ft_strcmp(argv[i], "-d") || !ft_strcmp(argv[i], "--debugger"))
 			flags |= DEBUGGER;
 		else if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "--verbose"))
+			flags |= VERBOSE;
 		else
 			bugs(ERR_USAGE_BONUS);
 	}

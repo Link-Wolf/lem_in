@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/12 14:07:51 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 16:07:58 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef	struct	s_param{
 	t_zoom			*zoom;
 	double			last_redraw_request_age;
 	bool			need_to_redraw;
+	t_mode			mode;
 }					t_param;
 
 void evaluate_coords();

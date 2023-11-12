@@ -20,6 +20,8 @@ LIBS_BONUS := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -Llibs/libft -
 
 LIBFT	=	libs/libft/libft.a
 
+DEBUG	= -fsanitize=address -g -static-libasan
+
 SRCS_N			=	lem_in							\
 					utils/init						\
 					utils/bugs						\
@@ -51,6 +53,7 @@ SRCS_N_BONUS	=	lem_in.bonus					\
 					visualiser/draw					\
 					visualiser/hook					\
 					visualiser/evaluate_coords		\
+					visualiser/visualize			\
 
 SRCS			=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N)))
 SRCS_BONUS		=	$(addsuffix .c, $(addprefix srcs/, $(SRCS_N_BONUS)))
@@ -80,16 +83,16 @@ $(LIBFT):
 	@$(MAKE) -C libs/libft/
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(OBJS) $(LIBS)  -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS)  -o $(NAME) $(DEBUG)
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 $(NAME_BONUS): $(LIBFT) $(LIBMLX)/build/libmlx42.a $(OBJS_BONUS)
-	@$(CC) $(OBJS_BONUS) $(LIBS_BONUS) $(HEADERS) -o $(NAME_BONUS)
+	@$(CC) $(OBJS_BONUS) $(LIBS_BONUS) $(HEADERS) -o $(NAME_BONUS) $(DEBUG)
 	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME_BONUS)"\t\t\t[ ✓ ]\n\e[0m"
 
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(DEBUG)
 	@printf $(ERRASE_LINE)$(OBJ_COLOR)"\t"$@"\e[0m"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/11 15:22:46 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 16:12:57 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_room
 	// Visualizer stuff
 	int														x_coord;
 	int														y_coord;
+	int														og_y_coord;
 	int														*distances_to_ends;
 	int														nb_linked;
 	int														max_linked;

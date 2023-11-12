@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:35:13 by Link           #+#    #+#             */
-/*   Updated: 2023/11/12 13:53:35 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/12 16:08:14 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void debug()
 				BACKGROUND_COLOR
 			);
 
-	t_param			params = {mlx, img, bg, &zoom, 0.0, 0};
+	t_param			params = {mlx, img, bg, NULL, 0.0, 0, &zoom, 0.0, 0, DEFAULT};
 
 	if (mlx_image_to_window(mlx, bg, 0, 0) == -1)
 		bugs(ERR_MLX_IMG_TO_WIN);

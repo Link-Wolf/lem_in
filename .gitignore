@@ -2,8 +2,8 @@
 .vscode
 *.log
 visualiser
+!visualiser/
 lem-in
-*.map
 generator*
 res
 *.a

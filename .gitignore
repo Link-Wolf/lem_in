@@ -6,3 +6,4 @@ lem-in
 *.map
 generator*
 res
+*.a

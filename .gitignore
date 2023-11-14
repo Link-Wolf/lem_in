@@ -1,8 +1,6 @@
 *.o
 .vscode
 *.log
-visualiser
-!visualiser/
 lem-in
 generator*
 res

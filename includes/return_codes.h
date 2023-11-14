@@ -38,7 +38,7 @@ enum {
 
 enum {
 	VERBOSE = 1 << 0,
-	VISUALIZER = 1 << 1,
+	visualiser = 1 << 1,
 	DEBUGGER = 1 << 2
 };
 

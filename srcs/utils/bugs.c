@@ -32,7 +32,7 @@ const char	*error_msgs[] = {
 	[ERR_MLX_INIT] = "Error encountered while setting the MLX up",
 	[ERR_MLX_NEW_IMG] = "Error encoutered while creating MLX Image",
 	[ERR_MLX_IMG_TO_WIN] = "Error encountered while puting MLX Image to Window",
-	[ERR_USAGE_BONUS] = "Usage: ./visualizer [-d|--debugger]"
+	[ERR_USAGE_BONUS] = "Usage: ./visualiser [-d|--debugger]"
 };
 
 void	bugs(int code)

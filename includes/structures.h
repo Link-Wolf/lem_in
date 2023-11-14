@@ -88,7 +88,7 @@ typedef struct s_room
 	struct s_room											*left;
 	struct s_room											*right;
 
-	// Visualizer stuff
+	// visualiser stuff
 	int														x_coord;
 	int														y_coord;
 	int														og_y_coord;
@@ -116,7 +116,7 @@ typedef struct s_lem_in
 {
 	// Options
 	int														verbose;
-	int														has_visualizer;
+	int														has_visualiser;
 
 	// Counter
 	int														nb_rooms;
@@ -128,7 +128,7 @@ typedef struct s_lem_in
 	struct s_room											*start;
 	struct s_room											*end;
 
-	// Visualizer
+	// visualiser
 	struct s_visualiser										*visualiser;
 
 	// Solve Graph

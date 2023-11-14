@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 			bugs(ERR_USAGE_BONUS);
 	}
 	lem_in->verbose = flags & VERBOSE;
-	lem_in->has_visualizer = flags & VISUALIZER;
+	lem_in->has_visualiser = flags & visualiser;
 
 	// Parse file & store data
 	parse_file(SILENT);

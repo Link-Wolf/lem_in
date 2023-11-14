@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME			=	lem-in
-NAME_BONUS		=	vizualizer
+NAME_BONUS		=	visualiser
 
 LIBMLX	:= libs/MLX42
 HEADERS	:= -I includes -I $(LIBMLX)/include -I libs/libft

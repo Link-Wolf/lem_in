@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:18:09 by Link           #+#    #+#             */
-/*   Updated: 2023/11/10 11:08:13 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:05:28 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 extern t_lem_in *lem_in;
 
-static int		make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode silent);
-static void		fill_ultimate_definitive_edition_deluxe_master_path(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
-static void		delete_ultimate_definitive_edition_deluxe_master_path(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
 static t_room 	*find_next_room(t_ultimate_definitive_edition_deluxe_master_path *ant_pathes);
 static int calc_min(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes);
-static void	sort_ant_pathes(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes);
-static void 	init_ant_path_send(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes, int total_ants);
 
 int throw_ants(t_mode mode) {
 	int														total_ants = lem_in->nb_ants;
@@ -127,7 +122,7 @@ static int calc_min(t_ultimate_definitive_edition_deluxe_master_path **ant_pathe
 	return (min);
 }
 
-static int	make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode mode)
+int	make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode mode)
 {
 	int	arriving_count = 0;
 
@@ -152,6 +147,7 @@ static int	make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode mode)
 			ants[i].is_arrived = 1;
 			continue;
 		}
+		ants[i].current_room = ants[i].path->room;
 		ants[i].path = ants[i].path->next;
 	}
 	if (mode == DEFAULT)
@@ -159,7 +155,7 @@ static int	make_ants_advance(t_ant *ants, int nb_ants_sent, t_mode mode)
 	return (arriving_count);
 }
 
-static void fill_ultimate_definitive_edition_deluxe_master_path(
+void fill_ultimate_definitive_edition_deluxe_master_path(
 	t_ultimate_definitive_edition_deluxe_master_path *ant_pathes
 )
 {
@@ -193,7 +189,7 @@ static t_room *find_next_room(t_ultimate_definitive_edition_deluxe_master_path *
 	return (NULL);
 }
 
-static	void	delete_ultimate_definitive_edition_deluxe_master_path(
+void	delete_ultimate_definitive_edition_deluxe_master_path(
 	t_ultimate_definitive_edition_deluxe_master_path *ant_pathes
 )
 {
@@ -208,7 +204,7 @@ static	void	delete_ultimate_definitive_edition_deluxe_master_path(
 	free(ant_pathes);
 }
 
-static void	sort_ant_pathes(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes)
+void	sort_ant_pathes(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes)
 {
 	int i, j;
 	t_ultimate_definitive_edition_deluxe_master_path *key;
@@ -227,7 +223,7 @@ static void	sort_ant_pathes(t_ultimate_definitive_edition_deluxe_master_path **a
     }
 }
 
-static void 	init_ant_path_send(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes, int total_ants)
+void 	init_ant_path_send(t_ultimate_definitive_edition_deluxe_master_path **ant_pathes, int nb_pathes, int total_ants)
 {
 	while (total_ants)
 	{

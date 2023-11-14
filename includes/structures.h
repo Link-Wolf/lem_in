@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:07:17 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/12 16:12:57 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:01:41 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef enum e_mode {
 	DEFAULT,
-	SILENT
+	SILENT,
 } t_mode;
 
 struct s_pathes;
@@ -112,6 +112,13 @@ typedef struct s_visualiser
 
 }	t_visualiser;
 
+typedef struct s_ant
+{
+	t_room													*current_room;
+	t_ultimate_definitive_edition_deluxe_master_path		*path;
+	int														is_arrived;
+} t_ant;
+
 typedef struct s_lem_in
 {
 	// Options
@@ -130,17 +137,13 @@ typedef struct s_lem_in
 
 	// visualiser
 	struct s_visualiser										*visualiser;
+	t_ant													*ants;
 
 	// Solve Graph
 	struct s_graph											*graph;
 
-}	t_lem_in;
+}	 t_lem_in;
 
-typedef struct s_ant
-{
-	t_ultimate_definitive_edition_deluxe_master_path		*path;
-	int														is_arrived;
-} t_ant;
 
 typedef struct s_queue
 {

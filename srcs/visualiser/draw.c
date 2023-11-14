@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:50:21 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/14 12:45:11 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:11:10 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ uint8_t *get_pixel_address(mlx_image_t *img, int x, int y)
 
 void draw_room(mlx_image_t *img, int x, int y, int d, int color)
 {
-	ft_printf("drawing room on %d, %d\n", x, y);
 	int E = -d / 2;
 	int X = d / 2;
 	int Y = 0;

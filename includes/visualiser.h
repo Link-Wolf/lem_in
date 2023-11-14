@@ -6,7 +6,7 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:25 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/12 16:07:58 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/14 16:23:40 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "utils.h"
 # include "return_codes.h"
 # include "structures.h"
+# include "processing.h"
 
 # define WIDTH 2200
 # define HEIGHT 2021

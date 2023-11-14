@@ -6,14 +6,14 @@
 /*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:00:01 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/12 13:46:26 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/14 16:18:15 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RETURN_CODES_H
 # define RETURN_CODES_H
 
-enum {
+enum CODES {
 	OK = 0,
 	ERR_ROOM_ALREADY_EXISTS,
 	ERR_ALLOCATION,
@@ -36,9 +36,9 @@ enum {
 	ERR_USAGE_BONUS
 };
 
-enum {
+enum MODES {
 	VERBOSE = 1 << 0,
-	visualiser = 1 << 1,
+	VISUALISER = 1 << 1,
 	DEBUGGER = 1 << 2
 };
 

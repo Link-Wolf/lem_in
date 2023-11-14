@@ -20,7 +20,7 @@ LIBS_BONUS := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -Llibs/libft -
 
 LIBFT	=	libs/libft/libft.a
 
-DEBUG	= -fsanitize=address -g -static-libasan
+DEBUG	=
 
 SRCS_N			=	lem_in							\
 					utils/init						\

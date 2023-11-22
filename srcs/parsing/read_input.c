@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:48:40 by Link           #+#    #+#             */
-/*   Updated: 2023/11/11 15:38:11 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/22 13:25:35 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void parse_file(t_mode mode) {
 		// Case of ants, rooms and links lines
 		if (status == ANTS) {
 			lem_in->nb_ants = process_ants(line, &status, mode);
-			if (lem_in->verbose && mode == DEFAULT)
+			if (mode == DEFAULT)
 			{
-				ft_putstr_fd("#------ ANT NUMBER ------\n", 1);
+				if (lem_in->verbose)
+					ft_putstr_fd("#------ ANT NUMBER ------\n", 1);
 				ft_putnbr_fd(lem_in->nb_ants, 1);
+				ft_putchar_fd('\n', 1);
 			}
-			ft_putchar_fd('\n', 1);
 		}
 		else if (status == ROOMS)
 			process_rooms(line, &cmd, &status, mode);

@@ -5,3 +5,6 @@ lem-in
 generator*
 res
 *.a
+visualiser
+*.map
+!*maps/*.maps

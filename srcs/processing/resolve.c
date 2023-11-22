@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolve.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:29:34 by iCARUS            #+#    #+#             */
-/*   Updated: 2023/11/11 14:57:30 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/22 13:27:52 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	resolve()
 	}
 	load_best_graph(save, graph);
 	free(save);
+	if (!nb_pathes)
+		bugs(ERR_NO_SOLUTION);
 }
 
 static void	save_best_graph(int *save, t_graph *graph)

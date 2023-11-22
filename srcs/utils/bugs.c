@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bugs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:20:02 by event             #+#    #+#             */
-/*   Updated: 2023/11/14 12:18:53 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:03:54 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ const char	*error_msgs[] = {
 
 void	bugs(int code)
 {
-	ft_printf("ERROR %d: %s\n", code, error_msgs[code]);
+	if (code != OK)
+		ft_printf("ERROR %d: %s\n", code, error_msgs[code]);
 	tini();
 	exit(code);
 }

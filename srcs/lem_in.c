@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 17:04:24 by Link           #+#    #+#             */
-/*   Updated: 2023/11/14 18:02:01 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:10:04 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ int	main(int argc, char **argv)
 	// Parse file & store data
 	parse_file(DEFAULT);
 
-	resolve();
+	// Check for trivial cases such as Start directly connected to End for example
+	check_for_trivials();
 
+	// Resolve all others cases
+	resolve();
 
 	// Throw ants on the paths
 	throw_ants(DEFAULT);

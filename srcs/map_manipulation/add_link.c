@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_link.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iCARUS <iCARUS@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iCARUS <iCARUS@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:19:13 by event             #+#    #+#             */
-/*   Updated: 2023/11/11 15:33:43 by iCARUS           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:12:44 by iCARUS           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ static int	create_link(t_room *src, t_room *dest)
 	}
 	src->linked_rooms[src->nb_linked++] = dest;
 
+	if (dest->is_start)
+		return (0);
+	if (src->is_end)
+		return (0);
 	if (!dest->is_start && !src->is_end)
 		create_edge(src->out_node, dest->in_node, lem_in->graph);
 	if (!dest->is_end && !src->is_start)

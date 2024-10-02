@@ -2,7 +2,6 @@
 .vscode
 *.log
 lem-in
-generator*
 res
 *.a
 visualiser

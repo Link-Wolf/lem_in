@@ -2,7 +2,6 @@
 
 <div align="center">
 	<a href="https://github.com/Link-Wolf/lem_in" title="Go to GitHub repo"><img src="https://img.shields.io/static/v1?label=Link-Wolf&message=lem_in&color=blue&logo=github&style=for-the-badge" alt="Link-Wolf - lem_in"></a>
-	<a href="https://"><img src="https://img.shields.io/badge/42_grade-125_%2F_100-2ea44f?style=for-the-badge" alt="42 grade - 125 / 100"></a>
 	<a href="https://"><img src="https://img.shields.io/badge/Year-2023-ffad9b?style=for-the-badge" alt="Year - 2023"></a>
 	<a href="https://www.linux.org/" title="Go to Linux homepage"><img src="https://img.shields.io/badge/OS-linux-blue?logo=linux&logoColor=white&style=for-the-badge&color=9E59B4" alt="OS - Linux"></a>
 	</br>
@@ -14,14 +13,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a>
-    <img src="https://www.42mulhouse.fr/wp-content/uploads/2022/06/logo-42-Mulhouse-white.svg" alt="Logo" width="192" height="80">
-  </a>
 
   <h3 align="center">lem_in</h3>
 
   <p align="center">
-	  <em>42Stein 3D</em><br/>
+	  <em>Ants</em><br/>
     Elementary algorithmic project to code an ant farm manager with <a href="https://github.com/sur4c1">iCARUS</a>
     <br />
     <br />
